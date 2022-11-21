@@ -17,27 +17,27 @@ const initAuthLoad = (): authState => {
     login: false,
     currentUser: undefined,
   };
-  //   if (!localStorage.getItem("access_token")) {
-  //     return {
-  //       isLogin: false,
-  //       login: false,
-  //       currentUser: undefined,
-  //     };
-  //   } else {
-  //     const local = JSON.parse(localStorage?.getItem("user") || "") as string;
-  //     return {
-  //       isLogin: true,
-  //       login: false,
-  //       currentUser: local,
-  //     };
-  //   }
+  if (!localStorage.getItem("access_token")) {
+    return {
+      isLogin: false,
+      login: false,
+      currentUser: undefined,
+    };
+  } else {
+    const local = JSON.parse(localStorage?.getItem("user") || "") as string;
+    return {
+      isLogin: true,
+      login: false,
+      currentUser: local,
+    };
+  }
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState: initAuthLoad(),
   reducers: {
-    login(state, action: PayloadAction<loginState>) {
+    login(state) {
       state.login = true;
     },
     loginSuccess(state, action: PayloadAction<string>) {
