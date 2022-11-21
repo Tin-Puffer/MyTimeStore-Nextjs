@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next";
 import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../app/Hook";
-import { wrapper } from "../app/store";
 
 const DeltailSotory = ({ xxx2 }: any) => {
   const [img, setImg] = useState<any>("");
@@ -29,7 +28,6 @@ const DeltailSotory = ({ xxx2 }: any) => {
   }, []);
   const router = useRouter();
   const handleClick = () => {
-    // setLoad(true);
     router.push({
       pathname: "",
       query: {

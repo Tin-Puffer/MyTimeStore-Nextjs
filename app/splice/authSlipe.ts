@@ -12,25 +12,27 @@ export interface authState {
 }
 
 const initAuthLoad = (): authState => {
-  return {
-    isLogin: false,
-    login: false,
-    currentUser: undefined,
-  };
-  if (!localStorage.getItem("access_token")) {
+  if (typeof window !== "undefined") {
+    if (!localStorage.getItem("access_token")) {
+      return {
+        isLogin: false,
+        login: false,
+        currentUser: undefined,
+      };
+    } else {
+      const local = JSON.parse(localStorage?.getItem("user") || "") as string;
+      return {
+        isLogin: true,
+        login: false,
+        currentUser: local,
+      };
+    }
+  } else
     return {
       isLogin: false,
       login: false,
       currentUser: undefined,
     };
-  } else {
-    const local = JSON.parse(localStorage?.getItem("user") || "") as string;
-    return {
-      isLogin: true,
-      login: false,
-      currentUser: local,
-    };
-  }
 };
 
 const authSlice = createSlice({
