@@ -19,5 +19,6 @@ const store = () =>
   });
 store();
 sagaMiddleware.run(rootSaga);
-
+export type AppDispatch = Store["dispatch"];
+export type RootState = ReturnType<Store["getState"]>;
 export const wrapper = createWrapper(store);
