@@ -1,0 +1,142 @@
+.loginContainer {
+  width: 100%;
+  height: 100vh;
+  background: url("https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: -100px 0;
+  filter: blur(8px);
+  transform: scale(1.1);
+}
+.loginContent {
+  width: 70%;
+  height: 660px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0 30px 10px rgba(241, 239, 239, 0.2);
+  .loginImage {
+    height: 100%;
+    background: url("https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider2.jpg");
+    background-size: cover;
+    background-position: -200px 0;
+    padding: 0 30px;
+    color: white;
+    text-shadow: 5px 5px 10px black;
+    h1 {
+      display: inline;
+      font-weight: bold;
+      font-size: 45px;
+    }
+    p {
+      margin-top: 60px;
+
+      font-style: italic;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    span {
+      float: right;
+      margin-right: 25px;
+      font-size: 25px;
+      font-style: italic;
+      font-weight: 600;
+    }
+  }
+  .imgText {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    animation: mymove 1s ease-in;
+  }
+  .loginFrom {
+    height: 100%;
+    padding: 50px;
+  }
+  .loginLable {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: 40px;
+    display: inline-block;
+    margin-top: 0;
+    cursor: default;
+    &.disible {
+      color: gray;
+      cursor: pointer;
+    }
+  }
+  .input {
+    color: #333;
+    width: 100%;
+    font-size: 15px;
+    height: 50px;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  .effect {
+    border: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  .effect:focus {
+    outline: none;
+    ~ .focusBorder {
+      width: 100%;
+      transition: 0.4s;
+    }
+  }
+  @keyframes mymove {
+    from {
+      top: 25%;
+      opacity: 0;
+    }
+    to {
+      top: 20%;
+      opacity: 1;
+    }
+  }
+  .focusBorder {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #cbba9c;
+    transition: 0.4s;
+  }
+  .button {
+    text-transform: uppercase;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: bolder;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid transparent;
+    margin-top: 30px;
+    margin-right: 1em;
+    line-height: 40px;
+    min-height: 2.5em;
+    padding: 0 2.2em;
+    max-width: 100%;
+    background-color: #cbba9c;
+    border-color: rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      outline: none;
+      opacity: 1;
+      color: #fff;
+      box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
+    }
+  }
+}
+.forGot {
+  float: right;
+  margin-top: 20px;
+}
+.formInput {
+  animation: mymove 0.5s ease-in;
+  transition: all 0.5ss ease-in;
+}

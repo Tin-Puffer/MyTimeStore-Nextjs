@@ -24,3 +24,24 @@ a {
     background: black;
   }
 }
+
+.xxx {
+  top: 0;
+  transition: all 1s ease-in-out;
+  height: 100px;
+  width: 100%;
+  background-color: #000;
+}
+.xxx.sticky {
+  position: sticky;
+  height: 100px;
+  animation: sticky 1s;
+}
+@keyframes sticky {
+  from {
+    top: -100px;
+  }
+  to {
+    top: 0;
+  }
+}
