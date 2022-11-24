@@ -45,7 +45,6 @@ export function DfHeaderNav() {
           </div>
         </Col>
       </div>
-      <div style={{ height: "2000px" }}></div>
     </>
   );
 }

@@ -1,8 +1,12 @@
 import { Row, Col } from "antd";
 import { Checkbox } from "antd";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import css from "../styles/loginStyle.module.scss";
+
+Login.getLayout = function (page: ReactNode) {
+  return <div>{page}</div>;
+};
 
 export default function Login() {
   const ref = useRef<HTMLInputElement>(null);

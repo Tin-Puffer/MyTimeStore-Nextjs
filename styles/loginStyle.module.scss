@@ -54,6 +54,7 @@
   .loginFrom {
     height: 100%;
     padding: 50px;
+    color: black;
   }
   .loginLable {
     font-weight: bold;
@@ -75,10 +76,11 @@
     box-sizing: border-box;
     letter-spacing: 1px;
     position: relative;
+    background-color: #fff;
   }
   .effect {
     border: 0;
-    padding: 7px 0;
+    padding: 7px 7px;
     border-bottom: 1px solid #ccc;
   }
   .effect:focus {
@@ -139,4 +141,8 @@
 .formInput {
   animation: mymove 0.5s ease-in;
   transition: all 0.5ss ease-in;
+  p {
+    color: black;
+    margin: 10px 0;
+  }
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../app/Hook";
+
 
 const DeltailSotory = ({ xxx2 }: any) => {
   const [img, setImg] = useState<any>("");
