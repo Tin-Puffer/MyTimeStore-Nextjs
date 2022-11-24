@@ -3,20 +3,53 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import React, { useEffect, useState } from "react";
+import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
+function SampleNextArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <div className={[css.btnSlide, css.next].join(" ")} onClick={onClick}>
+      <MdNavigateNext size={50}></MdNavigateNext>
+    </div>
+  );
+}
+function SamplePrevArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <div className={[css.btnSlide, css.prev].join(" ")} onClick={onClick}>
+      <MdNavigateBefore size={50}></MdNavigateBefore>
+    </div>
+  );
+}
 export default function Home() {
-  const [change, setChange] = useState(0);
+  const [change, setChange] = useState<Number>(0);
 
   const settings = {
-    dots: true,
-    beforeChange: (oldIndex: any, newIndex: any) => {
+    arrows: true,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 50000000,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    appendDots: (dots: any) => (
+      <div
+        style={{
+          backgroundColor: "#ddd",
+          borderRadius: "10px",
+          padding: "10px",
+        }}
+      >
+        <ul style={{ margin: "0px" }}> {dots} </ul>
+      </div>
+    ),
+    beforeChange: (oldIndex: any, newIndex: Number) => {
       setChange(newIndex);
     },
   };
   useEffect(() => {
     if (typeof window !== "undefined") {
       const prevSlideElement = document.querySelector(".slick-active");
-      prevSlideElement?.classList.add(css.active);
+      prevSlideElement?.classList.toggle(css.active);
     }
   }, [change]);
   return (
@@ -24,17 +57,17 @@ export default function Home() {
       <div className={css.sliderContainer}>
         <div className={css.sliderContent}>
           <Slider {...settings}>
-            <div style={{ overflow: "hidden" }}>
-              <div className={css.SliderImg}></div>
+            <div className={css.sliderItem}>
+              <div className={[css.SliderImg, css.item1].join(" ")}></div>
+              <div className={css.contentI1}></div>
             </div>
-            <div style={{ overflow: "hidden" }}>
-              <div className={css.SliderImg}></div>
+            <div className={css.sliderItem}>
+              <div className={[css.SliderImg, css.item2].join(" ")}></div>
+              <div className={css.tss}></div>
             </div>
-            <div style={{ overflow: "hidden" }}>
-              <div className={css.SliderImg}></div>
-            </div>
-            <div style={{ overflow: "hidden" }}>
-              <div className={css.SliderImg}></div>
+            <div className={css.sliderItem}>
+              <div className={[css.SliderImg, css.item3].join(" ")}></div>
+              <div className={css.tss}></div>
             </div>
           </Slider>
         </div>

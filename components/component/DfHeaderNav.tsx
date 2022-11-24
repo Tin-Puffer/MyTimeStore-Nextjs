@@ -7,7 +7,6 @@ export function DfHeaderNav() {
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (typeof window !== "undefined") {
-        console.log(window.scrollY);
         let hes = document.querySelector(".navContent");
         hes?.classList.toggle("sticky", window.scrollY > 100);
       }
