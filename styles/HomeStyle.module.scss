@@ -20,17 +20,70 @@
     background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-3.jpg);
   }
 }
-
+.cover {
+  display: none;
+  width: 100%;
+  height: 100%;
+  animation: example2 0.5s ease-in-out;
+  // background-color: #fff;
+}
+// .active {
+//   .SliderImg {
+//     animation: example2 1.5s, example 10s ease-in-out;
+//   }
+//   .content.c1 {
+//     animation: contentAnimation 2s ease-in-out;
+//   }
+//   .content.c2 {
+//     animation: contentAnimationc2 2s ease-in-out;
+//   }
+//   .content.c3 {
+//     animation: contentAnimationc3 2s ease-in-out;
+//   }
+// }
 .active {
   .SliderImg {
-    animation: example2 1.5s, example 12s ease-in-out;
+    animation: example 15s ease-in-out;
   }
-  .contentI1 {
+  .cover {
     display: block;
-    animation: contentI1Animation 2s ease-in-out;
+  }
+  .content.c1,
+  .content.c2,
+  .content.c3 {
+    display: block;
+    // animation: contentAnimation 2s ease-in-out;
+  }
+  // .content.c2 {
+  //   animation: contentAnimationc2 2s ease-in-out;
+  // }
+  // .content.c3 {
+  //   animation: contentAnimationc3 2s ease-in-out;
+  // }
+}
+@keyframes contentAnimationc2 {
+  from {
+    opacity: 0;
+    bottom: 0;
+  }
+  to {
+    opacity: 1;
+
+    bottom: 10%;
   }
 }
-@keyframes contentI1Animation {
+@keyframes contentAnimationc3 {
+  from {
+    opacity: 0;
+    top: 55%;
+  }
+  to {
+    opacity: 1;
+
+    top: 50%;
+  }
+}
+@keyframes contentAnimation {
   from {
     opacity: 0;
     left: 20%;
@@ -42,15 +95,15 @@
   }
 }
 .sliderContent {
-  overflow: hidden;
+  // overflow: hidden;
   height: 1000px;
 }
 @keyframes example2 {
   from {
-    opacity: 0;
+    background-color: white;
   }
   to {
-    opacity: 1;
+    background-color: transparent;
   }
 }
 @keyframes example {
@@ -61,6 +114,7 @@
     scale: 1.2;
   }
 }
+
 .btnSlide {
   z-index: 10;
   position: absolute;
@@ -72,7 +126,6 @@
   transform: translateY(-50%);
   background-color: rgba(36, 34, 34, 0.13);
   color: #afafaf42;
-  transition: all 0.5s ease-in-out;
 
   &.next {
     right: 0;
@@ -90,41 +143,62 @@
   height: 800px;
 }
 
-.contentI1 {
+.content {
   position: absolute;
+  display: none;
   color: #cbba9c;
-  width: 60%;
-  max-width: 500px;
-  z-index: 15;
-  left: 15%;
-  top: 50%;
-  font-size: 18px;
-  transform: translateY(-50px);
+  font-size: 22px;
   transition: all 0.25s ease;
-  .main {
-    padding: 0 22px 0 35px;
-    border-left: 2px solid #cbba9c;
+  max-width: 550px;
+  width: 60%;
+  z-index: 15;
+  &.c1 {
+    left: 15%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: contentAnimation 2s ease-in-out;
+  }
+  &.c2 {
+    right: 10%;
+    bottom: 10%;
+    animation: contentAnimationc2 2s ease-in-out;
+  }
+  &.c3 {
+    width: 70vw;
+    animation: contentAnimationc3 2s ease-in-out;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    transform: rotate(-90deg);
+    .main {
+      border: none;
+    }
+  }
+}
+.main {
+  padding: 0 22px 0 35px;
+  border-left: 2px solid #cbba9c;
 
-    font-size: 500;
-    h6 {
-      line-height: 1.2;
-      text-transform: uppercase;
-    }
-    h3 {
-      margin: 15px 0;
-      font-size: 30px;
-      font-weight: bold;
-    }
-    span {
-      line-height: 1.2;
-    }
+  h6 {
+    font-weight: 300;
+    line-height: 1.2;
+    text-transform: uppercase;
   }
-  .btnBox {
-    padding: 35px;
+  h3 {
+    margin: 15px 0;
+    font-size: 38px;
+    font-weight: bold;
   }
+  span {
+    line-height: 1.2;
+  }
+}
+.btnBox {
+  padding: 35px;
 }
 .bntBoder {
   color: #cbba9c;
+  transition: all 0.5s ease-in-out;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   border: 2px solid #cbba9c;
@@ -151,7 +225,7 @@
     right: 4px;
     bottom: 4px;
     left: 4px;
-    transition: color 1s ease-in-out;
+    transition: all 0.5s ease-in-out;
   }
   span {
     display: inline-block;
@@ -163,7 +237,7 @@
   .sliderItem {
     height: 500px;
   }
-  .contentI1 {
+  .content {
     font-size: 14px;
     .btnBox {
       padding: 10px;
