@@ -59,7 +59,22 @@ export default function Home() {
           <Slider {...settings}>
             <div className={css.sliderItem}>
               <div className={[css.SliderImg, css.item1].join(" ")}></div>
-              <div className={css.contentI1}></div>
+              <div className={css.contentI1}>
+                <blockquote className={css.main}>
+                  <h6>BỘ SƯU TẬP ĐỒNG HỒ</h6>
+                  <h3>Trường tồn với thời gian</h3>
+                  <span>
+                    Đồng hồ được chế tác từ các nguyên liệu tốt nhất và lắp ráp
+                    tỉ mỉ đến từng chi tiết. Mỗi chi tiết được thiết kế, phát
+                    triển, và sản xuất với tiêu chuẩn chính xác nhất.
+                  </span>
+                </blockquote>
+                <div className={css.btnBox}>
+                  <div className={css.bntBoder}>
+                    <span>MUA NGAY</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className={css.sliderItem}>
               <div className={[css.SliderImg, css.item2].join(" ")}></div>

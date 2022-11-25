@@ -20,29 +20,25 @@
     background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-3.jpg);
   }
 }
-@media only screen and (max-width: 700px) {
-  .sliderItem {
-    height: 500px !important;
-  }
-}
+
 .active {
   .SliderImg {
     animation: example2 1.5s, example 12s ease-in-out;
   }
   .contentI1 {
     display: block;
-    animation: contentI1Animation 1s ease-in-out;
+    animation: contentI1Animation 2s ease-in-out;
   }
 }
 @keyframes contentI1Animation {
   from {
     opacity: 0;
-    left: 10%;
+    left: 20%;
   }
   to {
     opacity: 1;
 
-    left: 5%;
+    left: 15%;
   }
 }
 .sliderContent {
@@ -88,20 +84,93 @@
     color: white;
   }
 }
-.contentI1 {
-  display: flex;
-  position: absolute;
-  width: 200px;
-  height: 300px;
-  z-index: 15;
-  background-color: aqua;
-  left: 5%;
-  top: 50%;
-  opacity: 1;
-  transition: all 1s ease-in-out;
-}
 .sliderItem {
   max-width: 100%;
   position: relative;
   height: 800px;
+}
+
+.contentI1 {
+  position: absolute;
+  color: #cbba9c;
+  width: 60%;
+  max-width: 500px;
+  z-index: 15;
+  left: 15%;
+  top: 50%;
+  font-size: 18px;
+  transform: translateY(-50px);
+  transition: all 0.25s ease;
+  .main {
+    padding: 0 22px 0 35px;
+    border-left: 2px solid #cbba9c;
+
+    font-size: 500;
+    h6 {
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    h3 {
+      margin: 15px 0;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    span {
+      line-height: 1.2;
+    }
+  }
+  .btnBox {
+    padding: 35px;
+  }
+}
+.bntBoder {
+  color: #cbba9c;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border: 2px solid #cbba9c;
+  background-color: transparent;
+  line-height: 2.19em;
+  display: inline-block;
+  padding: 7px 28px;
+  position: relative;
+  &:hover {
+    border-color: #685f52;
+    background-color: #685f52;
+    color: white;
+    &::after {
+      cursor: pointer;
+      border-color: #cbba9c;
+    }
+  }
+  &::after {
+    content: "";
+    display: block;
+    border: 2px solid transparent;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
+    transition: color 1s ease-in-out;
+  }
+  span {
+    display: inline-block;
+    line-height: 1.6;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .sliderItem {
+    height: 500px;
+  }
+  .contentI1 {
+    font-size: 14px;
+    .btnBox {
+      padding: 10px;
+      font-size: 10px;
+    }
+    h3 {
+      font-size: 24px !important;
+    }
+  }
 }
