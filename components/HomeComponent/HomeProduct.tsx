@@ -15,11 +15,9 @@ export function HomeProduct() {
       <div className={css.gridPoduct}>
         <Row gutter={[40, 45]}>
           {x.map((e, i) => (
-            <div key={i}>
-              <Col xs={24} sm={12} lg={8}>
-                <Product></Product>
-              </Col>
-            </div>
+            <Col key={i} xs={24} sm={12} lg={8}>
+              <Product></Product>
+            </Col>
           ))}
         </Row>
       </div>
