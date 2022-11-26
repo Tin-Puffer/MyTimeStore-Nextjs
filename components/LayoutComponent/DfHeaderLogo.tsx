@@ -5,7 +5,7 @@ import { ImUserTie } from "react-icons/im";
 import { FiMenu } from "react-icons/fi";
 import css from "./DfHeaderLogo.module.scss";
 import { useState } from "react";
-export default function DefaultHeaderLogo() {
+export function DefaultHeaderLogo() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
 

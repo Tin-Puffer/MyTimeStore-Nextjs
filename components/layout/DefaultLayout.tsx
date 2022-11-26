@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { ReactNode } from "react";
-import { DfFooter } from "../component/DfFooter";
-import DfHeaderLogo from "../component/DfHeaderLogo";
-import { DfHeaderNav } from "../component/DfHeaderNav";
+import { DfFooter, DfHeaderNav, DefaultHeaderLogo } from "../LayoutComponent";
 
 export function DefaultLayout({ children }: { children: ReactNode }) {
   return (
@@ -12,7 +10,7 @@ export function DefaultLayout({ children }: { children: ReactNode }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <DfHeaderLogo></DfHeaderLogo>
+      <DefaultHeaderLogo></DefaultHeaderLogo>
       <DfHeaderNav></DfHeaderNav>
       {children}
       <DfFooter></DfFooter>
