@@ -1,0 +1,135 @@
+.sliderContainer {
+  background-color: rgb(255, 255, 255);
+  padding: 10px 30px;
+  .sliderContent {
+    width: 100%;
+    position: relative;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.16),
+      0 3px 6px rgba(0, 0, 0, 0.23);
+    ul {
+      padding: 15px;
+      position: relative;
+    }
+    li {
+      display: block;
+
+      background-color: rgb(250, 250, 250);
+
+      button {
+        border: 2px solid rgb(3, 3, 3);
+        background: rgb(5, 5, 5) !important;
+      }
+    }
+    &:hover{
+      .nextBtn,
+      .prevBtn{
+
+        opacity: 1;
+      }
+      
+    }
+  }
+  .image {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    padding-top: 100%;
+    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/15.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .textContent {
+    padding: 10px;
+    width: 100%;
+    h1 {
+      font-size: 34px;
+      line-height: 1.3;
+      font-weight: bold;
+    }
+  }
+  .driver {
+    height: 3px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 1em 0 1em;
+    width: 100%;
+    max-width: 30px;
+  }
+  .priceWapper {
+    display: table;
+    .productPagePrice {
+      height: 1.3em;
+      font-size: 24px;
+      margin: 0.5em 0;
+      font-weight: bolder;
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 120%;
+    }
+    .oldPrice {
+      color: gray;
+      font-style: oblique;
+      text-decoration: line-through;
+      font-weight: 400;
+    }
+  }
+  .productDecription {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    p {
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
+  .product_meta {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 1em;
+    span {
+      display: block;
+      border-top: 1px dotted #ddd;
+      padding: 5px 0;
+    }
+    p {
+      display: inline-block;
+    }
+  }
+}
+.button {
+  cursor: pointer;
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  background-color: #cbba9c;
+  transition: all 0.25s ease-in-out;
+  &:hover {
+    background: #91846d;
+  }
+  p {
+    padding: 5px 15px;
+    font-weight: 600;
+  }
+}
+.nextBtn,
+.prevBtn {
+  z-index: 10;
+  position: absolute;
+  opacity: 0;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  padding: 5px;
+  &:hover{
+    color: #cbba9c;
+  }
+}
+.nextBtn {
+  right: 2%;
+}
+.prevBtn {
+  left: 2%;
+}

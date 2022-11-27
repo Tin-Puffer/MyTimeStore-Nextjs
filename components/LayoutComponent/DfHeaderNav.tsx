@@ -2,6 +2,7 @@ import css from "./DfHeaderNav.module.scss";
 import { Secular_One } from "@next/font/google";
 import { Col, Row } from "antd";
 import { useEffect } from "react";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 export function DfHeaderNav() {
   useEffect(() => {
@@ -35,7 +36,17 @@ export function DfHeaderNav() {
                 <p>đồng hồ nam</p>
               </li>
               <li>
-                <p>brands</p>
+                <div className={css.dropDown}>
+                  <p>brands ★ </p>
+
+                  <div className={css.DownItem}>
+                    <ul>
+                      <li>CITIZEN</li>
+                      <li>ROLEX</li>
+                      <li>CASIO</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
                 <p>giới thiệu</p>

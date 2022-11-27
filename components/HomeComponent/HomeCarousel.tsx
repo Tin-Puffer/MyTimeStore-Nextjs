@@ -21,8 +21,8 @@ export function HomeCarousel() {
           {/* <Slider {...settings}> */}
           <Carousel
             dots={false}
-            // autoplay
-            // autoplaySpeed={5000}
+            autoplay
+            autoplaySpeed={5000}
             ref={ref}
             beforeChange={(from, to) => {
               setChange(to);
@@ -81,13 +81,19 @@ export function HomeCarousel() {
               <div className={css.sliderc3}>
                 <div className={css.c3Item}>
                   <div className={css.left}>
-                    <div className={[css.SliderImgc3, css.c3I1].join(" ")}></div>
+                    <div
+                      className={[css.SliderImgc3, css.c3I1].join(" ")}
+                    ></div>
                   </div>
                   <div className={css.center}>
-                    <div className={[css.SliderImgc3, css.c3I2].join(" ")}></div>
+                    <div
+                      className={[css.SliderImgc3, css.c3I2].join(" ")}
+                    ></div>
                   </div>
                   <div className={css.right}>
-                    <div className={[css.SliderImgc3, css.c3I3].join(" ")}></div>
+                    <div
+                      className={[css.SliderImgc3, css.c3I3].join(" ")}
+                    ></div>
                   </div>
                 </div>
               </div>

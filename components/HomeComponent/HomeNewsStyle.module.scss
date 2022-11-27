@@ -1,0 +1,31 @@
+.itemContainer {
+  text-align: center;
+  font-weight: bold;
+  .img_content {
+    overflow: hidden;
+  }
+  .img {
+    width: 100%;
+    cursor: pointer;
+    height: 490px;
+    border: 1px solid #000;
+    transition: all 0.25s ease-in-out;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/collection-img.jpg);
+    &:hover {
+      border: none;
+      transform: scale(1.1);
+    }
+  }
+  h1 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #848484;
+  }
+  h2 {
+    font-size: 18px;
+  }
+}
