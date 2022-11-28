@@ -1,3 +1,4 @@
+
 .sliderContainer {
   position: relative;
   width: 100%;
@@ -144,6 +145,7 @@
 }
 
 .content {
+  overflow: hidden;
   position: absolute;
   display: none;
   color: #cbba9c;

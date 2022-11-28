@@ -118,8 +118,8 @@ background-color: black;
     transform: rotate(0deg);
   }
 }
-@media only screen and (max-width: 580px) {
-  .counter {
-    display: none !important;
+@media only screen and (max-width: 990px) {
+  .counter__item {
+    width: 90%;
   }
 }

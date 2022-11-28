@@ -15,7 +15,7 @@ export function HomeCarousel() {
     }
   }, [change]);
   return (
-    <div className={css.container}>
+    <div className={css.container} >
       <div className={css.sliderContainer}>
         <div className={css.sliderContent}>
           {/* <Slider {...settings}> */}
