@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import css from "./HomeSelectStyle.module.scss";
+import css from "./SelectStyle.module.scss";
 import cssCarousel from "./CarouselStyle.module.scss";
 
 export function HomeSelect() {

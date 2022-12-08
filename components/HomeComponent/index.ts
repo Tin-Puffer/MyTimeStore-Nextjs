@@ -1,9 +1,7 @@
-export * from"./HomeCarousel"
-export * from "./HomeSelect";
-export * from "./HomeProduct";
-export * from "./HomeProduct";
-export * from "./HomeSliderProduct";
-export * from "./HomeNews";
-
-
-
+export * from "./Carousel";
+export * from "./Select";
+export * from "./Product";
+export * from "./Product";
+export * from "./SliderProduct";
+export * from "./News";
+export * from "./OutBlog";

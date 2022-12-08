@@ -4,9 +4,10 @@ import {
   HomeNews,
   HomeProduct,
   HomeSelect,
+  OutBlog,
   SliderProduct,
 } from "../components/HomeComponent";
-import { HomeDigital } from "../components/HomeComponent/HomeDigital";
+// import {  } from "../components/HomeComponent";
 
 export default function Home() {
   return (
@@ -16,8 +17,9 @@ export default function Home() {
       <div style={{ padding: "30px 0" }}></div>
       <HomeProduct></HomeProduct>
       <SliderProduct></SliderProduct>
-      <HomeDigital></HomeDigital>
+      {/* <HomeDigital></HomeDigital> */}
       <HomeNews></HomeNews>
+      <OutBlog></OutBlog>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import { Product } from "../Poduct";
-import css from "./HomeProductStyle.module.scss";
+import css from "./ProductStyle.module.scss";
 
 export function HomeProduct() {
   const x = [1, 2, 3, 4, 5, 6];

@@ -15,11 +15,13 @@ export function HomeCarousel() {
     }
   }, [change]);
   return (
-    <div className={css.container} >
+    <div className={css.container}>
       <div className={css.sliderContainer}>
         <div className={css.sliderContent}>
           {/* <Slider {...settings}> */}
           <Carousel
+            swipeToSlide
+            draggable
             dots={false}
             autoplay
             autoplaySpeed={5000}

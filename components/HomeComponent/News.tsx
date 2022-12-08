@@ -1,10 +1,10 @@
 import { Col, Row } from "antd";
-import cssH from "./HomeProductStyle.module.scss";
-import css from "./HomeNewsStyle.module.scss";
+import cssH from "./ProductStyle.module.scss";
+import css from "./NewsStyle.module.scss";
 
 export function HomeNews() {
   return (
-    <div className={cssH.container}>
+    <div className={cssH.container} style={{ backgroundColor: "#fafafa",paddingBottom:"60px" }}>
       <div className={cssH.gridPoduct}>
         <div style={{ padding: "0 30px" }}>
           <Row gutter={[32, 16]}>

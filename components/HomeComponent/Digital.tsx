@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import css from "./HomeDigitalStyle.module.scss";
+import css from "./DigitalStyle.module.scss";
 import { MdStore } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa";
 import { GoPackage } from "react-icons/go";

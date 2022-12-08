@@ -1,5 +1,5 @@
 import css from "./SliderProductStyle.module.scss";
-import cssH from "./HomeProductStyle.module.scss";
+import cssH from "./ProductStyle.module.scss";
 import cssP from "../ProductStyle.module.scss";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 
