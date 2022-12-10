@@ -4,7 +4,7 @@ import { DfFooter, DfHeaderNav, DefaultHeaderLogo } from "../LayoutComponent";
 
 export function DefaultLayout({ children }: { children: ReactNode }) {
   return (
-    <div>
+    <div className="deflultLayout" style={{maxHeight:"100vh"}}>
       <Head>
         <title>Ml</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

@@ -6,7 +6,7 @@
   }
   &:hover {
     .BtnCarousel {
-      opacity: .6;
+      opacity: 0.6;
     }
     .next {
       right: 0px;
@@ -15,6 +15,15 @@
       left: 0px;
     }
   }
+}
+.driver {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 2px;
+  width: 100%;
+  max-width: 30px;
 }
 .Content {
   margin-bottom: 20px;
@@ -60,15 +69,6 @@
       font-size: 12px;
       opacity: 0.8;
     }
-    .driver {
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-      background-color: rgba(0, 0, 0, 0.1);
-      background-color: rgba(0, 0, 0, 0.1);
-      height: 2px;
-      width: 100%;
-      max-width: 30px;
-    }
     p {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -87,7 +87,6 @@
   opacity: 0;
   transform: translateY(-50%);
   cursor: pointer;
-
 }
 .prev {
   left: 15px;
