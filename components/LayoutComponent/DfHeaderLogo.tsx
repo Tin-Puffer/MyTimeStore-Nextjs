@@ -14,9 +14,11 @@ export function DefaultHeaderLogo() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [onCart, setonCart] = useState(true);
+  const [drop, setDrop] = useState(false);
 
   useEffect(() => {
-    document.querySelector(".deflultLayout")?.classList.toggle("hide");
+    (openNav || openCart) &&
+      document.querySelector(".deflultLayout")?.classList.toggle("hide");
   }, [openNav, openCart]);
   return (
     <div
@@ -130,14 +132,29 @@ export function DefaultHeaderLogo() {
               <li>Sale</li>
               <li>Đồng hồ nữ</li>
               <li>Đồng hồ nam</li>
-              <li>
+              <li
+                style={{ position: "relative" }}
+                className={drop ? css.active : ""}
+              >
                 BRANDS{" "}
-                <BsChevronDown
-                  className={css.iconDown}
-                  size={16}
-                  style={{ float: "right" }}
-                ></BsChevronDown>
+                <div
+                  className={css.iconDropDown}
+                  onClick={() => setDrop((pr) => !pr)}
+                >
+                  <BsChevronDown
+                    className={[css.iconDown, drop && css.turn].join(" ")}
+                    size={20}
+                    style={{ float: "right" }}
+                  ></BsChevronDown>
+                </div>
               </li>
+              {drop && (
+                <div className={css.subMenu}>
+                  <div>citizen</div>
+                  <div>rolex</div>
+                  <div>casio</div>
+                </div>
+              )}
               <li>Liên hệ</li>
               <li>Giới thiệu</li>
               <li>Đăng nhập</li>

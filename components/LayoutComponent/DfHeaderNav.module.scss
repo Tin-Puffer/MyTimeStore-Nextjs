@@ -69,6 +69,8 @@
   position: relative;
   &:hover {
     .DownItem {
+      display: block;
+
       opacity: 1;
       top: 100%;
     }
@@ -77,6 +79,7 @@
     z-index: 20;
     width: 200px;
     opacity: 0;
+    display: none;
     right: 0;
     top: calc(100% + 5px);
     background-color: white;

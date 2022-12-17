@@ -5,7 +5,6 @@ import { FaUserTie } from "react-icons/fa";
 import { GoPackage } from "react-icons/go";
 import { HiOutlineClock } from "react-icons/hi";
 
-// GoPackage;HiOutlineClock
 export function HomeDigital() {
   return (
     <section className={css.counter}>

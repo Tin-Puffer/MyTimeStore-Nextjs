@@ -203,10 +203,27 @@
     display: flex;
   }
 }
-.iconDown{
+.iconDown {
   font-weight: bold;
+  display: inline-block;
+  height: 100%;
+  transition: transform 0.2s ease-in-out;
+  &.turn {
+    transform: rotate(-180deg);
+  }
+}
+.iconDropDown {
+  position: absolute;
+  padding: 0 20px;
+  height: 100%;
+  top: 50%;
+  right: 0;
+  text-align: center;
+  transform: translateY(-50%);
 }
 .menuList {
+  transition: all 0.2s ease;
+
   li {
     border-top: 1px solid #ececec;
     padding: 20px;
@@ -215,10 +232,12 @@
     text-transform: uppercase;
     font-weight: bolder;
     color: rgba(102, 102, 102, 0.85);
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     cursor: pointer;
+    &.active,
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
+      color: rgba(17, 17, 17, 0.85);
     }
   }
   li:last-child {
@@ -257,6 +276,20 @@
   font-weight: bold;
   border-bottom: 1px solid rgba(182, 182, 182, 0.199);
   color: #111;
+}
+.subMenu {
+  padding-left: 8px;
+  padding-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  div {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgba(102, 102, 102, 0.85);
+    text-transform: uppercase;
+    font-weight: 300;
+    animation: subAnimation 0.5s ease-in-out;
+  }
 }
 .checkoutContainer {
   padding: 15px 0;
@@ -301,5 +334,15 @@
   to {
     opacity: 1;
     left: 0;
+  }
+}
+@keyframes subAnimation {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
