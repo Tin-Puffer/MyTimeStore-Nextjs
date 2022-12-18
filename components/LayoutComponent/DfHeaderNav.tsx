@@ -2,7 +2,7 @@ import css from "./DfHeaderNav.module.scss";
 
 import { Col, Row } from "antd";
 import { useEffect } from "react";
-
+import Link from "next/link";
 
 export function DfHeaderNav() {
   useEffect(() => {
@@ -21,10 +21,18 @@ export function DfHeaderNav() {
           <div className={css.content}>
             <ul className={css.category}>
               <li className={css.active}>
-                <p>trang chủ</p>
+                <Link href={"/"}>
+                  <p>trang chủ</p>
+                </Link>
               </li>
               <li>
-                <p>sản phẩm hot</p>
+                <Link
+                  href={{
+                    pathname: "/category/Hot",
+                  }}
+                >
+                  <p>sản phẩm hot</p>
+                </Link>
               </li>
               <li>
                 <p>sale</p>

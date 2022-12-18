@@ -18,7 +18,7 @@ export function Product() {
                     </span>
                   </ul>
                 </div>
-              <div style={{marginTop:"10px"}}></div>
+             
               </div>
             </div>
           </div>
