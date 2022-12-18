@@ -66,7 +66,7 @@ export function CategoryLeft() {
                 src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
               />{" "}
               <div style={{ padding: "0 5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MEN'S WATCH 49MM</p>
+                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
                 <div className={css.price}>
                   <del className={css.old}>
                     <div className="woocommerce-Price-amount amount">
@@ -96,7 +96,7 @@ export function CategoryLeft() {
                 src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
               />{" "}
               <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MEN'S WATCH 49MM</p>
+                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
                 <div className={css.price}>
                   <del className={css.old}>
                     <div className="woocommerce-Price-amount amount">
@@ -126,7 +126,7 @@ export function CategoryLeft() {
                 src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
               />{" "}
               <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MEN'S WATCH 49MM</p>
+                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
                 <div className={css.price}>
                   <del className={css.old}>
                     <div className="woocommerce-Price-amount amount">
@@ -156,7 +156,7 @@ export function CategoryLeft() {
                 src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
               />{" "}
               <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MEN'S WATCH 49MM</p>
+                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
                 <div className={css.price}>
                   <del className={css.old}>
                     <div>
