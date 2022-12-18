@@ -4,10 +4,11 @@ import cssDF from "../LayoutComponent/DfHeaderLogo.module.scss";
 
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
+import { CategoryContainer, CategoryLeft } from "./CategoryContainer";
 
 export function CategoryTitle() {
   const [filter, setFilter] = useState(false);
-  
+
   return (
     <div className={css.titleContainer}>
       <Row className={css.container}>
@@ -49,7 +50,9 @@ export function CategoryTitle() {
             onClick={() => setFilter(false)}
           ></div>
           <div className={[cssDF.contentMenu, cssDF.cart].join(" ")}>
-            <div className={cssDF.cartContainer}></div>
+            <div className={cssDF.cartContainer}>
+              <CategoryLeft></CategoryLeft>
+            </div>
           </div>
         </>
       )}

@@ -1,5 +1,6 @@
 .wide {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
+  overflow: hidden;
   .title {
     font-size: 16px;
     font-weight: 600;
@@ -7,12 +8,14 @@
     text-transform: uppercase;
     margin-bottom: 20px;
     display: block;
+    line-height: 20px;
   }
   .product_categories {
     border: 1px solid #ddd;
     border-radius: 3px;
     padding: 15px;
     background-color: rgba(221, 221, 221, 0.1);
+    margin-bottom: 10px;
     li {
       border-top: 1px dashed #ececec;
       padding: 10px 0;
@@ -20,8 +23,122 @@
       color: #334862;
       cursor: pointer;
     }
-    li:first-child{
-        border: none;
+    li:first-child {
+      border: none;
     }
+  }
+}
+.slider_input {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  & > div:nth-child(2) {
+    background-color: #acacac !important;
+  }
+  & > div:nth-child(4)::after {
+    background-color: #666 !important;
+    box-shadow: 0 0 0 2px #666 !important;
+  }
+  & > div:nth-child(5)::after {
+    background-color: #666 !important;
+    box-shadow: 0 0 0 2px #666 !important;
+  }
+}
+.filterBtn {
+  border: none;
+  outline: none;
+  color: white;
+  background: #666;
+  padding: 10px 20px;
+  border-radius: 99px;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  &:hover {
+    box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
+  }
+}
+.priceLable {
+  font-size: 12px;
+  line-height: 20px;
+  margin-bottom: 30px;
+  span {
+    font-weight: bold;
+  }
+}
+.productItem {
+  display: flex;
+  p {
+    max-height: 30px;
+    overflow: hidden;
+  }
+}
+.price {
+  margin-top: 5px;
+  font-weight: bold;
+  &.Item {
+    margin-top: 15px;
+  }
+  .old {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: rgba(17, 17, 17, 0.452);
+  }
+  .new {
+    text-decoration-line: none;
+  }
+}
+.itemContainer {
+  box-shadow: 0 1px 3px -2px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  &:hover {
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    .img {
+      border-color: #c3c0c0;
+    }
+    .cartIcon {
+     
+      opacity: 1;
+    }
+  }
+  .cartIcon {
+   
+    opacity: 0;
+    transition: all .3s ease-in-out;
+    position: absolute;
+    bottom: 0;
+    margin-right: 5x;
+    margin-bottom: 10px;
+    strong {
+      width: 1.9em;
+      height: 1.9em;
+    }
+  }
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  .img {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid transparent;
+    width: 100%;
+    padding-top: 100%;
+    background-position: center;
+    background-size: cover;
+    background-image: url("https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/5-480x480.jpg");
+  }
+  .decript {
+    text-align: center;
+    padding: 15px;
+    .iconDiscount {
+      width: 40px;
+      height: 40px;
+      font-size: 15px;
+      line-height: 40px;
+      left: 0;
+    }
+  }
+  .name {
+    color: #334862;
+    font-size: 14px;
   }
 }

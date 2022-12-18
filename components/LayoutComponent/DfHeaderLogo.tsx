@@ -17,8 +17,9 @@ export function DefaultHeaderLogo() {
   const [drop, setDrop] = useState(false);
 
   useEffect(() => {
-    (openNav || openCart) &&
-      document.querySelector(".deflultLayout")?.classList.toggle("hide");
+    openNav || openCart
+      ? document.querySelector(".deflultLayout")?.classList.add("hide")
+      : document.querySelector(".deflultLayout")?.classList.remove("hide");
   }, [openNav, openCart]);
   return (
     <div
