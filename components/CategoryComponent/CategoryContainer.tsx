@@ -220,8 +220,11 @@ export function CategoryContainer() {
         <Col xs={0} sm={0} md={6}>
           <CategoryLeft></CategoryLeft>
         </Col>
-        <Col xs={24} sm={24} md={18}>
+        <Col xs={24} sm={24} md={18} style={{margin:"30px 0"}}>
           <Row gutter={[20, 30]}>
+            <Col xs={12} sm={12} md={8}>
+              <ProductItem></ProductItem>
+            </Col>
             <Col xs={12} sm={12} md={8}>
               <ProductItem></ProductItem>
             </Col>

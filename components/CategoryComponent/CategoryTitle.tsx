@@ -3,12 +3,16 @@ import css from "./TitleStyle.module.scss";
 import cssDF from "../LayoutComponent/DfHeaderLogo.module.scss";
 
 import { FiMenu } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CategoryContainer, CategoryLeft } from "./CategoryContainer";
 
 export function CategoryTitle() {
   const [filter, setFilter] = useState(false);
-
+  useEffect(() => {
+    filter
+      ? document.querySelector(".deflultLayout")?.classList.add("hide")
+      : document.querySelector(".deflultLayout")?.classList.remove("hide");
+  }, [filter]);
   return (
     <div className={css.titleContainer}>
       <Row className={css.container}>

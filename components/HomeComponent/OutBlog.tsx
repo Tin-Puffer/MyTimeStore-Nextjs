@@ -6,7 +6,7 @@ import { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 
-function SliderItem() {
+export function SliderItem() {
   return (
     <div className={css.itemContent}>
       <div className={css.Content}>
