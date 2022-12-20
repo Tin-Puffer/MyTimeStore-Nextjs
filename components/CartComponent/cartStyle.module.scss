@@ -1,0 +1,49 @@
+.mainItem {
+  min-height: 200px;
+
+  padding: 0 30px 30px;
+  &.product {
+    border-right: 1px solid #ececec;
+  }
+}
+
+.titleTable {
+  font-size: 15px;
+  text-align: left;
+  font-weight: bold;
+  color: #353535;
+  border-bottom: 2px solid #ececec;
+
+  th {
+    padding: 0.5em 0.5em 0.5em 0;
+  }
+}
+.tabBody {
+  td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding: 10px 0.5em;
+    vertical-align: middle;
+  }
+}
+.delete {
+  display: block;
+  width: 24px;
+  height: 24px;
+  font-size: 15px !important;
+  line-height: 19px !important;
+  border-radius: 50%;
+  color: #ccc;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid currentColor;
+}
+.nameProduct {
+  color: #334862;
+  font-size: 12px;
+}
+.price {
+  white-space: nowrap;
+  color: #111;
+  font-weight: bold;
+}

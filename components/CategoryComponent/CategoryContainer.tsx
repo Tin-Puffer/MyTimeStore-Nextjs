@@ -4,6 +4,7 @@ import cssT from "./TitleStyle.module.scss";
 import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
 import css from "./ContainerStyle.module.scss";
+import Link from "next/link";
 
 export function SliderInput() {
   const [a, sa] = useState([1, 700]);
@@ -181,36 +182,40 @@ export function CategoryLeft() {
 }
 export function ProductItem() {
   return (
-    <div className={css.itemContainer}>
-      <div className={css.img}>
-        <ul style={{ margin: 0, display: "flex" }}>
-          <span className={[cssL.cartIcon, css.cartIcon].join(" ")}>
-            <strong className={cssL.itemOnCart}>+</strong>
-          </span>
-        </ul>
-      </div>
-      <div className={css.decript}>
-        <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>-55%</div>
-        <span className={css.name}>BIG BANG MXM18 SANG BLEU 39</span>
-        <div
-          className={[css.price, css.Item].join(" ")}
-          style={{ textAlign: "center" }}
-        >
-          <del className={css.old}>
-            {" "}
-            <span>
-              739,370,000&nbsp;<span>₫</span>
+    <Link href={"/product/hot"}>
+      <div className={css.itemContainer}>
+        <div className={css.img}>
+          <ul style={{ margin: 0, display: "flex" }}>
+            <span className={[cssL.cartIcon, css.cartIcon].join(" ")}>
+              <strong className={cssL.itemOnCart}>+</strong>
             </span>
-          </del>
-          <ins className={css.new}>
-            {" "}
-            <span>
-              739,370,000&nbsp;<span>₫</span>
-            </span>
-          </ins>
+          </ul>
+        </div>
+        <div className={css.decript}>
+          <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
+            -55%
+          </div>
+          <span className={css.name}>BIG BANG MXM18 SANG BLEU 39</span>
+          <div
+            className={[css.price, css.Item].join(" ")}
+            style={{ textAlign: "center" }}
+          >
+            <del className={css.old}>
+              {" "}
+              <span>
+                739,370,000&nbsp;<span>₫</span>
+              </span>
+            </del>
+            <ins className={css.new}>
+              {" "}
+              <span>
+                739,370,000&nbsp;<span>₫</span>
+              </span>
+            </ins>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 export function CategoryContainer() {

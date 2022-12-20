@@ -81,9 +81,11 @@ export function DefaultHeaderLogo() {
                     </p>
                   </li>
                   <li>
-                    <span className={css.cartIcon}>
-                      <strong className={css.itemOnCart}>0</strong>
-                    </span>
+                    <Link href={"/cart"}>
+                      <span className={css.cartIcon}>
+                        <strong className={css.itemOnCart}>0</strong>
+                      </span>
+                    </Link>
                   </li>
                 </ul>
               </div>

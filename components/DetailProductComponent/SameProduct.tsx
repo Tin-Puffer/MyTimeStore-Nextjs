@@ -19,6 +19,26 @@ export function SameProduct() {
           <Carousel
             slidesToShow={4}
             autoplay
+            responsive={[
+              {
+                breakpoint: 1000,
+                settings: {
+                  slidesToShow: 3,
+                },
+              },
+              {
+                breakpoint: 700,
+                settings: {
+                  slidesToShow: 2,
+                },
+              },
+              {
+                breakpoint: 450,
+                settings: {
+                  slidesToShow: 1,
+                },
+              },
+            ]}
             dots={false}
             ref={ref}
             autoplaySpeed={5000}
