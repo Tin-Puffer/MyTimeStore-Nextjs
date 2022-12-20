@@ -128,10 +128,85 @@ export function DetailProduct() {
                   <p>&gt; Thanh toán sau khi nhận hàng.</p>
                   <p>&gt; Bảo hành 5 năm tại Công ty.</p>
                   <p>&gt; Bảo hành chính hãng toàn cầu.</p>
+                  <div className={css.call}>
+                    &gt; Gọi <span>1800 0091</span> hoặc{" "}
+                    <span>028 3833 9999 </span> để đặt hàng
+                  </div>
                 </div>
-                <div className={cssS.button} style={{ marginBottom: "15px" }}>
-                  <p style={{ padding: "10px 18px" }}>Đăng ký Affilicate</p>
+                <div style={{ margin: "30px 0" }}>
+                  <div className={css.quantity}>
+                    <input
+                      type="button"
+                      value="-"
+                      className={css.minus}
+                    ></input>
+                    <input
+                      type="number"
+                      defaultValue={1}
+                      className={css.value}
+                    ></input>
+                    <input type="button" value="+" className={css.plus}></input>
+                  </div>
+                  <div
+                    className={cssS.button}
+                    style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
+                  >
+                    <p style={{ padding: "11px 18px" }}>Thêm vào giỏ</p>
+                  </div>
                 </div>
+                <div className={css.Payment}>
+                  <Row gutter={[24, 20]}>
+                    <Col xs={24} sm={12} md={12}>
+                      <strong className={css.payTitle}>
+                         Phí ship tự động
+                      </strong>
+                      <Row gutter={[10, 10]}>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col xs={24} sm={12} md={12}>
+                      <strong className={css.payTitle}>Thanh toán</strong>
+                      <Row gutter={[10, 10]}>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                        <Col xs={8} sm={12} lg={8}>
+                          <div className={css.ItemPay}></div>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </div>
+
                 <div className={cssS.product_meta}>
                   <span className={cssS.sku_wrapper}>
                     Mã: <p className="sku">77228</p>
