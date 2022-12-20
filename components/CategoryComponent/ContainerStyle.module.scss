@@ -140,5 +140,9 @@
   .name {
     color: #334862;
     font-size: 14px;
+    line-height: 25px;
+    max-height: 25px;
+    overflow: hidden;
+    display: block
   }
 }

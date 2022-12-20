@@ -103,7 +103,7 @@ export function DetailProduct() {
               </div>
               <div className={cssS.textContent} style={{ padding: 0 }}>
                 <h1 style={{ fontSize: "26px" }}>
-                  BULOVA CORPORATION AUTOMATIC MEN’S WATCH 49MM
+                  BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM
                 </h1>
                 <div className={cssS.driver}></div>
                 <div className={cssS.priceWapper}>
