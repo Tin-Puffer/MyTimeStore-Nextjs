@@ -2,23 +2,36 @@
   min-height: 200px;
 
   padding: 0 30px 30px;
-  &.product {
-    border-right: 1px solid #ececec;
+  table {
+    width: 100%;
+  }
+  .lableTable {
+    margin-bottom: 1em;
   }
 }
-
+.payContent{
+  margin-bottom: 40px;
+}
+.line {
+  border-right: 1px solid #ececec;
+}
 .titleTable {
   font-size: 15px;
   text-align: left;
   font-weight: bold;
   color: #353535;
-  border-bottom: 2px solid #ececec;
-
+  border-bottom: 3px solid #ececec;
   th {
-    padding: 0.5em 0.5em 0.5em 0;
+    padding: 0.5em;
   }
 }
 .tabBody {
+  .payRight {
+    text-align: right;
+    p {
+      line-height: 25px;
+    }
+  }
   td {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -41,9 +54,97 @@
 .nameProduct {
   color: #334862;
   font-size: 12px;
+  word-break: break-word;
+}
+.cartItem {
+  border-bottom: 2px solid #ececec;
 }
 .price {
   white-space: nowrap;
   color: #111;
   font-weight: bold;
+}
+.extraPrice {
+  display: none;
+  margin-top: 5px;
+}
+.bntProduct {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+.continueShop {
+  display: inline-block;
+  padding: 8px 10px;
+  font-weight: bold;
+  border: 2px solid #cbba9c;
+  color: #cbba9c;
+  font-size: 16px;
+  margin-bottom: 1em;
+  margin-right: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: #cbba9c;
+    color: white;
+  }
+}
+.FromDiscount {
+  .tag {
+    color: #ccc;
+    margin-right: 10px;
+    margin-bottom: -2px;
+  }
+  h3 {
+    border-bottom: 3px solid #ececec;
+    color: #1c1c1c;
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  input {
+    width: 100%;
+
+    font-size: 16px;
+  }
+  .inputDiscount {
+    margin-bottom: 1em;
+    outline: none;
+    padding: 0 0.75em;
+    height: 2.507em;
+  }
+}
+.btnGray {
+  background-color: #f9f9f9;
+  text-shadow: 1px 1px 1px #fff;
+  color: #666;
+  border: 1px solid #ddd;
+  line-height: 2.4em;
+  min-height: 2.5em;
+  padding: 0 1.2em;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
+  }
+}
+@media only screen and (max-width: 700px) {
+  .hide {
+    display: none;
+  }
+
+  .extraPrice {
+    display: block;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .cartItem {
+    td {
+      padding: 0;
+    }
+  }
+  .mainItem {
+    padding: 0;
+    margin: auto;
+  }
 }

@@ -9,6 +9,15 @@ import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DetailStyle.module.scss";
+export function QuantityComponent({ small = false }: { small?: boolean }) {
+  return (
+    <div className={[css.quantity, small && css.small].join(" ")}>
+      <input type="button" value="-" className={css.minus}></input>
+      <input type="number" defaultValue={1} className={css.value}></input>
+      <input type="button" value="+" className={css.plus}></input>
+    </div>
+  );
+}
 export function DetailProduct() {
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");
@@ -134,19 +143,7 @@ export function DetailProduct() {
                   </div>
                 </div>
                 <div style={{ margin: "30px 0" }}>
-                  <div className={css.quantity}>
-                    <input
-                      type="button"
-                      value="-"
-                      className={css.minus}
-                    ></input>
-                    <input
-                      type="number"
-                      defaultValue={1}
-                      className={css.value}
-                    ></input>
-                    <input type="button" value="+" className={css.plus}></input>
-                  </div>
+                  <QuantityComponent></QuantityComponent>
                   <div
                     className={cssS.button}
                     style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
@@ -157,9 +154,7 @@ export function DetailProduct() {
                 <div className={css.Payment}>
                   <Row gutter={[24, 20]}>
                     <Col xs={24} sm={12} md={12}>
-                      <strong className={css.payTitle}>
-                         Phí ship tự động
-                      </strong>
+                      <strong className={css.payTitle}>Phí ship tự động</strong>
                       <Row gutter={[10, 10]}>
                         <Col xs={8} sm={12} lg={8}>
                           <div className={css.ItemPay}></div>
