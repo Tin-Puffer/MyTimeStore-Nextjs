@@ -66,7 +66,13 @@ export function DfHeaderNav() {
                 </Link>
               </li>
               <li>
-                <p>giới thiệu</p>
+                <Link
+                  href={{
+                    pathname: "/introduce",
+                  }}
+                >
+                  <p>giới thiệu</p>
+                </Link>
               </li>
             </ul>
           </div>
