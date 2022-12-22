@@ -49,7 +49,7 @@ export function News() {
               xs={24}
               sm={24}
               md={18}
-              // style={{ borderLeft: " 1px solid #ececec" }}
+              style={{ borderLeft: " 1px solid #ececec" }}
             >
               <div className={css.itemContainer}>
                 <Row gutter={[30, 20]}>

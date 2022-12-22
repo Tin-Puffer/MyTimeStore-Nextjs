@@ -1,7 +1,6 @@
 import cssD from "./DecriptionStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-
 import { Carousel } from "antd";
 import { useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";

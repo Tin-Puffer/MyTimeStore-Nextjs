@@ -6,7 +6,7 @@ import { FiMenu } from "react-icons/fi";
 import css from "./DfHeaderLogo.module.scss";
 import { useState, useEffect } from "react";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { FaPaperPlane, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
 import { BsChevronDown } from "react-icons/bs";
 
