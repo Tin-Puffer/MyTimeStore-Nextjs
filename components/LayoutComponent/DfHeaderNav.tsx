@@ -57,6 +57,15 @@ export function DfHeaderNav() {
                 </div>
               </li>
               <li>
+                <Link
+                  href={{
+                    pathname: "/contact",
+                  }}
+                >
+                  <p>liên hệ</p>
+                </Link>
+              </li>
+              <li>
                 <p>giới thiệu</p>
               </li>
             </ul>

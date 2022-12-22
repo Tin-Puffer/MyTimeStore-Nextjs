@@ -61,6 +61,19 @@ a {
   width: 100%;
   background-color: rgb(177, 101, 101);
 }
+textarea {
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 0.75em;
+  font-size: 1.1em;
+  line-height: 16px;
+  border-radius: 0;
+  max-width: 100%;
+  width: 100%;
+  vertical-align: middle;
+  background-color: #fff;
+  color: #333;
+}
 .xxx.sticky {
   position: sticky;
   transition: all 1s ease-in-out;

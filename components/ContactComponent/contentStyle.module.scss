@@ -1,0 +1,107 @@
+.container {
+  padding: 60px 0;
+}
+.map {
+  width: 100%;
+  height: 600px;
+}
+.content {
+  width: 100%;
+  padding: 0 15px;
+  .logoContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .logo {
+    width: 100%;
+    max-width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://play-lh.googleusercontent.com/DTzWtkxfnKwFO3ruybY1SKjJQnLYeuK3KmQmwV5OQ3dULr5iXxeEtzBLceultrKTIUTr");
+  }
+  .itemLine {
+    display: flex;
+    padding: 8px 0;
+  }
+  .decriptLine {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 16px;
+    a {
+      display: block;
+    }
+  }
+}
+.titleContact {
+  font-size: 1.8em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.3em;
+  font-weight: bold;
+  position: relative;
+  margin: 0;
+  margin-bottom: 0.8em;
+  padding-bottom: 1.3em;
+  &::after {
+    position: absolute;
+    bottom: 0.75rem;
+    content: "";
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      #76a03f 0%,
+      #76a03f 25%,
+      rgba(255, 255, 255, 0) 25%,
+      rgba(255, 255, 255, 0) 75%,
+      #76a03f 75%
+    );
+  }
+  .iconGitlab {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 23px;
+    line-height: 1;
+    color: #76a03f;
+  }
+}
+.inputContent {
+  width: 100%;
+  padding: 5px;
+}
+.SubmitContac {
+  min-width: 50%;
+  position: relative;
+  &::after {
+   
+  }
+  &:active::after {
+   
+  }
+}
+.boxContact {
+  .mesage {
+    width: 100%;
+  }
+  .inputContainer {
+    width: 50%;
+    display: inline-block;
+    input {
+      padding: 0 0.75em;
+      height: 2.507em;
+      font-size: 1.1em;
+      border-radius: 0;
+      max-width: 100%;
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+}

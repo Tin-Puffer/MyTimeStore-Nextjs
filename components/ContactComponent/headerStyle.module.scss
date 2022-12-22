@@ -1,0 +1,50 @@
+.headerContainer {
+  position: relative;
+}
+.backgroundColorContent {
+  background-image: url("https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/blog10_518c7ab0-ce3f-4092-a34a-be939cb0b851.jpg");
+  background-position: 0% 44%;
+  background-size: cover;
+}
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  right: 0;
+  bottom: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.content {
+  position: relative;
+  padding: 20px 15px;
+  display: flex;
+  min-height: 180px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  text-transform: uppercase;
+  color: white;
+  .titleBreadCrum,
+  .entryTitle {
+    text-align: center;
+  }
+  .entryTitle {
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .titleBreadCrum {
+    padding: 15px 0;
+  }
+  .driver {
+    margin: 0 0.3em;
+  }
+  .pageNow {
+    font-weight: bold;
+  }
+}
