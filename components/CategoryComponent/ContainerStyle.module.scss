@@ -10,22 +10,22 @@
     display: block;
     line-height: 20px;
   }
-  .product_categories {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    padding: 15px;
-    background-color: rgba(221, 221, 221, 0.1);
-    margin-bottom: 10px;
-    li {
-      border-top: 1px dashed #ececec;
-      padding: 10px 0;
-      font-size: 15px;
-      color: #334862;
-      cursor: pointer;
-    }
-    li:first-child {
-      border: none;
-    }
+}
+.product_categories {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 15px;
+  background-color: rgba(221, 221, 221, 0.1);
+  margin-bottom: 10px;
+  li {
+    border-top: 1px dashed #ececec;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #334862;
+    cursor: pointer;
+  }
+  li:first-child {
+    border: none;
   }
 }
 .slider_input {
@@ -97,14 +97,12 @@
       border-color: #c3c0c0;
     }
     .cartIcon {
-     
       opacity: 1;
     }
   }
   .cartIcon {
-   
     opacity: 0;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     position: absolute;
     bottom: 0;
     margin-right: 5x;
@@ -143,6 +141,6 @@
     line-height: 25px;
     max-height: 25px;
     overflow: hidden;
-    display: block
+    display: block;
   }
 }

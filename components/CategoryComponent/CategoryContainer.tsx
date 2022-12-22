@@ -31,7 +31,7 @@ export function SliderInput() {
         Giá <span className="from">{a[0]},000,000&nbsp;₫</span> —{" "}
         <span className="to">{a[1]},000,000&nbsp;₫</span>
       </div>
-      {/* <div className="" onClick={()=>{ref.focus()}}>clickme</div> */}
+     
     </>
   );
 }

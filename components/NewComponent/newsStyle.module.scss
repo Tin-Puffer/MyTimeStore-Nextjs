@@ -1,0 +1,79 @@
+.titlePage {
+  text-transform: uppercase;
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+.datePost {
+  position: absolute;
+  background: #cbba9c;
+  top: 6%;
+  left: 0;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  .contenPost {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  p:nth-child(1) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  p:nth-child(2) {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+.itemContainer {
+
+  padding: 0 30px;
+  .item {
+    &:hover {
+      .bgcNEw {
+        scale: 1.05;
+      }
+    }
+  }
+  .BgcContaniner {
+    overflow: hidden;
+    border: 1px solid #c0c0c0;
+  }
+  .bgcNEw {
+    width: 100%;
+    padding-top: 55%;
+    background-position: center;
+    background-size: cover;
+    transition: all 0.3s ease-in-out;
+
+    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/blog8-300x200.jpg);
+  }
+  .decContainer {
+    padding: 0.7em 1.2em 1.4em;
+    h5 {
+      line-height: 20px;
+      max-height: 40px;
+      overflow: hidden;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    p {
+      line-height: 20px;
+      max-height: 40px;
+      overflow: hidden;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .changeOder {
+    order: 1;
+  }
+  .itemContainer {
+    padding: 0 15px 30px;
+  }
+}

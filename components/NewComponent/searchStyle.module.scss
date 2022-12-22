@@ -1,0 +1,44 @@
+.inputDiscount {
+  border: 1px solid #ddd !important ;
+  padding: 0 10px !important;
+  margin: 0 !important;
+}
+.SameContainer {
+  margin-top: 20px;
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+  ul {
+    margin-top: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: rgba(221, 221, 221, 0.1);
+    li + li {
+      border-top: 1px dashed #ececec;
+    }
+    .post {
+      display: flex;
+      align-items: center;
+      padding: 10px 0 10px;
+
+      .namepost {
+        font-size: 15px;
+        line-height: 18px;
+        max-height: 36px;
+        overflow: hidden;
+      }
+    }
+    .badgeInner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-position: center;
+      background-size: cover;
+      background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/blog8-150x150.jpg);
+    }
+  }
+}
