@@ -2,6 +2,8 @@ import { Row, Col } from "antd";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssN from "../NewComponent/newsStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 
 import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import { SearchNews } from "../NewComponent/Search";
@@ -28,7 +30,7 @@ export function DetailNew() {
               <div className={cssN.itemContainer}>
                 <div
                   className={cssC.itemContainer}
-                  style={{ cursor: "default" }}
+                  style={{ cursor: "default", marginBottom: "40px" }}
                 >
                   <div className={css.newTitel}>
                     <div>
@@ -95,10 +97,97 @@ export function DetailNew() {
                       </li>
                     </ul>
                   </div>
-                    <footer className={css.footerPost}>
-                      This entry was posted in Tin tức . Bookmark the{" "}
-                      <span>permalink</span>.{" "}
-                    </footer>   
+                  <footer className={css.footerPost}>
+                    This entry was posted in Tin tức . Bookmark the{" "}
+                    <span>permalink</span>.{" "}
+                  </footer>
+                  <Row>
+                    <Col span={12}>
+                      <div className={css.bntChangePost}>
+                        <div className={css.changeContainer}>
+                          <div>
+                            <MdNavigateBefore
+                              className={css.iconPriv}
+                              size={30}
+                            ></MdNavigateBefore>
+                          </div>
+                          <div className={css.nameBf}>
+                            <span>
+                              A Lubr icant-Free Watch For a Perfect Men
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col span={12} style={{ borderLeft: " 1px solid #ececec" }}>
+                      <div className={css.bntChangePost}>
+                        <div
+                          className={css.changeContainer}
+                          style={{ justifyContent: "end" }}
+                        >
+                          <div className={css.nameBf}>
+                            <span>
+                              A Lubricant-Free Watch For a Perfect Men
+                            </span>
+                          </div>
+                          <div>
+                            <MdNavigateNext
+                              className={css.iconPriv}
+                              size={30}
+                            ></MdNavigateNext>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+                <div className={css.reply}>
+                  <h3>Trả lời</h3>
+                  <div className={css.noitify}>
+                    <span>Email của bạn sẽ không được hiển thị công khai.</span>
+                    Các trường bắt buộc được đánh dấu <span>*</span>
+                  </div>
+                  <div>
+                    <p className={css.title}>Bình luận</p>
+                    <div className={css.inputContent}>
+                      <textarea
+                        className={cssD.boxInput}
+                        cols={40}
+                        rows={5}
+                        style={{ lineHeight: "20px" }}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <Row gutter={30}>
+                    <Col xs={24} sm={12}>
+                      <div>
+                        <p className={css.title}>
+                          Tên <span>*</span>
+                        </p>
+                        <input
+                          className={[cssD.boxInput, css.Input].join(" ")}
+                          type="text"
+                        ></input>
+                      </div>
+                    </Col>
+                    <Col xs={24} sm={12}>
+                      <div>
+                        <p className={css.title}>
+                          Email <span>*</span>
+                        </p>
+                        <input
+                          className={[cssD.boxInput, css.Input].join(" ")}
+                          type="text"
+                        ></input>
+                      </div>
+                    </Col>
+                  </Row>
+                  <div
+                    className={[cssS.button, css.SubmitContac].join(" ")}
+                    style={{ fontSize: "18px" }}
+                  >
+                    <p style={{ padding: "10px 18px" }}>PHẢN HỒI</p>
+                  </div>
                 </div>
               </div>
             </Col>
