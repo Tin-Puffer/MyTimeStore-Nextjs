@@ -6,6 +6,7 @@ import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 
 import css from "./cartStyle.module.scss";
+import Link from "next/link";
 
 export function CartDetail() {
   return (
@@ -126,25 +127,27 @@ export function CartDetail() {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <div
-                        className={cssS.button}
-                        style={{
-                          marginTop: "15px",
-                          fontSize: "18px",
-                          backgroundColor: "#d26e4b",
-                          width: "100%",
-                          textAlign: "center",
-                        }}
-                      >
-                        <p
+                      <Link href={"/checkout"}>
+                        <div
+                          className={cssS.button}
                           style={{
-                            padding: "11px 18px",
-                            textTransform: "uppercase",
+                            marginTop: "15px",
+                            fontSize: "18px",
+                            backgroundColor: "#d26e4b",
+                            width: "100%",
+                            textAlign: "center",
                           }}
                         >
-                          Tiến hành thanh toán
-                        </p>
-                      </div>
+                          <p
+                            style={{
+                              padding: "11px 18px",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Tiến hành thanh toán
+                          </p>
+                        </div>
+                      </Link>
                     </td>
                   </tr>
                   <tr>

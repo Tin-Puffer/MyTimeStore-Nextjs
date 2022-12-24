@@ -1,0 +1,65 @@
+.container {
+}
+.lable {
+  font-size: 16px;
+  span {
+    cursor: pointer;
+    color: #cbba9c;
+    font-weight: 500;
+  }
+}
+.createBox {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.6s ease-in-out;
+}
+.LableDecript {
+  padding: 10px 0;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.nameInput {
+  display: block;
+  font-weight: 600;
+  font-size: 11px;
+}
+.inputDiscount {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 14px;
+  border-radius: 0;
+  &:focus {
+    box-shadow: 0 0 5px #ccc;
+    border-color: gray;
+  }
+}
+.remember {
+  font-size: 14px;
+  font-weight: bold;
+}
+.fogot {
+  margin-bottom: 0.5em;
+  line-height: 1.6;
+  font-size: 18px;
+  margin: 8px 0;
+}
+.Submit {
+  display: inline-block;
+  font-weight: bold;
+  margin: 10px 15px 0 0;
+  border-radius: 0;
+  font-size: 16px;
+  height: 40px;
+  text-transform: uppercase;
+  border: none;
+  &:hover {
+    color: white !important;
+  }
+}
+.voucherContainer{
+  width: 100%;
+  padding: 10px 30px 30px;
+  margin-bottom: 20px;
+      border: 2px dashed #cbba9c;
+}

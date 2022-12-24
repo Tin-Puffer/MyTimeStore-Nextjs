@@ -3,19 +3,21 @@ import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { ImUserTie } from "react-icons/im";
 import { FiMenu } from "react-icons/fi";
-import css from "./DfHeaderLogo.module.scss";
+
 import { useState, useEffect } from "react";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
+import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import { BsChevronDown } from "react-icons/bs";
-
+import css from "./DfHeaderLogo.module.scss";
 export function DefaultHeaderLogo() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [onCart, setonCart] = useState(true);
-  const [drop, setDrop] = useState(false);
+  const [search, setSearch] = useState(true);
 
+  const [drop, setDrop] = useState(false);
   useEffect(() => {
     openNav || openCart
       ? document.querySelector(".deflultLayout")?.classList.add("hide")
@@ -46,7 +48,7 @@ export function DefaultHeaderLogo() {
                 </Link>
               </div>
             </Col>
-            <Col xs={0} sm={0} md={8}>
+            <Col xs={0} sm={0} md={6}>
               <div className={css.logo}>
                 <Link href={"/"}>
                   <img
@@ -56,10 +58,19 @@ export function DefaultHeaderLogo() {
                 </Link>
               </div>
             </Col>
-            <Col span={0} md={{ span: 8, offset: 8 }}>
+            <Col span={0} md={{ span: 18, offset: 0 }}>
               <div className={css.itemIcon}>
+                <div
+                  className={[css.searchContainer, search && css.active].join(
+                    " "
+                  )}
+                >
+                  <input
+                    className={[css.searchInout, cssD.boxInput].join(" ")}
+                  ></input>
+                </div>
                 <ul style={{ margin: 0, display: "flex" }}>
-                  <li>
+                  <li onClick={() => setSearch((pr) => !pr)}>
                     <div className={css.Icon}>
                       <AiOutlineSearch size="20px" />
                     </div>
@@ -70,21 +81,20 @@ export function DefaultHeaderLogo() {
                     </div>
                   </li>
                   <li>
-                    <p
-                      style={{
-                        margin: 0,
-                        lineHeight: "32px",
-                        marginLeft: "10px",
-                      }}
-                    >
-                      0.đ
-                    </p>
-                  </li>
-                  <li>
                     <Link href={"/cart"}>
-                      <span className={css.cartIcon}>
-                        <strong className={css.itemOnCart}>0</strong>
-                      </span>
+                      <p
+                        style={{
+                          marginLeft: "10px",
+                          fontWeight: 600,
+                          display: "inline-block",
+                          lineHeight: "32px",
+                        }}
+                      >
+                        1 tỷ cmn đồng .đ
+                        <span className={css.cartIcon}>
+                          <strong className={css.itemOnCart}>0</strong>
+                        </span>
+                      </p>
                     </Link>
                   </li>
                 </ul>
@@ -130,11 +140,21 @@ export function DefaultHeaderLogo() {
               </div>
             </div>
             <ul className={css.menuList}>
-              <li>Trang chủ</li>
-              <li>Sản phẩm Hot</li>
-              <li>Sale</li>
-              <li>Đồng hồ nữ</li>
-              <li>Đồng hồ nam</li>
+              <li>
+                <Link href={"/"}>Trang chủ</Link>
+              </li>
+              <li>
+                <Link href={"/category/hot"}>Sản phẩm Hot</Link>
+              </li>
+              <li>
+                <Link href={"/category/sale"}>Sale</Link>
+              </li>
+              <li>
+                <Link href={"/category/woman"}>Đồng hồ nữ</Link>
+              </li>
+              <li>
+                <Link href={"/category/man"}>Đồng hồ nam</Link>
+              </li>
               <li
                 style={{ position: "relative" }}
                 className={drop ? css.active : ""}
@@ -153,16 +173,28 @@ export function DefaultHeaderLogo() {
               </li>
               {drop && (
                 <div className={css.subMenu}>
-                  <div>citizen</div>
-                  <div>rolex</div>
-                  <div>casio</div>
+                  <div>
+                    <Link href={"/category/citizen"}>citizen</Link>
+                  </div>
+                  <div>
+                    <Link href={"/category/rolex"}>rolex</Link>
+                  </div>
+                  <div>
+                    <Link href={"/category/casio"}>casio</Link>
+                  </div>
                 </div>
               )}
-              <li>Liên hệ</li>
-              <li>Giới thiệu</li>
+              <li>
+                <Link href={"/contact"}>Liên hệ</Link>
+              </li>
+              <li>
+                <Link href={"/introduce"}>Giới thiệu</Link>
+              </li>
               <li>Đăng nhập</li>
               <li>
-                <p>HOTLINE: 076 922 0162</p>
+                <p>
+                  <a href="tel:+4733378901">HOTLINE: 076 922 0162</a>
+                </p>
               </li>
             </ul>
           </div>

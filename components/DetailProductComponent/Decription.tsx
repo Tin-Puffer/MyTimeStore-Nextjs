@@ -6,37 +6,38 @@ import { useState } from "react";
 import { Avatar, Rate } from "antd";
 import { BiDislike, BiLike } from "react-icons/bi";
 
-export function CommentItem(){
-    return (
-      <div className={css.commentUser}>
-        <div className={css.avataBox}>
-          <Avatar size={60} icon={<UserOutlined />} className={css.avataUser} />
+export function CommentItem() {
+  return (
+    <div className={css.commentUser}>
+      <div className={css.avataBox}>
+        <Avatar size={45} icon={<UserOutlined />} className={css.avataUser} />
+      </div>
+      <div style={{ width: "100%" }}>
+        <span className={css.nameUser}>Joe Biden</span>
+        <Rate className={css.startRateCmt} disabled defaultValue={2} />
+        <div className={css.binhluan}>
+          <p>
+            Steel case, fluted crown decorated with a synthetic spinel cabochon,
+            silvered guilloché opaline dial, Roman numerals,áđádsfsdfsdfsdf
+            cabochon, silvered guilloché opaline dial, Roman
+            numerals,áđádsfsdfsdfsdf
+          </p>
         </div>
-        <div style={{ width: "100%" }}>
-          <span className={css.nameUser}>Joe Biden</span>
-          <Rate className={css.startRate} disabled defaultValue={2} />
-          <div className={css.binhluan}>
-            <p>
-              Steel case, fluted crown decorated with a synthetic spinel
-              cabochon, silvered guilloché opaline dial, Roman
-              numerals,áđádsfsdfsdfsdf
-            </p>
+        <div className={css.feedBack}>
+          <div className={css.like}>
+            120 <BiLike></BiLike>
           </div>
-          <div className={css.feedBack}>
-            <div className={css.like}>
-              120 <BiLike></BiLike>
-            </div>
-            <div className={css.disLike}>
-              12 <BiDislike></BiDislike>
-            </div>
-            <ins>Reply</ins>
+          <div className={css.disLike}>
+            12 <BiDislike></BiDislike>
           </div>
+          <ins>Reply</ins>
         </div>
       </div>
-    );
+    </div>
+  );
 }
 export function ProductDecription() {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   return (
     <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
       <div className={css.decriptionContainter}>
@@ -88,7 +89,8 @@ export function ProductDecription() {
               <div className={css.content}>
                 <h3>Đánh giá</h3>
                 {/* <p>Chưa có đánh giá nào.</p> */}
-                <CommentItem/>
+                <CommentItem />
+                <CommentItem />
               </div>
               <div className={css.reviewBox}>
                 <h3>

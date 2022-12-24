@@ -55,7 +55,7 @@
 
 .cartIcon {
   margin-left: 15px;
-  display: block;
+  display: inline-block;
   cursor: pointer;
   position: relative;
 }
@@ -315,6 +315,24 @@
   }
   .checkOut {
     background-color: #d26e4b;
+  }
+}
+.searchContainer {
+  width: 0;
+  transition: all 0.5s ease-in-out;
+  .searchInout {
+    width: 100%;
+
+    border-color: transparent;
+    padding: 8px 0;
+  }
+  &.active {
+    width: 250px;
+    max-width: 250px;
+    .searchInout {
+       border-color: #ddd;
+       padding: 8px;
+    }
   }
 }
 @keyframes cart {

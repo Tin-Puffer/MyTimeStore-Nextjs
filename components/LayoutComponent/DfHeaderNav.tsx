@@ -26,51 +26,50 @@ export function DfHeaderNav() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href={{
-                    pathname: "/category/Hot",
-                  }}
-                >
+                <Link href={"/category/hot"}>
                   <p>sản phẩm hot</p>
                 </Link>
               </li>
               <li>
-                <p>sale</p>
+                <Link href={"/category/sale"}>
+                  <p>sale</p>
+                </Link>
               </li>
               <li>
-                <p>đồng hồ nữ</p>
+                <Link href={"/category/woman"}>
+                  <p>đồng hồ nữ</p>
+                </Link>
               </li>
               <li>
-                <p>đồng hồ nam</p>
+                <Link href={"/category/man"}>
+                  <p>đồng hồ nam</p>
+                </Link>
               </li>
               <li>
                 <div className={css.dropDown}>
                   <p>brands ★ </p>
-
                   <div className={css.DownItem}>
                     <ul>
-                      <li>CITIZEN</li>
-                      <li>ROLEX</li>
-                      <li>CASIO</li>
+                      <Link href={"/category/citizen"}>
+                        <li>CITIZEN</li>
+                      </Link>
+                      <li>
+                        <Link href={"/category/rolex"}>ROLEX</Link>
+                      </li>
+                      <li>
+                        <Link href={"/category/casio"}>CASIO</Link>
+                      </li>
                     </ul>
                   </div>
                 </div>
               </li>
               <li>
-                <Link
-                  href={{
-                    pathname: "/contact",
-                  }}
-                >
+                <Link href={"/contact"}>
                   <p>liên hệ</p>
                 </Link>
               </li>
               <li>
-                <Link
-                  href={{
-                    pathname: "/introduce",
-                  }}
-                >
+                <Link href={"/introduce"}>
                   <p>giới thiệu</p>
                 </Link>
               </li>
