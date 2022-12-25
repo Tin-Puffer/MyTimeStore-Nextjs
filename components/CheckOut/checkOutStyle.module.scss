@@ -1,5 +1,5 @@
 .content {
-  padding: 15px;
+  padding: 0 15px 15px  15px;
 }
 .inputDiscount {
   div {
@@ -7,10 +7,22 @@
     box-shadow: none !important;
   }
 }
-.Drop{
-    border-radius: 0;
-   span{
+.inputDiscountCB > div {
+  color: red;
+}
+.Drop {
+  border-radius: 0;
+  span {
     line-height: 30px;
     font-size: 30px;
-   }
+  }
+}
+.titleLable {
+  font-size: 18px;
+  overflow: hidden;
+
+  padding-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bolder;
+  text-transform: uppercase;
 }

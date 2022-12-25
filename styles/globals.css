@@ -19,6 +19,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.ant-select-status-error {
+  border-color: #ff4d4f !important;
+}
+.ant-form-item-explain-error{
+  font-weight: normal !important;
+}
 
 * {
   box-sizing: border-box;

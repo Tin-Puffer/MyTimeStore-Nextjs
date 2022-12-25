@@ -1,0 +1,67 @@
+.container {
+  border: 2px solid #cbba9c;
+  padding: 0 30px 30px;
+}
+.tableCheckOut {
+  width: 100%;
+  .fade {
+    color: #dddddd;
+    font-weight: bold;
+  }
+  span {
+    font-weight: bold;
+  }
+  td,
+  th {
+    text-align: right;
+    font-size: 16px;
+
+    padding: 10px 20px 10px 0;
+  }
+  td {
+    font-size: 14px;
+  }
+  thead {
+    color: #dddddd;
+    border-bottom: 2px solid #ececec;
+    th {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+
+  .titleLeft {
+    text-align: left;
+  }
+  .productItem {
+    font-size: 16px;
+    padding: 15px 15px 15px 0;
+  }
+  tfoot {
+    border-top: 1px solid #ececec;
+    border-bottom: 2px solid #ececec;
+
+    tr + tr {
+      border-top: 1px solid #ececec;
+    }
+  }
+}
+.tableShip {
+  td {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 15px 20px 10px 0;
+  }
+}
+.payments {
+  margin: 20px 0;
+  label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0.4em;
+  }
+  p{
+    color: #dddddd;
+    font-size: 16px;
+  }
+}

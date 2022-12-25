@@ -121,7 +121,7 @@ export function CreateAc() {
       </Row>
       <Row>
         <div className={css.LableContent} style={{ width: "100%" }}>
-          <div className={css.lable} style={{ margin: "20px 0" }}>
+          <div className={css.lable} style={{ margin: "10px 0" }}>
             Bạn có mã ưu đãi?{" "}
             <span
               onClick={() => setOpenVoucher((pr) => !pr)}
