@@ -15,7 +15,7 @@ export function DefaultHeaderLogo() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
   const [onCart, setonCart] = useState(true);
-  const [search, setSearch] = useState(true);
+  const [search, setSearch] = useState(false);
 
   const [drop, setDrop] = useState(false);
   useEffect(() => {
@@ -33,12 +33,12 @@ export function DefaultHeaderLogo() {
       <div className={css.headerWapper}>
         <div className={css.headerMain}>
           <Row>
-            <Col xs={2} sm={2} md={0}>
+            <Col xs={4} sm={4} md={0}>
               <div className={css.menuICon} onClick={() => setOpenNav(true)}>
                 <FiMenu size="29px" />
               </div>
             </Col>
-            <Col sm={{ span: 4, offset: 8 }} xs={{ span: 4, offset: 8 }} md={0}>
+            {/* <Col sm={{ span: 4, offset: 8 }} xs={{ span: 4, offset: 8 }} md={0}>
               <div className={css.logo}>
                 <Link href={"/"}>
                   <img
@@ -47,15 +47,17 @@ export function DefaultHeaderLogo() {
                   ></img>
                 </Link>
               </div>
-            </Col>
-            <Col xs={0} sm={0} md={6}>
-              <div className={css.logo}>
-                <Link href={"/"}>
-                  <img
-                    src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/logo.png"
-                    className={css.img}
-                  ></img>
-                </Link>
+            </Col> */}
+            <Col xs={16} sm={16} md={6}>
+              <div className={css.logoCenter}>
+                <div className={css.logo}>
+                  <Link href={"/"}>
+                    <img
+                      src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/logo.png"
+                      className={css.img}
+                    ></img>
+                  </Link>
+                </div>
               </div>
             </Col>
             <Col span={0} md={{ span: 18, offset: 0 }}>
@@ -100,7 +102,7 @@ export function DefaultHeaderLogo() {
                 </ul>
               </div>
             </Col>
-            <Col xs={{ span: 2, offset: 8 }} sm={{ span: 2, offset: 8 }} md={0}>
+            <Col xs={4} sm={4} md={0}>
               <div className={css.itemIcon} onClick={() => setOpenCart(true)}>
                 <ul style={{ margin: 0, display: "flex" }}>
                   <span className={css.cartIcon}>
