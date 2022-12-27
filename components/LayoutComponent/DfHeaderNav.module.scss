@@ -66,6 +66,13 @@
 .dropDown {
   display: block;
   position: relative;
+  .downIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -5px;
+    font-weight: bold;
+  }
   .DownItem {
     display: none;
     z-index: 20;

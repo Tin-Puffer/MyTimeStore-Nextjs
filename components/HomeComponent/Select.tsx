@@ -30,15 +30,15 @@ export function HomeSelect() {
               <div className={[css.backgournd].join(" ")}>
                 <div className={[css.itemCenter].join(" ")}>
                   <div className={css.item1}>
+                  </div>
                     <div className={[css.Content, css.c2].join(" ")}>
                       <h1>
-                        <strong>ĐỒNG HỒ CỔ ĐIỂN</strong>
+                        <strong>BỘ SƯU TẬP NĂM 2023</strong>
                       </h1>
                       <div className={cssCarousel.bntBoder}>
                         <span>XEM THÊM</span>
                       </div>
                     </div>
-                  </div>
                 </div>
                 <div className={[css.itemCenter, css.item2].join(" ")}>
                   <div className={css.item2}></div>

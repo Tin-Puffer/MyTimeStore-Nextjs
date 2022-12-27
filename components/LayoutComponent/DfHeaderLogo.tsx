@@ -3,14 +3,95 @@ import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { ImUserTie } from "react-icons/im";
 import { FiMenu } from "react-icons/fi";
-
+import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { useState, useEffect } from "react";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
+
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
+
+export function CartItem() {
+  return (
+    <>
+      <span className={css.remove}>x</span>
+      <p className={css.nameProductItem}>
+        BIG BANG MXM18 SANG BLEU 39{" "}
+        <img
+          width={60}
+          height={60}
+          src={
+            "http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/21-480x480.jpg"
+          }
+        ></img>
+      </p>
+      <p className={css.quantity}>
+        1 ×{" "}
+        <span>
+          739,370,000&nbsp;
+          <span>₫</span>
+        </span>
+      </p>
+    </>
+  );
+}
+
+export function ListCart() {
+  return (
+    <div className={css.listItem}>
+      <ul className={css.list}>
+        <li>
+          <CartItem />
+        </li>
+        <li>
+          <CartItem />
+        </li>
+      </ul>
+      <p className={css.totalPrice}>
+        <strong>Tổng:</strong>
+        {"  "}
+        <span>
+          870,719,000&nbsp;
+          <span>₫</span>
+        </span>
+      </p>
+      <div className={css.bnt}>
+        <div
+          className={cssS.button}
+          style={{
+            fontSize: "18px",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <p style={{ padding: "8px 18px" }}>XEM GIỎ HÀNG</p>
+        </div>
+        <div
+          className={cssS.button}
+          style={{
+            marginTop: ".5em",
+            fontSize: "18px",
+            backgroundColor: "#d26e4b",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <p
+            style={{
+              padding: "8px 18px",
+              textTransform: "uppercase",
+            }}
+          >
+            thanh toán
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function DefaultHeaderLogo() {
   const [openNav, setOpenNav] = useState(false);
   const [openCart, setOpenCart] = useState(false);
@@ -38,16 +119,6 @@ export function DefaultHeaderLogo() {
                 <FiMenu size="29px" />
               </div>
             </Col>
-            {/* <Col sm={{ span: 4, offset: 8 }} xs={{ span: 4, offset: 8 }} md={0}>
-              <div className={css.logo}>
-                <Link href={"/"}>
-                  <img
-                    src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/logo.png"
-                    className={css.img}
-                  ></img>
-                </Link>
-              </div>
-            </Col> */}
             <Col xs={16} sm={16} md={6}>
               <div className={css.logoCenter}>
                 <div className={css.logo}>
@@ -77,12 +148,22 @@ export function DefaultHeaderLogo() {
                       <AiOutlineSearch size="20px" />
                     </div>
                   </li>
-                  <li>
+                  <li className={css.CartHover}>
                     <div className={css.Icon}>
                       <ImUserTie size="20px" />
+                      <div className={[css.cartView, cssD.boxInput].join(" ")}>
+                        <div className={css.contentView}>
+                          {false && (
+                            <p className={css.emptyCart}>
+                              Chưa có sản phẩm trong giỏ hàng.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className={css.whiteArow}></div>
                     </div>
                   </li>
-                  <li>
+                  <li className={css.CartHover}>
                     <Link href={"/cart"}>
                       <p
                         style={{
@@ -98,6 +179,17 @@ export function DefaultHeaderLogo() {
                         </span>
                       </p>
                     </Link>
+                    <div className={[css.cartView, cssD.boxInput].join(" ")}>
+                      <div className={css.contentView}>
+                        {false && (
+                          <p className={css.emptyCart}>
+                            Chưa có sản phẩm trong giỏ hàng.
+                          </p>
+                        )}
+                        <ListCart></ListCart>
+                      </div>
+                    </div>
+                    <div className={css.whiteArow}></div>
                   </li>
                 </ul>
               </div>
@@ -209,7 +301,7 @@ export function DefaultHeaderLogo() {
             onClick={() => setOpenCart(false)}
           ></div>
           <div className={[css.contentMenu, css.cart].join(" ")}>
-            <div className={css.cartContainer}>
+            <div className={css.cartContainer} style={{ padding: "30px 20px" }}>
               <h1>Giỏ Hàng</h1>
               <div
                 className={cssO.driver}
@@ -220,63 +312,7 @@ export function DefaultHeaderLogo() {
                 }}
               ></div>
               {onCart ? (
-                <div className={css.listItem}>
-                  <div className={css.itemContent}>
-                    <img
-                      src="http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/29-480x480.jpg"
-                      className={css.imgItem}
-                    ></img>
-                    <div className={css.itemDecript}>
-                      CARTIER W6920071 BALLON BLEU DE CERTIER WATCH 33MM
-                      <div className={css.price}>
-                        <span className={css.quantity}>
-                          1 ×{" "}
-                          <span style={{ fontSize: "13px" }}>
-                            156,980,000&nbsp;
-                            <span>₫</span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    <div className={css.deleteBtn}>
-                      <span>x</span>
-                    </div>
-                  </div>
-                  <div className={css.itemContent}>
-                    <img
-                      src="http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/29-480x480.jpg"
-                      className={css.imgItem}
-                    ></img>
-                    <div className={css.itemDecript}>
-                      CARTIER W6920071 BALLON BLEU DE CERTIER WATCH 33MM
-                      <div className={css.price}>
-                        <span className={css.quantity}>
-                          1 ×{" "}
-                          <span style={{ fontSize: "13px" }}>
-                            156,980,000&nbsp;
-                            <span>₫</span>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                    <div className={css.deleteBtn}>
-                      <span>x</span>
-                    </div>
-                  </div>
-                  <div className={css.totalPrice}>
-                    <p>
-                      <strong>Tổng phụ:</strong>{" "}
-                      <span>
-                        168,070,000&nbsp;
-                        <span>₫</span>
-                      </span>
-                    </p>
-                  </div>
-                  <div className={css.checkoutContainer}>
-                    <div className={css.SeeCart}>Xem giỏ hàng</div>
-                    <div className={css.checkOut}>Thanh toán</div>
-                  </div>
-                </div>
+                <ListCart></ListCart>
               ) : (
                 <div>Chưa có sản phẩm trong giỏ hàng.</div>
               )}

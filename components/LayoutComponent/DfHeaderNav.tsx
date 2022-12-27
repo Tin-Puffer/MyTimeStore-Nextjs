@@ -3,6 +3,8 @@ import css from "./DfHeaderNav.module.scss";
 import { Col, Row } from "antd";
 import { useEffect } from "react";
 import Link from "next/link";
+import { BsChevronDown } from "react-icons/bs";
+import { AiOutlineCaretDown } from "react-icons/ai";
 
 export function DfHeaderNav() {
   useEffect(() => {
@@ -47,7 +49,12 @@ export function DfHeaderNav() {
               </li>
               <li>
                 <div className={css.dropDown}>
-                  <p>brands ★ </p>
+                  <p>
+                    brands{" "}
+                    <div className={css.downIcon}>
+                      <AiOutlineCaretDown size={15}></AiOutlineCaretDown>{" "}
+                    </div>
+                  </p>
                   <div className={css.DownItem}>
                     <ul>
                       <Link href={"/category/citizen"}>
