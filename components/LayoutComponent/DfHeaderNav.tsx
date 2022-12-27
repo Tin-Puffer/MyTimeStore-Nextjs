@@ -49,12 +49,12 @@ export function DfHeaderNav() {
               </li>
               <li>
                 <div className={css.dropDown}>
-                  <p>
-                    brands{" "}
+                  <div>
+                    <p >brands </p>
                     <div className={css.downIcon}>
                       <AiOutlineCaretDown size={15}></AiOutlineCaretDown>{" "}
                     </div>
-                  </p>
+                  </div>
                   <div className={css.DownItem}>
                     <ul>
                       <Link href={"/category/citizen"}>

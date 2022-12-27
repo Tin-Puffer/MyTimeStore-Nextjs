@@ -12,6 +12,7 @@ import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
+import { GoSignIn, GoSignOut } from "react-icons/go";
 
 export function CartItem() {
   return (
@@ -66,7 +67,9 @@ export function ListCart() {
             textAlign: "center",
           }}
         >
-          <p style={{ padding: "8px 18px" }}>XEM GIỎ HÀNG</p>
+          <Link href={"/cart"}>
+            <p style={{ padding: "8px 18px" }}>XEM GIỎ HÀNG</p>
+          </Link>
         </div>
         <div
           className={cssS.button}
@@ -78,14 +81,16 @@ export function ListCart() {
             textAlign: "center",
           }}
         >
-          <p
-            style={{
-              padding: "8px 18px",
-              textTransform: "uppercase",
-            }}
-          >
-            thanh toán
-          </p>
+          <Link href={"/checkout"}>
+            <p
+              style={{
+                padding: "8px 18px",
+                textTransform: "uppercase",
+              }}
+            >
+              thanh toán
+            </p>
+          </Link>
         </div>
       </div>
     </div>
@@ -151,13 +156,37 @@ export function DefaultHeaderLogo() {
                   <li className={css.CartHover}>
                     <div className={css.Icon}>
                       <ImUserTie size="20px" />
-                      <div className={[css.cartView, cssD.boxInput].join(" ")}>
-                        <div className={css.contentView}>
-                          {false && (
-                            <p className={css.emptyCart}>
-                              Chưa có sản phẩm trong giỏ hàng.
-                            </p>
-                          )}
+                      <div
+                        className={[css.cartView, cssD.boxInput].join(" ")}
+                        style={{ minWidth: "200px" }}
+                      >
+                        <div>
+                          <ul className={css.userMenu}>
+                            <Link href={"/login"}>
+                              <li>
+                                <GoSignIn
+                                  size={20}
+                                  style={{
+                                    marginBottom: "-4px",
+                                    marginRight: "5px",
+                                  }}
+                                ></GoSignIn>
+                                đăng nhập{" "}
+                              </li>
+                            </Link>
+                            {false && (
+                              <li>
+                                <GoSignOut
+                                  size={20}
+                                  style={{
+                                    marginBottom: "-4px",
+                                    marginRight: "5px",
+                                  }}
+                                ></GoSignOut>
+                                đăng nhập{" "}
+                              </li>
+                            )}
+                          </ul>
                         </div>
                       </div>
                       <div className={css.whiteArow}></div>
@@ -233,22 +262,27 @@ export function DefaultHeaderLogo() {
                 </div>
               </div>
             </div>
-            <ul className={css.menuList}>
-              <li>
-                <Link href={"/"}>Trang chủ</Link>
-              </li>
-              <li>
-                <Link href={"/category/hot"}>Sản phẩm Hot</Link>
-              </li>
-              <li>
-                <Link href={"/category/sale"}>Sale</Link>
-              </li>
-              <li>
-                <Link href={"/category/woman"}>Đồng hồ nữ</Link>
-              </li>
-              <li>
-                <Link href={"/category/man"}>Đồng hồ nam</Link>
-              </li>
+            <ul
+              className={css.menuList}
+              onClick={() => {
+                setOpenNav(false);
+              }}
+            >
+              <Link href={"/"}>
+                <li>Trang chủ</li>
+              </Link>
+              <Link href={"/category/hot"}>
+                <li>Sản phẩm Hot</li>
+              </Link>
+              <Link href={"/category/sale"}>
+                <li>Sale</li>
+              </Link>
+              <Link href={"/category/woman"}>
+                <li>Đồng hồ nữ</li>
+              </Link>
+              <Link href={"/category/man"}>
+                <li>Đồng hồ nam</li>
+              </Link>
               <li
                 style={{ position: "relative" }}
                 className={drop ? css.active : ""}
@@ -267,29 +301,31 @@ export function DefaultHeaderLogo() {
               </li>
               {drop && (
                 <div className={css.subMenu}>
-                  <div>
-                    <Link href={"/category/citizen"}>citizen</Link>
-                  </div>
-                  <div>
-                    <Link href={"/category/rolex"}>rolex</Link>
-                  </div>
-                  <div>
-                    <Link href={"/category/casio"}>casio</Link>
-                  </div>
+                  <Link href={"/category/citizen"}>
+                    <div>citizen</div>
+                  </Link>
+                  <Link href={"/category/rolex"}>
+                    <div>rolex</div>
+                  </Link>
+                  <Link href={"/category/casio"}>
+                    <div>casio</div>
+                  </Link>
                 </div>
               )}
-              <li>
-                <Link href={"/contact"}>Liên hệ</Link>
-              </li>
-              <li>
-                <Link href={"/introduce"}>Giới thiệu</Link>
-              </li>
-              <li>Đăng nhập</li>
-              <li>
-                <p>
-                  <a href="tel:+4733378901">HOTLINE: 076 922 0162</a>
-                </p>
-              </li>
+              <Link href={"/contact"}>
+                <li>Liên hệ</li>
+              </Link>
+              <Link href={"/introduce"}>
+                <li>Giới thiệu</li>
+              </Link>
+              <Link href={"/login"}>
+                <li>Đăng nhập</li>
+              </Link>
+              <a href="tel:+4733378901">
+                <li className={css.Telme}>
+                  <p>HOTLINE: 076 922 0162</p>
+                </li>
+              </a>
             </ul>
           </div>
         </>
@@ -312,7 +348,9 @@ export function DefaultHeaderLogo() {
                 }}
               ></div>
               {onCart ? (
-                <ListCart></ListCart>
+                <div onClick={() => setOpenCart(false)}>
+                  <ListCart></ListCart>
+                </div>
               ) : (
                 <div>Chưa có sản phẩm trong giỏ hàng.</div>
               )}
