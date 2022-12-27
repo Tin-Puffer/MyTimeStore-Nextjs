@@ -1,4 +1,5 @@
 import { Col, Row } from "antd";
+import Link from "next/link";
 import { Product } from "../Poduct";
 import css from "./ProductStyle.module.scss";
 
@@ -17,7 +18,9 @@ export function HomeProduct() {
         <Row gutter={[40, 45]} className={css.rowSet}>
           {x.map((e, i) => (
             <Col key={i} xs={24} sm={12} lg={8}>
-              <Product></Product>
+              <Link href={"/product/01"}>
+                <Product></Product>
+              </Link>
             </Col>
           ))}
         </Row>

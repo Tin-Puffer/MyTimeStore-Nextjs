@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
+import Link from "next/link";
 
 export function HomeCarousel() {
   const [change, setChange] = useState<Number>(0);
@@ -44,11 +45,13 @@ export function HomeCarousel() {
                     triển, và sản xuất với tiêu chuẩn chính xác nhất.
                   </span>
                 </blockquote>
-                <div className={css.btnBox}>
-                  <div className={css.bntBoder}>
-                    <span>MUA NGAY</span>
+                <Link href={"/category/all"}>
+                  <div className={css.btnBox}>
+                    <div className={[css.bntBoder, css.reponsive].join(" ")}>
+                      <span>MUA NGAY</span>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
             <div className={css.sliderItem}>
@@ -107,14 +110,14 @@ export function HomeCarousel() {
           className={[css.btnSlide, css.prev].join(" ")}
           onClick={() => ref.current?.prev()}
         >
-          <MdNavigateBefore size={50}></MdNavigateBefore>
+          <MdNavigateBefore size={40}></MdNavigateBefore>
         </div>
 
         <div
           className={[css.btnSlide, css.next].join(" ")}
           onClick={() => ref.current?.next()}
         >
-          <MdNavigateNext size={50}></MdNavigateNext>
+          <MdNavigateNext size={40}></MdNavigateNext>
         </div>
       </div>
     </div>

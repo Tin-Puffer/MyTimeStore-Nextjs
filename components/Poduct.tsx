@@ -12,7 +12,7 @@ export function Product() {
                 <div className={css.disCount}>-55%</div>
               <div className={css.addItemBnt}>
                 <div className={cssL.itemIcon}>
-                  <ul style={{ margin: 0, display: "flex" }}>
+                  <ul style={{ margin: '10px', display: "flex" }}>
                     <span className={cssL.cartIcon}>
                       <strong className={cssL.itemOnCart}>+</strong>
                     </span>

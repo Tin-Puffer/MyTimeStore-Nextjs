@@ -47,19 +47,20 @@ export function CategoryTitle() {
           </div>
         </Col>
       </Row>
-      {filter && (
-        <>
-          <div
-            className={cssDF.coverLayout}
-            onClick={() => setFilter(false)}
-          ></div>
-          <div className={[cssDF.contentMenu, cssDF.cart].join(" ")}>
-            <div className={cssDF.cartContainer}>
-              <CategoryLeft></CategoryLeft>
-            </div>
-          </div>
-        </>
-      )}
+
+      <div
+        className={[cssDF.coverLayout, filter && cssDF.showCover].join(" ")}
+        onClick={() => setFilter(false)}
+      ></div>
+      <div
+        className={[cssDF.contentMenu, cssDF.cart, filter && cssDF.show].join(
+          " "
+        )}
+      >
+        <div className={cssDF.cartContainer}>
+          <CategoryLeft></CategoryLeft>
+        </div>
+      </div>
     </div>
   );
 }
