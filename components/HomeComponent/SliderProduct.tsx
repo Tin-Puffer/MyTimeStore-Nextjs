@@ -6,12 +6,41 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Carousel, Col, Row } from "antd";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import Link from "next/link";
+import { useInView } from "react-intersection-observer";
+import { useAnimation, motion } from "framer-motion";
 export function SliderItem() {
+  const { ref, inView } = useInView();
+  const animationL = useAnimation();
+  const animationR = useAnimation();
+  useEffect(() => {
+    if (inView) {
+      animationR.start({
+        y: 0,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          duration: 3,
+        },
+      });
+      animationL.start({
+        x: 0,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          duration: 3,
+        },
+      });
+    }
+    if (!inView) {
+      animationL.start({ x: "-50px", opacity: 0 });
+      animationR.start({ y: "50px", opacity: 0 });
+    }
+  }, [inView]);
   return (
-    <div style={{ width: "100%", position: "relative" }}>
+    <div ref={ref} style={{ width: "100%", position: "relative" }}>
       <Row>
         <Col
           xs={24}
@@ -23,15 +52,15 @@ export function SliderItem() {
         >
           {/* <div style={{width:"100%"}}> */}
 
-          <div className={css.image}>
+          <motion.div animate={animationL} className={css.image}>
             <div className={cssP.disCount} style={{ left: "5%" }}>
               -55%
             </div>
-          </div>
+          </motion.div>
           {/* </div> */}
         </Col>
         <Col xs={24} md={12}>
-          <div className={css.ContentSlider}>
+          <motion.div animate={animationR} className={css.ContentSlider}>
             <div className={css.textContent}>
               <h1>OMEGA SEAMASTER 39MM</h1>
               <div className={css.driver}></div>
@@ -105,7 +134,7 @@ export function SliderItem() {
                 </div>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </Col>
       </Row>
     </div>

@@ -6,6 +6,7 @@ import { MdMarkEmailRead } from "react-icons/md";
 import { FaGitlab } from "react-icons/fa";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import { motion } from "framer-motion";
 
 import css from "./contentStyle.module.scss";
 
@@ -15,16 +16,26 @@ export function ContactContent() {
       <div className={cssP.gridPoduct} style={{ marginTop: "0px" }}>
         <Row>
           <Col xs={24} md={12} style={{ paddingBottom: "30px" }}>
-            <div className={css.content}>
+            <motion.div
+              initial={{ x: "-100px", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ type: "spring", duration: 2 }}
+              className={css.content}
+            >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.5075896025683!2d106.7831182!3d10.8489447!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752713216a3adf%3A0xf8b22853eea72777!2zOTcgxJAuIE1hbiBUaGnhu4duLCBIaeG7h3AgUGjDuiwgUXXhuq1uIDksIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1671622544486!5m2!1svi!2s"
                 className={css.map}
                 loading="lazy"
               ></iframe>
-            </div>
+            </motion.div>
           </Col>
           <Col xs={24} md={12} style={{ paddingBottom: "30px" }}>
-            <div className={css.content}>
+            <motion.div
+              initial={{ x: "100px", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ type: "spring", duration: 2 }}
+              className={css.content}
+            >
               <Row
                 gutter={[20, 20]}
                 style={{
@@ -135,11 +146,14 @@ export function ContactContent() {
                 </div>
               </div>
               <div className={css.inputContent} style={{ textAlign: "center" }}>
-                <div className={[cssS.button,css.SubmitContac].join(' ')} style={{ fontSize: "18px" }}>
+                <div
+                  className={[cssS.button, css.SubmitContac].join(" ")}
+                  style={{ fontSize: "18px" }}
+                >
                   <p style={{ padding: "10px 18px" }}>GỬI</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </Col>
         </Row>
       </div>

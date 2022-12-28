@@ -1,13 +1,15 @@
 import cssP from "./ProductStyle.module.scss";
 import cssC from "./CarouselStyle.module.scss";
 import css from "./OutBlogStyle.module.scss";
-import { Carousel, Col } from "antd";
+import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import Link from "next/link";
-
-export function SliderItem() {
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+function SliderItem() {
   return (
     <Link href={"/news/idnew"}>
       <div className={css.itemContent}>
@@ -36,7 +38,24 @@ export function SliderItem() {
 }
 export function OutBlog() {
   const x = [1, 2, 3, 4, 5, 6];
-  const ref = useRef<CarouselRef>(null);
+  const { ref, inView } = useInView();
+
+  const refC = useRef<CarouselRef>(null);
+
+  const animation = useAnimation();
+  useEffect(() => {
+    if (inView) {
+      animation.start({
+        y: 0,
+        opacity: 1,
+        transition: {
+          type: "spring",
+          duration: 2,
+        },
+      });
+    }
+    if (!inView) animation.start({ y: "-50px", opacity: 0 });
+  }, [inView]);
 
   return (
     <div className={cssP.container}>
@@ -46,12 +65,12 @@ export function OutBlog() {
       <div className={cssP.lable}>
         <p>OUR </p> <p>BLOG</p>
       </div>
-      <div className={cssP.gridPoduct}>
+      <motion.div animate={animation} ref={ref} className={cssP.gridPoduct}>
         <div className={css.contentMain}>
           <Carousel
             autoplay
             slidesToShow={3}
-            ref={ref}
+            ref={refC}
             autoplaySpeed={5000}
             style={{ display: "flex" }}
             responsive={[
@@ -85,19 +104,19 @@ export function OutBlog() {
           </Carousel>
           <div
             className={[css.BtnCarousel, css.prev].join(" ")}
-            onClick={() => ref.current?.prev()}
+            onClick={() => refC.current?.prev()}
           >
             <MdNavigateBefore size={50}></MdNavigateBefore>
           </div>
 
           <div
             className={[css.BtnCarousel, css.next].join(" ")}
-            onClick={() => ref.current?.next()}
+            onClick={() => refC.current?.next()}
           >
             <MdNavigateNext size={50}></MdNavigateNext>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
