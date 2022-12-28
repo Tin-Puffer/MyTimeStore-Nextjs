@@ -1,12 +1,12 @@
 html,
 body {
-  background-color: #fff;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
   color: #353535;
+  background-color: white;
   -moz-user-select: none !important;
   -webkit-touch-callout: none !important;
   -webkit-user-select: none !important;
@@ -14,7 +14,9 @@ body {
   -moz-user-select: none !important;
   -ms-user-select: none !important;
 }
-
+input{
+  background-color: #fff;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -22,7 +24,7 @@ a {
 .ant-select-status-error {
   border-color: #ff4d4f !important;
 }
-.ant-form-item-explain-error{
+.ant-form-item-explain-error {
   font-weight: normal !important;
 }
 
@@ -51,7 +53,7 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -59,7 +61,7 @@ a {
     color: white;
     background: black;
   }
-}
+} */
 .navContent.sticky {
   top: 0;
   position: sticky;
@@ -69,7 +71,6 @@ a {
 .xxx {
   position: relative;
   top: 0;
-
   transition: all 1s ease-in-out;
 
   width: 100%;
