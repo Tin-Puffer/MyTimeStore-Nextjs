@@ -1,11 +1,116 @@
-import css from "./SliderProductStyle.module.scss";
 import cssH from "./ProductStyle.module.scss";
 import cssP from "../ProductStyle.module.scss";
+import css from "./SliderProductStyle.module.scss";
+
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
+import { RiArrowRightSLine } from "react-icons/ri";
 
 import { Carousel, Col, Row } from "antd";
 import { useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";
+import Link from "next/link";
+export function SliderItem() {
+  return (
+    <div style={{ width: "100%", position: "relative" }}>
+      <Row>
+        <Col
+          xs={24}
+          md={12}
+          style={{
+            display: "flex",
+            padding: "15px",
+          }}
+        >
+          {/* <div style={{width:"100%"}}> */}
+
+          <div className={css.image}>
+            <div className={cssP.disCount} style={{ left: "5%" }}>
+              -55%
+            </div>
+          </div>
+          {/* </div> */}
+        </Col>
+        <Col xs={24} md={12}>
+          <div className={css.ContentSlider}>
+            <div className={css.textContent}>
+              <h1>OMEGA SEAMASTER 39MM</h1>
+              <div className={css.driver}></div>
+              <div className={css.priceWapper}>
+                <div className={css.productPagePrice}>
+                  <span className={css.oldPrice}>
+                    386,300,000&nbsp;
+                    <span>₫</span>
+                  </span>
+                  <span>&nbsp;&nbsp;</span>
+                  <span>
+                    238,700,000&nbsp;
+                    <span>₫</span>
+                  </span>
+                </div>
+              </div>
+              <div className={css.productDecription}>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Sản
+                  phẩm nhập khẩu chính hãng.
+                </p>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Vận
+                  chuyển miễn phí toàn quốc.
+                </p>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Giao
+                  hàng trong ngày.
+                </p>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Thanh
+                  toán sau khi nhận hàng.
+                </p>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
+                  hành 5 năm tại Công ty.
+                </p>
+                <p>
+                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
+                  hành chính hãng toàn cầu.
+                </p>
+              </div>
+              <div className={css.product_meta}>
+                <span className={css.sku_wrapper}>
+                  Mã: <p className="sku">77228</p>
+                </span>
+                <span className={css.posted_in}>
+                  Danh mục:{" "}
+                  <Link href={"/category/man"}>
+                    <p>Đồng hồ cặp đôi</p>
+                  </Link>
+                  ,{" "}
+                  <Link href={"/category/man"}>
+                    <p>Đồng hồ nam</p>
+                  </Link>
+                </span>
+                <span className={css.tagged_as}>
+                  Từ khóa:{" "}
+                  <Link href={"/category/man"}>
+                    <p>Rolex</p>
+                  </Link>
+                  ,{" "}
+                  <Link href={"/category/man"}>
+                    <p>Best Seller</p>
+                  </Link>
+                </span>
+              </div>
+              <Link href={"/product/idpr"}>
+                <div className={css.button}>
+                  <p>Đọc Tiếp</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </div>
+  );
+}
 export function SliderProduct() {
   const ref = useRef<CarouselRef>(null);
   return (
@@ -19,76 +124,24 @@ export function SliderProduct() {
       <div className={cssH.gridPoduct}>
         <div className={css.sliderContainer}>
           <div className={css.sliderContent}>
-            <Carousel speed={800} dotPosition="bottom" ref={ref}  >
-              <div style={{ width: "100%", position: "relative" }}>
-                <Row>
-                  <Col xs={24} md={12} style={{ display: "flex" }}>
-                    <div className={css.image}>
-                      <div className={cssP.disCount} style={{ left: "5%" }}>
-                        -55%
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <div className={css.textContent}>
-                      <h1>OMEGA SEAMASTER 39MM</h1>
-                      <div className={css.driver}></div>
-                      <div className={css.priceWapper}>
-                        <p className={css.productPagePrice}>
-                          <span className={css.oldPrice}>
-                            386,300,000&nbsp;
-                            <span>₫</span>
-                          </span>
-                          <span>&nbsp;&nbsp;</span>
-                          <span>
-                            238,700,000&nbsp;
-                            <span>₫</span>
-                          </span>
-                        </p>
-                      </div>
-                      <div className={css.productDecription}>
-                        <p>&gt; Sản phẩm nhập khẩu chính hãng.</p>
-                        <p>&gt; Vận chuyển miễn phí toàn quốc.</p>
-                        <p>&gt; Giao hàng trong ngày.</p>
-                        <p>&gt; Thanh toán sau khi nhận hàng.</p>
-                        <p>&gt; Bảo hành 5 năm tại Công ty.</p>
-                        <p>&gt; Bảo hành chính hãng toàn cầu.</p>
-                      </div>
-                      <div className={css.product_meta}>
-                        <span className={css.sku_wrapper}>
-                          Mã: <p className="sku">77228</p>
-                        </span>
-                        <span className={css.posted_in}>
-                          Danh mục: <p>Đồng hồ cặp đôi</p>, <p>Đồng hồ nam</p>
-                        </span>
-                        <span className={css.tagged_as}>
-                          Từ khóa: <p>casio</p>, <p>men</p>
-                        </span>
-                      </div>
-
-                      <div className={css.button}>
-                        <p>Đọc Tiếp</p>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-              <div style={{ width: "100%", position: "relative" }}>
-                <Row>
-                  <Col xs={24} md={12}>
-                    <div className={css.image}></div>
-                  </Col>
-                  <Col xs={24} md={12}>
-                    <div className={css.image}></div>
-                  </Col>
-                </Row>
-              </div>
+            <Carousel speed={800} dotPosition="bottom" ref={ref}>
+              <SliderItem />
+              <SliderItem />
+              <SliderItem />
+              <SliderItem />
             </Carousel>
-            <div className={css.nextBtn} onClick={() => ref.current?.next()}>
-              <MdNavigateNext size={46}></MdNavigateNext>
+            <div
+              className={[css.BtnCarousel, css.prevBtn].join(" ")}
+              onClick={() => ref.current?.prev()}
+            >
+              <MdNavigateBefore size={40}></MdNavigateBefore>
             </div>
-            <div className={css.prevBtn} onClick={() => ref.current?.prev()}>
-              <MdNavigateBefore size={46}></MdNavigateBefore>
+
+            <div
+              className={[css.BtnCarousel, css.nextBtn].join(" ")}
+              onClick={() => ref.current?.next()}
+            >
+              <MdNavigateNext size={40}></MdNavigateNext>
             </div>
           </div>
         </div>

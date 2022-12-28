@@ -1,6 +1,7 @@
 import { Col, Row } from "antd";
 import css from "./SelectStyle.module.scss";
 import cssCarousel from "./CarouselStyle.module.scss";
+import Link from "next/link";
 
 export function HomeSelect() {
   return (
@@ -19,9 +20,12 @@ export function HomeSelect() {
                     Phong cách trường tồn, có thể được nhận biết trong nháy mắt.
                   </span>
                 </p>
-                <div className={cssCarousel.bntBoder}>
-                  <span>XEM THÊM</span>
-                </div>
+
+                <Link href={"/category/all"}>
+                  <div className={cssCarousel.bntBoder}>
+                    <span>XEM THÊM</span>
+                  </div>
+                </Link>
               </div>
             </div>
           </Col>
@@ -29,16 +33,17 @@ export function HomeSelect() {
             <div className={css.item}>
               <div className={[css.backgournd].join(" ")}>
                 <div className={[css.itemCenter].join(" ")}>
-                  <div className={css.item1}>
-                  </div>
-                    <div className={[css.Content, css.c2].join(" ")}>
-                      <h1>
-                        <strong>BỘ SƯU TẬP NĂM 2023</strong>
-                      </h1>
+                  <div className={css.item1}></div>
+                  <div className={[css.Content, css.c2].join(" ")}>
+                    <h1>
+                      <strong>BỘ SƯU TẬP NĂM 2023</strong>
+                    </h1>
+                    <Link href={"/category/all"}>
                       <div className={cssCarousel.bntBoder}>
                         <span>XEM THÊM</span>
                       </div>
-                    </div>
+                    </Link>
+                  </div>
                 </div>
                 <div className={[css.itemCenter, css.item2].join(" ")}>
                   <div className={css.item2}></div>
@@ -58,9 +63,11 @@ export function HomeSelect() {
                     Kết hợp hoàn hảo tính năng ưu việt và phong cách đẳng cấp
                   </span>
                 </p>
-                <div className={cssCarousel.bntBoder}>
-                  <span>XEM THÊM</span>
-                </div>
+                <Link href={"/category/all"}>
+                  <div className={cssCarousel.bntBoder}>
+                    <span>XEM THÊM</span>
+                  </div>
+                </Link>
               </div>
             </div>
           </Col>

@@ -18,9 +18,9 @@ export function HomeProduct() {
         <Row gutter={[40, 45]} className={css.rowSet}>
           {x.map((e, i) => (
             <Col key={i} xs={24} sm={12} lg={8}>
-              <Link href={"/product/01"}>
+             
                 <Product></Product>
-              </Link>
+              
             </Col>
           ))}
         </Row>

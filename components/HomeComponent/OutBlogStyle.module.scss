@@ -81,12 +81,18 @@
 }
 .prev,
 .next {
+  z-index: 10;
   position: absolute;
-  top: 50%;
-  transition: all 0.3s ease-in-out;
   opacity: 0;
+  border-radius: 50%;
+  top: 50%;
   transform: translateY(-50%);
+  transition: all 0.5s ease-in-out;
   cursor: pointer;
+  padding: 5px;
+  &:hover {
+    color: #cbba9c;
+  }
 }
 .prev {
   left: 15px;

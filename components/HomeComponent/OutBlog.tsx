@@ -5,30 +5,33 @@ import { Carousel, Col } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import Link from "next/link";
 
 export function SliderItem() {
   return (
-    <div className={css.itemContent}>
-      <div className={css.Content}>
-        <div className={css.imgContent}>
-          <div className={css.img}></div>
-        </div>
-        <div className={css.dectiptContent}>
-          <h5>A Lubricant-Free Watch For a Perfect Men</h5>
-          <div className={css.time}>3 Tháng Mười Hai, 2018</div>
-          <div className={css.driver}></div>
-          <p className={css.excerpt}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ...{" "}
-          </p>
-          <div className={cssC.btnBox} style={{ padding: "10px 0" }}>
-            <div className={cssC.bntBoder}>
-              <span style={{ fontWeight: "bold" }}>Đọc Thêm &gt;&gt;</span>
+    <Link href={"/news/idnew"}>
+      <div className={css.itemContent}>
+        <div className={css.Content}>
+          <div className={css.imgContent}>
+            <div className={css.img}></div>
+          </div>
+          <div className={css.dectiptContent}>
+            <h5>A Lubricant-Free Watch For a Perfect Men</h5>
+            <div className={css.time}>3 Tháng Mười Hai, 2018</div>
+            <div className={css.driver}></div>
+            <p className={css.excerpt}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ...{" "}
+            </p>
+            <div className={cssC.btnBox} style={{ padding: "10px 0" }}>
+              <div className={cssC.bntBoder}>
+                <span style={{ fontWeight: "bold" }}>Đọc Thêm &gt;&gt;</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 export function OutBlog() {
@@ -46,11 +49,31 @@ export function OutBlog() {
       <div className={cssP.gridPoduct}>
         <div className={css.contentMain}>
           <Carousel
-            slidesToShow={3}
             autoplay
+            slidesToShow={3}
             ref={ref}
             autoplaySpeed={5000}
             style={{ display: "flex" }}
+            responsive={[
+              {
+                breakpoint: 850,
+                settings: {
+                  slidesToShow: 2,
+                },
+              },
+              {
+                breakpoint: 700,
+                settings: {
+                  slidesToShow: 2,
+                },
+              },
+              {
+                breakpoint: 550,
+                settings: {
+                  slidesToShow: 1,
+                },
+              },
+            ]}
             className={css.carousel}
           >
             <SliderItem></SliderItem>

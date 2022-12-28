@@ -15,7 +15,10 @@ export function HomeNews() {
             <Col xs={24} sm={8}>
               <div className={css.itemContainer}>
                 <div className={css.img_content}>
+                  <Link href={"/news"}>
+
                   <div className={css.img}></div>
+                  </Link>
                 </div>
                 <h1>Chronograph 100M</h1>
                 <h2>Timers Villa</h2>
@@ -24,14 +27,18 @@ export function HomeNews() {
             <Col xs={24} sm={8}>
               <div className={css.itemContainer}>
                 <div className={css.img_content}>
+                  <Link href={"/news"}>
+
                   <div
                     className={css.img}
                     style={{
                       backgroundImage:
-                        "url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/Collection-1.jpg)",
+                      "url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/Collection-1.jpg)",
                     }}
-                  ></div>
+                    ></div>
+                    </Link>
                 </div>
+                
                 <h1>Chronograph 100M</h1>
                 <h2>Timers Villa</h2>
               </div>
