@@ -31,7 +31,7 @@
 }
 .itemContainer {
 
-  padding: 0 30px;
+  padding: 0 30px ;
   .item {
     &:hover {
       .bgcNEw {
@@ -75,5 +75,6 @@
   }
   .itemContainer {
     padding: 0 15px 30px;
+    margin-top: 30px;
   }
 }

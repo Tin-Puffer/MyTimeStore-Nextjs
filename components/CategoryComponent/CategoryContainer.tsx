@@ -160,15 +160,19 @@ export function CategoryLeft() {
                 <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
                 <div className={css.price}>
                   <del className={css.old}>
-                    <div>
+                    <div className="woocommerce-Price-amount amount">
                       15,400,000&nbsp;
-                      <span>₫</span>
+                      <span className="woocommerce-Price-currencySymbol">
+                        ₫
+                      </span>
                     </div>
                   </del>
                   <ins className={css.new}>
-                    <span>
+                    <span className="woocommerce-Price-amount amount">
                       14,000,000&nbsp;
-                      <span>₫</span>
+                      <span className="woocommerce-Price-currencySymbol">
+                        ₫
+                      </span>
                     </span>
                   </ins>
                 </div>
@@ -222,10 +226,10 @@ export function CategoryContainer() {
   return (
     <div className={cssT.container}>
       <Row gutter={[20, 16]}>
-        <Col xs={0} sm={0} md={6}>
+        <Col xs={0} md={0} lg={6}>
           <CategoryLeft></CategoryLeft>
         </Col>
-        <Col xs={24} sm={24} md={18} style={{ margin: "30px 0" }}>
+        <Col xs={24} md={24} lg={18} style={{ margin: "30px 0" }}>
           <Row gutter={[20, 30]}>
             <Col xs={12} sm={12} md={8}>
               <ProductItem></ProductItem>

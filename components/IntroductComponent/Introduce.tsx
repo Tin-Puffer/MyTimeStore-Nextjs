@@ -36,7 +36,7 @@ export function Introduct() {
             </p>
           </div>
         </Col>
-        <Row>
+        <Row style={{marginBottom:"50px"}}>
           <Col xs={24} md={6}>
             <div className={css.colContainer}>
               <div className={css.contentDR}>

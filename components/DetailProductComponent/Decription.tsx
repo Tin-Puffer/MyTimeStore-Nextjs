@@ -16,11 +16,10 @@ export function CommentItem() {
         <span className={css.nameUser}>Joe Biden</span>
         <Rate className={css.startRateCmt} disabled defaultValue={2} />
         <div className={css.binhluan}>
-          <p>
+          <p >
             Steel case, fluted crown decorated with a synthetic spinel cabochon,
-            silvered guilloché opaline dial, Roman numerals,áđádsfsdfsdfsdf
-            cabochon, silvered guilloché opaline dial, Roman
-            numerals,áđádsfsdfsdfsdf
+            silvered guilloché opaline dial,
+             
           </p>
         </div>
         <div className={css.feedBack}>

@@ -21,13 +21,12 @@ export function CategoryTitle() {
             TRANG CHU / <span className={css.Crpage}>SAN PHAM HOT</span>
           </div>
         </Col>
-        <Col xs={24} sm={24} md={0}>
-          <div
-            className={[css.menu, filter && css.active].join(" ")}
-            onClick={() => setFilter(true)}
-          >
-            <FiMenu size={16}></FiMenu>
-            <strong>Lọc</strong>
+        <Col xs={24} md={24} lg={0}>
+          <div className={[css.menu, filter && css.active].join(" ")}>
+            <div className={css.btnSort} onClick={() => setFilter(true)}>
+              <FiMenu size={16}></FiMenu>
+              <strong>Lọc</strong>
+            </div>
           </div>
         </Col>
         <Col style={{ alignItems: "center" }}>
@@ -57,8 +56,10 @@ export function CategoryTitle() {
           " "
         )}
       >
-        <div className={cssDF.cartContainer}>
-          <CategoryLeft></CategoryLeft>
+        <div className={cssDF.cartContainer} style={{padding:"0px"}}>
+          <div className={css.menuSelect}>
+            <CategoryLeft></CategoryLeft>
+          </div>
         </div>
       </div>
     </div>

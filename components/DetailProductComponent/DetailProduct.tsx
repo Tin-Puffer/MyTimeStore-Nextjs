@@ -9,6 +9,7 @@ import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DetailStyle.module.scss";
+import { RiArrowRightSLine } from "react-icons/ri";
 export function QuantityComponent({ small = false }: { small?: boolean }) {
   return (
     <div className={[css.quantity, small && css.small].join(" ")}>
@@ -131,15 +132,34 @@ export function DetailProduct() {
                 <div
                   className={[cssS.productDecription, css.SetSize].join(" ")}
                 >
-                  <p>&gt; Sản phẩm nhập khẩu chính hãng.</p>
-                  <p>&gt; Vận chuyển miễn phí toàn quốc.</p>
-                  <p>&gt; Giao hàng trong ngày.</p>
-                  <p>&gt; Thanh toán sau khi nhận hàng.</p>
-                  <p>&gt; Bảo hành 5 năm tại Công ty.</p>
-                  <p>&gt; Bảo hành chính hãng toàn cầu.</p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Sản
+                    phẩm nhập khẩu chính hãng.
+                  </p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Vận
+                    chuyển miễn phí toàn quốc.
+                  </p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Giao
+                    hàng trong ngày.
+                  </p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Thanh
+                    toán sau khi nhận hàng.
+                  </p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
+                    hành 5 năm tại Công ty.
+                  </p>
+                  <p>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
+                    hành chính hãng toàn cầu.
+                  </p>
                   <div className={css.call}>
-                    &gt; Gọi <span>1800 0091</span> hoặc{" "}
-                    <span>028 3833 9999 </span> để đặt hàng
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Gọi{" "}
+                    <span>1800 0091</span> hoặc <span>028 3833 9999 </span> để
+                    đặt hàng
                   </div>
                 </div>
                 <div style={{ margin: "30px 0" }}>

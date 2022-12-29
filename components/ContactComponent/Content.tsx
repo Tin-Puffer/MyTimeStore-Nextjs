@@ -106,7 +106,7 @@ export function ContactContent() {
                   <div className={css.inputContent}>
                     <input
                       className={[cssD.gold, cssD.boxInput].join(" ")}
-                      placeholder="nguyentin"
+                      placeholder="Họ và tên"
                     ></input>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ export function ContactContent() {
                   <div className={css.inputContent}>
                     <input
                       className={[cssD.gold, cssD.boxInput].join(" ")}
-                      placeholder="nguyentin"
+                      placeholder="Email"
                     ></input>
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export function ContactContent() {
                   <div className={css.inputContent}>
                     <input
                       className={[cssD.gold, cssD.boxInput].join(" ")}
-                      placeholder="nguyentin"
+                      placeholder="Số điện thoại"
                     ></input>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ export function ContactContent() {
                   <div className={css.inputContent}>
                     <input
                       className={[cssD.gold, cssD.boxInput].join(" ")}
-                      placeholder="nguyentin"
+                      placeholder="Địa chỉ"
                     ></input>
                   </div>
                 </div>
@@ -138,6 +138,7 @@ export function ContactContent() {
               <div className={css.mesage}>
                 <div className={css.inputContent}>
                   <textarea
+                    placeholder="Lơi nhắn"
                     className={[cssD.gold, cssD.boxInput].join(" ")}
                     cols={40}
                     rows={5}

@@ -2,7 +2,12 @@ import { Row, Col } from "antd";
 import { Checkbox } from "antd";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
+import { FaGitlab } from "react-icons/fa";
+import cssS from "../components/HomeComponent/SliderProductStyle.module.scss";
+import cssC from "../components/ContactComponent/contentStyle.module.scss";
+
 import css from "../styles/loginStyle.module.scss";
+import { FacebookIcon, TwitterIcon } from "react-share";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
@@ -31,56 +36,45 @@ export default function Login() {
                 <h1 style={{ color: "#cbba9c" }}>MY</h1>
                 <h1> TIME STORE</h1>
                 <p style={{ maxHeight: "290px", overflow: "hidden" }}>
-                  A sage once said that a successful person is not necessarily a
-                  user of our watch, but a person who uses our watch is
-                  certainly a successful person.
+                  A successful person is not necessarily a user of our watch,
+                  but a person who uses our watch is certainly a successful
+                  person.
                 </p>
                 <span>- Bill Gates -</span>
               </div>
             </div>
           </Col>
-          <Col xs={24} md={14} lg={10}>
+          <Col xs={24} md={14} lg={10} style={{ position: "relative" }}>
             <div className={css.loginFrom}>
-              <p
-                onClick={() => {
-                  setPage(0);
-                }}
-                style={{ marginRight: "20px" }}
-                className={
-                  page == 0
-                    ? css.loginLable
-                    : [css.loginLable, css.disible].join(" ")
-                }
-              >
-                LOGIN
-              </p>
-              <p
-                onClick={() => {
-                  setPage(1);
-                }}
-                className={
-                  page == 1
-                    ? css.loginLable
-                    : [css.loginLable, css.disible].join(" ")
-                }
-              >
-                SIGN UP
-              </p>
-              {!page ? (
-                <div className={css.formInput}>
-                  <p>DO YOU HAVE AN ACCOUNT?</p>
-                  <p>
-                    Dont worry, you can sign up{" "}
-                    <Link
-                      href={"/sigup"}
-                      style={{ textDecoration: "underline" }}
-                    >
-                      {" "}
-                      HERE
-                    </Link>
-                  </p>
+              <div style={{ marginBottom: "25px" }}>
+                <p
+                  onClick={() => {
+                    setPage(0);
+                  }}
+                  style={{ marginRight: "25px" }}
+                  className={[css.loginLable, page && css.disible].join(" ")}
+                >
+                  LOGIN
+                </p>
+                <p
+                  onClick={() => {
+                    setPage(1);
+                  }}
+                  className={[css.loginLable, !page && css.disible].join(" ")}
+                >
+                  SIGN UP
+                </p>
+              </div>
+              <div className={cssS.driver}></div>
 
-                  <div style={{ position: "relative", marginTop: "40px" }}>
+              <div className={css.formInput}>
+                <div
+                  className={[css.fromContainer, page && css.hide].join(" ")}
+                >
+                  <p>Hello, Friend!</p>
+                  <p>Enter your personal details and start journey with us</p>
+
+                  <div style={{ position: "relative", marginTop: "20px" }}>
                     <input
                       ref={ref}
                       className={[css.input, css.effect].join(" ")}
@@ -88,7 +82,7 @@ export default function Login() {
                     ></input>
                     <span className={css.focusBorder}></span>
                   </div>
-                  <div style={{ position: "relative", marginTop: "40px" }}>
+                  <div style={{ position: "relative", marginTop: "20px" }}>
                     <input
                       type="password"
                       className={[css.input, css.effect].join(" ")}
@@ -96,9 +90,28 @@ export default function Login() {
                     ></input>
                     <span className={css.focusBorder}></span>
                   </div>
-                  <Checkbox style={{ marginTop: "30px", width: "100%" }}>
+                  <Checkbox style={{ margin: "20px 0", width: "100%" }}>
                     Keep Me Login
                   </Checkbox>
+                  <h3
+                    className={cssC.titleContact}
+                    style={{ marginBottom: "10px" }}
+                  >
+                    <FaGitlab size={24} className={cssC.iconGitlab}></FaGitlab>
+                  </h3>
+                  <div>
+                    <ul className={css.shareSocial}>
+                      <li>
+                        <FacebookIcon size={45} round={true} />
+                      </li>
+                      <li>
+                        <FacebookIcon size={45} round={true} />
+                      </li>
+                      <li>
+                        <TwitterIcon size={45} round={true} />
+                      </li>
+                    </ul>
+                  </div>
                   <div style={{ width: "100%" }}>
                     <div className={css.button}>LOGIN</div>
                   </div>
@@ -106,8 +119,17 @@ export default function Login() {
                     Forgotten password ?
                   </Link>
                 </div>
-              ) : (
-                <div className={css.formInputx}>
+              </div>
+
+              <div className={css.formInput}>
+                <div
+                  className={[css.fromContainer, !page && css.hide].join(" ")}
+                >
+                  <p>Welcome Back!</p>
+                  <p>
+                    To keep connected with us please login with your personal
+                    info
+                  </p>
                   <div style={{ position: "relative" }}>
                     <input
                       ref={ref}
@@ -116,21 +138,21 @@ export default function Login() {
                     ></input>
                     <span className={css.focusBorder}></span>
                   </div>
-                  <div style={{ position: "relative", marginTop: "40px" }}>
+                  <div style={{ position: "relative", marginTop: "25px" }}>
                     <input
                       className={[css.input, css.effect].join(" ")}
                       placeholder="User Name"
                     ></input>
                     <span className={css.focusBorder}></span>
                   </div>
-                  <div style={{ position: "relative", marginTop: "40px" }}>
+                  <div style={{ position: "relative", marginTop: "25px" }}>
                     <input
                       className={[css.input, css.effect].join(" ")}
                       placeholder="Password"
                     ></input>
                     <span className={css.focusBorder}></span>
                   </div>
-                  <div style={{ position: "relative", marginTop: "40px" }}>
+                  <div style={{ position: "relative", marginTop: "25px" }}>
                     <input
                       type="password"
                       className={[css.input, css.effect].join(" ")}
@@ -145,7 +167,7 @@ export default function Login() {
                     <div className={css.button}>SIGN UP</div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </Col>
         </Row>

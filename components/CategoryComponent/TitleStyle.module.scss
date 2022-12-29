@@ -17,18 +17,20 @@
   }
 }
 .menu {
-  padding: 10px 0;
   height: 50px;
   justify-content: center;
   display: flex;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  cursor: pointer;
   strong {
     text-transform: uppercase;
     font-weight: bold;
     padding-left: 10px;
     font-size: 16px;
+  }
+  .btnSort {
+    cursor: pointer;
+    padding: 10px;
   }
   &.active {
     opacity: 0;
@@ -55,7 +57,14 @@
   color: #333;
   outline: none;
 }
-@media only screen and (max-width: 768px) {
+.menuSelect {
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 15px;
+  
+}
+
+@media only screen and (max-width: 992px) {
   .container {
     justify-content: center;
     border-top: 1px solid #ebebeb;

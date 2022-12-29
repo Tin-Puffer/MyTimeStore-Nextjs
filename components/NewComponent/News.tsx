@@ -5,30 +5,33 @@ import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 
 import css from "./newsStyle.module.scss";
 import { SearchNews } from "./Search";
+import Link from "next/link";
 export function NewsItem() {
   return (
-    <div className={cssC.itemContainer}>
-      <div className={css.item}>
-        <div style={{ position: "relative" }}></div>
-        <div className={css.BgcContaniner}>
-          <div className={css.bgcNEw}></div>
-        </div>
-        <div className={css.datePost}>
-          <div className={css.contenPost}>
-            <p>03</p>
-            <p>Th12</p>
+    <Link href={"/news/detail"}>
+      <div className={cssC.itemContainer}>
+        <div className={css.item}>
+          <div style={{ position: "relative" }}></div>
+          <div className={css.BgcContaniner}>
+            <div className={css.bgcNEw}></div>
+          </div>
+          <div className={css.datePost}>
+            <div className={css.contenPost}>
+              <p>03</p>
+              <p>Th12</p>
+            </div>
+          </div>
+          <div className={css.decContainer}>
+            <h5>Aerolithe Performance Titanium Watch</h5>
+            <div className={cssS.driver}></div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore ...{" "}
+            </p>
           </div>
         </div>
-        <div className={css.decContainer}>
-          <h5>Aerolithe Performance Titanium Watch</h5>
-          <div className={cssS.driver}></div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore ...{" "}
-          </p>
-        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 export function News() {
@@ -36,7 +39,7 @@ export function News() {
     <div className={css.container}>
       <div className={cssP.gridPoduct} style={{ marginTop: "30px" }}>
         <div className={css.titlePage}>
-          <p> Tin tức</p>
+          <desc> Tin tức</desc>
         </div>
         <div style={{ marginBottom: "40px" }}>
           <Row>

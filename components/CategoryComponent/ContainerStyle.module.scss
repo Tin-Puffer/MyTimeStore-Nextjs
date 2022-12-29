@@ -1,5 +1,5 @@
 .wide {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   overflow: hidden;
   .title {
     font-size: 16px;
@@ -14,7 +14,7 @@
 .product_categories {
   border: 1px solid #ddd;
   border-radius: 3px;
-  padding: 15px;
+  padding: calc(.3vw + 5px);
   background-color: rgba(221, 221, 221, 0.1);
   margin-bottom: 10px;
   li {

@@ -1,6 +1,5 @@
 .mainItem {
   min-height: 200px;
-
   padding: 0 30px 30px;
   table {
     width: 100%;
@@ -143,7 +142,8 @@
     }
   }
   .mainItem {
-    padding: 0;
-    margin: auto;
+    // padding: 0;
+      padding: 0 8px 5px;
+
   }
 }

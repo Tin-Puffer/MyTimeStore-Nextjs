@@ -2,7 +2,7 @@
   padding: 25px 15px 0;
   border-top: 1px solid #ececec;
 }
-.startRateCmt{
+.startRateCmt {
   font-size: 12px;
 }
 .bntDecrip {
@@ -39,9 +39,9 @@
   .future,
   .decript {
     font-size: 18px;
-    letter-spacing: 1px;
-    font-weight: 300;
+    word-spacing: 1px;
   }
+
   .future {
     margin-top: 20px;
     line-height: 25px;
@@ -51,7 +51,7 @@
 }
 .featBack {
   .content {
-    padding: 0 15px 30px;
+    padding: 0 20px 30px;
     h3 {
       color: #1c1c1c;
       font-size: 25px;
@@ -115,7 +115,7 @@
 
   margin-bottom: 10px;
   .avataBox {
-    margin:10px 15px 0 ;
+    margin: 10px 15px 0 0;
   }
   .binhluan {
     flex: 1;
@@ -126,6 +126,7 @@
     box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
     margin-top: 5px;
     p {
+      word-break: break-all;
       display: block;
       margin: 0;
       font-size: 16px;
@@ -166,10 +167,14 @@
     font-size: 0.97em;
     outline: none;
     width: 100%;
-    
   }
 }
 .ItemSame {
   position: relative;
   padding: 20px 14px;
+}
+@media only screen and (max-width: 576px) {
+  .content {
+    padding: 0 !important;
+  }
 }
