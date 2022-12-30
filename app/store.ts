@@ -9,8 +9,6 @@ export const store =
   configureStore({
     reducer: {
       auth: authReducer,
-      // authMC: authMCReducer,
-      // comment: commentReducer
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

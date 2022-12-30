@@ -5,17 +5,58 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { FaGitlab } from "react-icons/fa";
 import cssS from "../components/HomeComponent/SliderProductStyle.module.scss";
 import cssC from "../components/ContactComponent/contentStyle.module.scss";
-
 import css from "../styles/loginStyle.module.scss";
 import { FacebookIcon, TwitterIcon } from "react-share";
+
+import { FacebookAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { auth } from "./FireBase/config";
+import { useRouter } from "next/router";
+
+auth.languageCode = "it";
+const provider = new FacebookAuthProvider();
+provider.setCustomParameters({
+  display: "popup",
+});
+provider.addScope("user_birthday");
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
 };
+// const fbProvider = auth.FacebookAuthProvider();
 
 export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(0);
+  const router = useRouter();
+  const handleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+
+        const user = result.user;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log(" id: ", user.uid);
+      console.log(" email: ", user.email);
+      console.log(" name: ", user.displayName);
+      console.log(" img: ", user.photoURL);
+    }
+  });
+
   useEffect(() => {
     if (ref.current) {
       ref.current.focus();
@@ -27,7 +68,6 @@ export default function Login() {
       style={{ overflow: "hidden", width: "100%", position: "relative" }}
     >
       <div className={css.loginContainer}></div>
-
       <div className={css.loginContent}>
         <Row style={{ height: "100%" }}>
           <Col xs={0} md={10} lg={14}>
@@ -113,7 +153,12 @@ export default function Login() {
                     </ul>
                   </div>
                   <div style={{ width: "100%" }}>
-                    <div className={css.button}>LOGIN</div>
+                    <div className={css.button} onClick={handleLogin}>
+                      LOGIN
+                    </div>
+                    <div className={css.button} onClick={() => signOut(auth)}>
+                      LOGout
+                    </div>
                   </div>
                   <Link href={"/"} className={css.forGot}>
                     Forgotten password ?
