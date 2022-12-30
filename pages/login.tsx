@@ -9,7 +9,7 @@ import css from "../styles/loginStyle.module.scss";
 import { FacebookIcon, TwitterIcon } from "react-share";
 
 import { FacebookAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "./FireBase/config";
+import { auth } from "../FireBase/config";
 import { useRouter } from "next/router";
 
 auth.languageCode = "it";
