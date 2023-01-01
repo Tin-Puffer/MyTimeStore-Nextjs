@@ -1,16 +1,50 @@
-import { Row, Col } from "antd";
+import { Row, Col, Form, Input } from "antd";
 import { Checkbox } from "antd";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { FaGitlab } from "react-icons/fa";
 import cssS from "../components/HomeComponent/SliderProductStyle.module.scss";
 import cssC from "../components/ContactComponent/contentStyle.module.scss";
-import css from "../styles/loginStyle.module.scss";
-import { FacebookIcon, TwitterIcon } from "react-share";
+import cssCA from "../components/CheckOut/CreatAcStyle.module.scss";
 
-import { FacebookAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "../FireBase/config";
+import cssD from "../components/DetailProductComponent/DecriptionStyle.module.scss";
+
+// import { FacebookIcon, TwitterIcon } from "react-share";
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from "react-social-login-buttons";
+import { CreateAc, layout, validateMessages } from "../components/CheckOut";
+import {
+  getAdditionalUserInfo,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  query,
+  doc,
+  setDoc,
+  where,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
+import {
+  createUserWithEmailAndPassword,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { auth, db } from "../FireBase/config";
 import { useRouter } from "next/router";
+import css from "../styles/loginStyle.module.scss";
+import {
+  handelSingUp,
+  loginWithAccountFire,
+  removeUser,
+} from "../FireBase/authService";
 
 auth.languageCode = "it";
 const provider = new FacebookAuthProvider();
@@ -28,35 +62,88 @@ export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(0);
   const router = useRouter();
-  const handleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
+  const user = auth.currentUser;
 
-        const user = result.user;
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error);
-        // ...
-      });
+  // const handleLogin = () => {
+  //   createUserWithEmailAndPassword(
+  //     auth,
+  //     "akumaraito1@gmail.com",
+  //     "123123"
+  //   ).then((userCredential) => {
+  //     // Signed in
+  //     const user = userCredential.user;
+  //     sendEmailVerification(user).then(() => {
+  //       const interval = setInterval(() => {
+  //         user.reload().then(
+  //           () => {
+  //             if (interval && user.emailVerified) {
+  //               clearInterval(interval);
+  //               console.log("email verified finish");
+  //             }
+  //           },
+  //           (error) => {
+  //             if (interval) {
+  //               clearInterval(interval);
+  //               console.log(
+  //                 "registerUserAndWaitEmailVerification: reload failed ! " +
+  //                   error.message +
+  //                   " (" +
+  //                   error.code +
+  //                   ")"
+  //               );
+  //             }
+  //           }
+  //         );
+  //       }, 1000);
+  //       console.log("Email verification sent");
+  //     });
+  //     // ...
+  //   });
+  // signInWithPopup(auth, provider).then(async (result) => {
+  //   console.log(result.user);
+  //   xx(user?.photoURL || "");
+  // if (getAdditionalUserInfo(result)?.isNewUser) {
+  // addDoc(collection(db, "cities"), {
+  //   name: "Los Angeles112",
+  //   state: "CA",
+  //   country: "USA",
+  // });
+  // }
+
+  // const q = query(collection(db, "cities"), where("state", "==", "CA"));
+  // const querySnapshot = await getDocs(q);
+  // querySnapshot.forEach((doc) => {
+  //   // doc.data() is never undefined for query doc snapshots
+  //   console.log(doc);
+  // });
+  // console.log(querySnapshot);
+  // });
+  // };
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user?.emailVerified) {
+        router.push("/");
+      }
+    });
+  }, [auth]);
+
+  //     // if (getAdditionalUserInfo(result)?.isNewUser) {
+  //     //   console.log("good");
+  //     // }
+  //     // console.log(" id: ", user.uid);
+  //     // console.log(" email: ", user.email);
+  //     // console.log(" name: ", user.displayName);
+  //     // console.log(" img: ", user.photoURL);
+  //   }
+  // });
+  const onSignIn = (value: any) => {
+    console.log(value);
+    loginWithAccountFire(value.Email, value.password);
   };
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      console.log(" id: ", user.uid);
-      console.log(" email: ", user.email);
-      console.log(" name: ", user.displayName);
-      console.log(" img: ", user.photoURL);
-    }
-  });
-
+  const onSignUp = (value: any) => {
+    handelSingUp(value.Username, value.Email, value.password);
+  };
   useEffect(() => {
     if (ref.current) {
       ref.current.focus();
@@ -111,58 +198,70 @@ export default function Login() {
                 <div
                   className={[css.fromContainer, page && css.hide].join(" ")}
                 >
-                  <p>Hello, Friend!</p>
-                  <p>Enter your personal details and start journey with us</p>
-
-                  <div style={{ position: "relative", marginTop: "20px" }}>
-                    <input
-                      ref={ref}
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="User Name"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
-                  <div style={{ position: "relative", marginTop: "20px" }}>
-                    <input
-                      type="password"
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="Password"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
+                  <Form
+                    layout="vertical"
+                    {...layout}
+                    name="nest-messages"
+                    onFinish={onSignIn}
+                    validateMessages={validateMessages}
+                    id="SingIForm"
+                  >
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name={"Email"}
+                      label="Emmail Address"
+                      rules={[{ required: true, type: "email" }]}
+                    >
+                      <Input
+                        type="tel"
+                        autoComplete="tel"
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name="password"
+                      label="Password"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your password!",
+                        },
+                      ]}
+                      hasFeedback
+                    >
+                      <Input
+                        type="password"
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                  </Form>
                   <Checkbox style={{ margin: "20px 0", width: "100%" }}>
                     Keep Me Login
                   </Checkbox>
-                  <h3
-                    className={cssC.titleContact}
-                    style={{ marginBottom: "10px" }}
-                  >
-                    <FaGitlab size={24} className={cssC.iconGitlab}></FaGitlab>
-                  </h3>
-                  <div>
-                    <ul className={css.shareSocial}>
-                      <li>
-                        <FacebookIcon size={45} round={true} />
-                      </li>
-                      <li>
-                        <FacebookIcon size={45} round={true} />
-                      </li>
-                      <li>
-                        <TwitterIcon size={45} round={true} />
-                      </li>
-                    </ul>
-                  </div>
+
                   <div style={{ width: "100%" }}>
-                    <div className={css.button} onClick={handleLogin}>
+                    <button className={css.button} form="SingIForm">
                       LOGIN
-                    </div>
-                    <div className={css.button} onClick={() => signOut(auth)}>
-                      LOGout
-                    </div>
+                    </button>
                   </div>
                   <Link href={"/"} className={css.forGot}>
                     Forgotten password ?
                   </Link>
+                  <div style={{ marginTop: "30px" }}>
+                    <ul className={css.shareSocial}>
+                      <li style={{ width: "100%", padding: 0 }}>
+                        <GoogleLoginButton className={css.bxlogin} />
+                      </li>
+                      <li style={{ width: "100%", padding: 0 }}>
+                        <FacebookLoginButton className={css.bxlogin} />
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
@@ -170,46 +269,120 @@ export default function Login() {
                 <div
                   className={[css.fromContainer, !page && css.hide].join(" ")}
                 >
-                  <p>Welcome Back!</p>
-                  <p>
-                    To keep connected with us please login with your personal
-                    info
-                  </p>
-                  <div style={{ position: "relative" }}>
-                    <input
-                      ref={ref}
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="Name"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
-                  <div style={{ position: "relative", marginTop: "25px" }}>
-                    <input
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="User Name"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
-                  <div style={{ position: "relative", marginTop: "25px" }}>
-                    <input
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="Password"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
-                  <div style={{ position: "relative", marginTop: "25px" }}>
-                    <input
-                      type="password"
-                      className={[css.input, css.effect].join(" ")}
-                      placeholder="Cofirm Password"
-                    ></input>
-                    <span className={css.focusBorder}></span>
-                  </div>
-                  <Checkbox style={{ marginTop: "30px", width: "100%" }}>
-                    I agree to the Terms
-                  </Checkbox>
-                  <div style={{ width: "100%" }}>
-                    <div className={css.button}>SIGN UP</div>
+                  <Form
+                    layout="vertical"
+                    {...layout}
+                    name="nest-messages"
+                    onFinish={onSignUp}
+                    validateMessages={validateMessages}
+                    id="SingUForm"
+                  >
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name={"Username"}
+                      label="Username"
+                      rules={[{ required: true }]}
+                    >
+                      <Input
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name={"Email"}
+                      label="Emmail Address"
+                      rules={[{ required: true, type: "email" }]}
+                    >
+                      <Input
+                        type="tel"
+                        autoComplete="tel"
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name="password"
+                      label="Password"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your password!",
+                        },
+                        {
+                          min: 6,
+                          message: "Password must be minimum 6 characters",
+                        },
+                      ]}
+                      hasFeedback
+                    >
+                      <Input
+                        type="password"
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      className={cssCA.nameInput}
+                      name="confirm"
+                      label="Confirm Password"
+                      dependencies={["password"]}
+                      hasFeedback
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please confirm your password!",
+                        },
+
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (!value || getFieldValue("password") === value) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(
+                              new Error(
+                                "The two passwords that you entered do not match!"
+                              )
+                            );
+                          },
+                        }),
+                      ]}
+                    >
+                      <Input
+                        type="password"
+                        className={[cssCA.inputDiscount, cssD.boxInput].join(
+                          " "
+                        )}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      name="agreement"
+                      valuePropName="checked"
+                      rules={[
+                        {
+                          validator: (_, value) =>
+                            value
+                              ? Promise.resolve()
+                              : Promise.reject(
+                                  new Error("Should accept agreement")
+                                ),
+                        },
+                      ]}
+                    >
+                      <Checkbox>
+                        I have read the <a href="/">agreement</a>
+                      </Checkbox>
+                    </Form.Item>
+                  </Form>
+
+                  <div style={{ width: "100%", display: "flex" }}>
+                    <button className={css.button} form="SingUForm">
+                      SIGN UP
+                    </button>
                   </div>
                 </div>
               </div>

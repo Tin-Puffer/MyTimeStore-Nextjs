@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useEffect, useState } from "react";
+import { auth } from "../../FireBase/config";
 // import { user } from '../../model/user';
 
 export interface loginState {
@@ -10,6 +12,14 @@ export interface authState {
   login?: boolean;
   currentUser?: string;
 }
+//  auth.onAuthStateChanged((user) => {
+//     if (user) {
+//       console.log(" id: ", user.uid);
+//       console.log(" email: ", user.email);
+//       console.log(" name: ", user.displayName);
+//       console.log(" img: ", user.photoURL);
+//     }
+//   });
 
 const initAuthLoad = (): authState => {
   if (typeof window !== "undefined") {
@@ -20,11 +30,11 @@ const initAuthLoad = (): authState => {
         currentUser: undefined,
       };
     } else {
-      const local = JSON.parse(localStorage?.getItem("user") || "") as string;
+      // const local = JSON.parse(localStorage?.getItem("user") || "") as string;
       return {
         isLogin: true,
         login: false,
-        currentUser: local,
+        // currentUser: local,
       };
     }
   } else
@@ -37,23 +47,23 @@ const initAuthLoad = (): authState => {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: initAuthLoad(),
+  initialState: initAuthLoad() || {},
   reducers: {
     login(state) {
-      state.login = true;
+      // state.login = true;
     },
     loginSuccess(state, action: PayloadAction<string>) {
-      state.login = false;
-      state.isLogin = true;
-      state.currentUser = action.payload;
+      // state.login = false;
+      // state.isLogin = true;
+      // state.currentUser = action.payload;
     },
     loginFailed(state, action: PayloadAction<String>) {
-      state.login = false;
-      state.isLogin = false;
+      // state.login = false;
+      // state.isLogin = false;
     },
     logout(state) {
-      state.isLogin = false;
-      state.currentUser = undefined;
+      // state.isLogin = false;
+      // state.currentUser = undefined;
     },
   },
 });
