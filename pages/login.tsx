@@ -213,8 +213,7 @@ export default function Login() {
                       rules={[{ required: true, type: "email" }]}
                     >
                       <Input
-                        type="tel"
-                        autoComplete="tel"
+                        type="text"
                         className={[cssCA.inputDiscount, cssD.boxInput].join(
                           " "
                         )}
@@ -296,8 +295,7 @@ export default function Login() {
                       rules={[{ required: true, type: "email" }]}
                     >
                       <Input
-                        type="tel"
-                        autoComplete="tel"
+                        type="text"
                         className={[cssCA.inputDiscount, cssD.boxInput].join(
                           " "
                         )}
