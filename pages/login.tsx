@@ -374,7 +374,7 @@ export default function Login() {
                       ]}
                     >
                       <Checkbox>
-                        I have read the <a href="/">agreement</a>
+                        I have read the <Link href="/">agreement</Link>
                       </Checkbox>
                     </Form.Item>
                   </Form>
