@@ -7,3 +7,8 @@ export default function IntroductPage() {
     </div>
   );
 }
+export async function getStaticProps() {
+  return {
+    props: {}, 
+  };
+}

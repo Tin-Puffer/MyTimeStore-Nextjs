@@ -3,9 +3,10 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
-import type { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { DefaultLayout } from "../components/layout/DefaultLayout";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -14,11 +15,45 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
+function Loading() {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = (url: any) => url !== router.asPath && setLoading(true);
+    const handleComplete = (url: any) =>
+      url === router.asPath &&
+      // setTimeout(() => {
+      setLoading(false);
+    // }, 5000);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  });
+
+  return loading ? (
+    <div className="spinner-wrapper">
+      <div className="spinner"></div>
+    </div>
+  ) : (
+    <></>
+  );
+}
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <div>
       <Provider store={store}>
+        <Loading />
         {Component.getLayout ? (
           getLayout(<Component {...pageProps} />)
         ) : (
