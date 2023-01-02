@@ -6,7 +6,7 @@ export function middleware(req: NextRequest) {
   let login = req.cookies.get("islogin");
   let url = req.url;
   if (login && url.includes("/login")) {
-    return NextResponse.redirect("http://localhost:3000");
+    return NextResponse.redirect("https://mytimestore.vercel.app");
   }
 }
 
