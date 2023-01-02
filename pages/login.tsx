@@ -2,141 +2,45 @@ import { Row, Col, Form, Input } from "antd";
 import { Checkbox } from "antd";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { FaGitlab } from "react-icons/fa";
 import cssS from "../components/HomeComponent/SliderProductStyle.module.scss";
-import cssC from "../components/ContactComponent/contentStyle.module.scss";
 import cssCA from "../components/CheckOut/CreatAcStyle.module.scss";
-
 import cssD from "../components/DetailProductComponent/DecriptionStyle.module.scss";
-
-// import { FacebookIcon, TwitterIcon } from "react-share";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
 } from "react-social-login-buttons";
-import { CreateAc, layout, validateMessages } from "../components/CheckOut";
-import {
-  getAdditionalUserInfo,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  query,
-  doc,
-  setDoc,
-  where,
-  getDoc,
-  getDocs,
-} from "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  FacebookAuthProvider,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
-import { auth, db } from "../FireBase/config";
+import { layout, validateMessages } from "../components/CheckOut";
+
+import { auth } from "../FireBase/config";
 import { useRouter } from "next/router";
 import css from "../styles/loginStyle.module.scss";
 import {
   handelSingUp,
   loginWithAccountFire,
-  removeUser,
+  loginWithAccountGoogle,
 } from "../FireBase/authService";
-
-auth.languageCode = "it";
-const provider = new FacebookAuthProvider();
-provider.setCustomParameters({
-  display: "popup",
-});
-provider.addScope("user_birthday");
+import { loginWithAccountFacebook } from "../FireBase/authService";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
 };
-// const fbProvider = auth.FacebookAuthProvider();
 
 export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(0);
   const router = useRouter();
-  const user = auth.currentUser;
+  const toHome = () => {
+    router.push("/");
+  };
 
-  // const handleLogin = () => {
-  //   createUserWithEmailAndPassword(
-  //     auth,
-  //     "akumaraito1@gmail.com",
-  //     "123123"
-  //   ).then((userCredential) => {
-  //     // Signed in
-  //     const user = userCredential.user;
-  //     sendEmailVerification(user).then(() => {
-  //       const interval = setInterval(() => {
-  //         user.reload().then(
-  //           () => {
-  //             if (interval && user.emailVerified) {
-  //               clearInterval(interval);
-  //               console.log("email verified finish");
-  //             }
-  //           },
-  //           (error) => {
-  //             if (interval) {
-  //               clearInterval(interval);
-  //               console.log(
-  //                 "registerUserAndWaitEmailVerification: reload failed ! " +
-  //                   error.message +
-  //                   " (" +
-  //                   error.code +
-  //                   ")"
-  //               );
-  //             }
-  //           }
-  //         );
-  //       }, 1000);
-  //       console.log("Email verification sent");
-  //     });
-  //     // ...
-  //   });
-  // signInWithPopup(auth, provider).then(async (result) => {
-  //   console.log(result.user);
-  //   xx(user?.photoURL || "");
-  // if (getAdditionalUserInfo(result)?.isNewUser) {
-  // addDoc(collection(db, "cities"), {
-  //   name: "Los Angeles112",
-  //   state: "CA",
-  //   country: "USA",
-  // });
-  // }
-
-  // const q = query(collection(db, "cities"), where("state", "==", "CA"));
-  // const querySnapshot = await getDocs(q);
-  // querySnapshot.forEach((doc) => {
-  //   // doc.data() is never undefined for query doc snapshots
-  //   console.log(doc);
-  // });
-  // console.log(querySnapshot);
-  // });
-  // };
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user?.emailVerified) {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      if (user.emailVerified) {
         router.push("/");
       }
-    });
-  }, [auth]);
+    }
+  });
 
-  //     // if (getAdditionalUserInfo(result)?.isNewUser) {
-  //     //   console.log("good");
-  //     // }
-  //     // console.log(" id: ", user.uid);
-  //     // console.log(" email: ", user.email);
-  //     // console.log(" name: ", user.displayName);
-  //     // console.log(" img: ", user.photoURL);
-  //   }
-  // });
   const onSignIn = (value: any) => {
     console.log(value);
     loginWithAccountFire(value.Email, value.password);
@@ -254,9 +158,15 @@ export default function Login() {
                   <div style={{ marginTop: "30px" }}>
                     <ul className={css.shareSocial}>
                       <li style={{ width: "100%", padding: 0 }}>
-                        <GoogleLoginButton className={css.bxlogin} />
+                        <GoogleLoginButton
+                          className={css.bxlogin}
+                          onClick={loginWithAccountGoogle}
+                        />
                       </li>
-                      <li style={{ width: "100%", padding: 0 }}>
+                      <li
+                        style={{ width: "100%", padding: 0 }}
+                        onClick={() => loginWithAccountFacebook(toHome)}
+                      >
                         <FacebookLoginButton className={css.bxlogin} />
                       </li>
                     </ul>

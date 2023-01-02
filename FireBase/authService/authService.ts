@@ -11,10 +11,14 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../config";
 // const user = auth.currentUser;
 
-export function LogoutUser(auth: Auth) {
+export const LogoutUser = (auth: Auth) => {
   signOut(auth);
-  document.cookie = "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-}
+  if (document.cookie) {
+    document.cookie =
+      "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log("LogOut");
+  }
+};
 export function loginWithAccountFire(emai: string, password: string) {
   signInWithEmailAndPassword(auth, emai, password)
     .then((userCredential) => {
@@ -54,8 +58,9 @@ export const handelSingUp = (name: string, email: string, pass: string) => {
   createUserWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
       const user = userCredential.user;
-      sendEmailVerification(user).then(() => {
-        addDoc(collection(db, "User"), {
+    
+      sendEmailVerification(user).then( async() => {
+        await addDoc(collection(db, "User"), {
           uid: user.uid,
           name: name,
           email: user.email,
@@ -71,6 +76,7 @@ export const handelSingUp = (name: string, email: string, pass: string) => {
             console.log(err);
           });
       });
+      
     })
     .catch((error) => {
       if (error.code == "auth/email-already-in-use") {

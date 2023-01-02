@@ -9,10 +9,13 @@ import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
+import { auth } from "../../FireBase/config";
 
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
 import { GoSignIn, GoSignOut } from "react-icons/go";
+import { signOut, User } from "firebase/auth";
+import { LogoutUser } from "../../FireBase/authService";
 
 export function CartItem() {
   return (
@@ -104,6 +107,13 @@ export function DefaultHeaderLogo() {
   const [search, setSearch] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
   const [drop, setDrop] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) setUser(user);
+      else setUser(null);
+    });
+  }, [auth]);
   useEffect(() => {
     openNav || openCart
       ? document.querySelector(".deflultLayout")?.classList.add("hide")
@@ -162,26 +172,28 @@ export function DefaultHeaderLogo() {
                   <li className={css.CartHover}>
                     <div className={css.Icon}>
                       <ImUserTie size="20px" />
+                      <span>{user ? user.displayName || user.email : ""}</span>
                       <div
                         className={[css.cartView, cssD.boxInput].join(" ")}
                         style={{ minWidth: "200px" }}
                       >
                         <div>
                           <ul className={css.userMenu}>
-                            <Link href={"/login"}>
-                              <li>
-                                <GoSignIn
-                                  size={20}
-                                  style={{
-                                    marginBottom: "-4px",
-                                    marginRight: "5px",
-                                  }}
-                                ></GoSignIn>
-                                đăng nhập{" "}
-                              </li>
-                            </Link>
-                            {false && (
-                              <li>
+                            {!user ? (
+                              <Link href={"/login"}>
+                                <li>
+                                  <GoSignIn
+                                    size={20}
+                                    style={{
+                                      marginBottom: "-4px",
+                                      marginRight: "5px",
+                                    }}
+                                  ></GoSignIn>
+                                  đăng nhập{" "}
+                                </li>
+                              </Link>
+                            ) : (
+                              <li onClick={() => LogoutUser(auth)}>
                                 <GoSignOut
                                   size={20}
                                   style={{
@@ -189,7 +201,7 @@ export function DefaultHeaderLogo() {
                                     marginRight: "5px",
                                   }}
                                 ></GoSignOut>
-                                đăng nhập{" "}
+                                đăng xuất{" "}
                               </li>
                             )}
                           </ul>
