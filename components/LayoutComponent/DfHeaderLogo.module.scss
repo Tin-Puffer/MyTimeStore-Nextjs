@@ -5,6 +5,21 @@
     justify-content: center;
   }
 }
+.userAvata {
+  display: inline-block;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-position: center;
+  background-size: cover;
+ 
+}
+.userName {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 35px;
+}
 .logoCenter {
   width: 100%;
 }
@@ -37,6 +52,7 @@
   align-items: center;
   color: #7f7f7f;
   .Icon {
+    display: flex;
     padding: 5px 20px;
     position: relative;
     cursor: pointer;

@@ -12,8 +12,9 @@ auth.languageCode = "it";
 provider.setCustomParameters({
   login_hint: "user@example.com",
 });
-export const loginWithAccountGoogle = () => {
-  signInWithPopup(auth, provider)
+export const loginWithAccountGoogle = async (setLoading: Function) => {
+  setLoading(true);
+  await signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -29,18 +30,15 @@ export const loginWithAccountGoogle = () => {
           avatar: user.photoURL,
           phone: "",
           address: [""],
+        }).catch((err) => {
+          setLoading(false);
+          alert(err);
         });
       }
       // ...
     })
     .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+      setLoading(false);
+      alert(error);
     });
 };

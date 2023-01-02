@@ -71,6 +71,15 @@
       cursor: pointer;
     }
   }
+  .overLayLoading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #00000033;
+    z-index: 100;
+  }
   .input {
     color: #333;
     width: 100%;
@@ -143,6 +152,7 @@
   justify-content: center;
   // justify-content: right;
   width: 100%;
+
   li {
     padding: 0 10px;
   }

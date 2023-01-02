@@ -170,43 +170,71 @@ export function DefaultHeaderLogo() {
                     </div>
                   </li>
                   <li className={css.CartHover}>
-                    <div className={css.Icon}>
-                      <ImUserTie size="20px" />
-                      <span>{user ? user.displayName || user.email : ""}</span>
-                      <div
-                        className={[css.cartView, cssD.boxInput].join(" ")}
-                        style={{ minWidth: "200px" }}
-                      >
-                        <div>
-                          <ul className={css.userMenu}>
-                            {!user ? (
-                              <Link href={"/login"}>
-                                <li>
-                                  <GoSignIn
+                    <div className={css.Icon} style={{ padding: "0 20px" }}>
+                      {user ? (
+                        <>
+                          <div
+                            className={css.userAvata}
+                            style={{
+                              backgroundImage: `url(${
+                                user.photoURL ||
+                                "https://media.istockphoto.com/id/1327592449/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?b=1&s=170667a&w=0&k=20&c=GHn-aw4tVt8wpe8PyFBp4PRYNMO473UVUIYtAMxT5l0="
+                              })`,
+                            }}
+                            onClick={() => console.log(user.photoURL)}
+                          ></div>
+                          <span className={css.userName}>
+                            {user ? user.displayName || user.email : ""}
+                          </span>
+                          <div
+                            className={[css.cartView, cssD.boxInput].join(" ")}
+                            style={{ minWidth: "200px" }}
+                          >
+                            <div>
+                              <ul className={css.userMenu}>
+                                <li onClick={() => LogoutUser(auth)}>
+                                  <GoSignOut
                                     size={20}
                                     style={{
                                       marginBottom: "-4px",
                                       marginRight: "5px",
                                     }}
-                                  ></GoSignIn>
-                                  đăng nhập{" "}
+                                  ></GoSignOut>
+                                  đăng xuất{" "}
                                 </li>
-                              </Link>
-                            ) : (
-                              <li onClick={() => LogoutUser(auth)}>
-                                <GoSignOut
-                                  size={20}
-                                  style={{
-                                    marginBottom: "-4px",
-                                    marginRight: "5px",
-                                  }}
-                                ></GoSignOut>
-                                đăng xuất{" "}
-                              </li>
-                            )}
-                          </ul>
-                        </div>
-                      </div>
+                              </ul>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div style={{padding:"5px 0"}}>
+
+                          <ImUserTie size="20px" />
+                          </div>
+                          <div
+                            className={[css.cartView, cssD.boxInput].join(" ")}
+                            style={{ minWidth: "200px" }}
+                          >
+                            <div>
+                              <ul className={css.userMenu}>
+                                <Link href={"/login"}>
+                                  <li>
+                                    <GoSignIn
+                                      size={20}
+                                      style={{
+                                        marginBottom: "-4px",
+                                        marginRight: "5px",
+                                      }}
+                                    ></GoSignIn>
+                                    đăng nhập{" "}
+                                  </li>
+                                </Link>
+                              </ul>
+                            </div>
+                          </div>
+                        </>
+                      )}
                       <div className={css.whiteArow}></div>
                     </div>
                   </li>

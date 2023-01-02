@@ -1,7 +1,7 @@
-import { Row, Col, Form, Input } from "antd";
+import { Row, Col, Form, Input, Spin } from "antd";
 import { Checkbox } from "antd";
 import Link from "next/link";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState, useCallback } from "react";
 import cssS from "../components/HomeComponent/SliderProductStyle.module.scss";
 import cssCA from "../components/CheckOut/CreatAcStyle.module.scss";
 import cssD from "../components/DetailProductComponent/DecriptionStyle.module.scss";
@@ -29,11 +29,18 @@ export default function Login() {
   const ref = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(0);
   const router = useRouter();
-  const toHome = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const SetLoading = useCallback((value: boolean) => {
+    setIsLoading(value);
+  }, []);
+
+  const toHome = useCallback(() => {
     router.push("/");
-  };
+  }, []);
 
   auth.onAuthStateChanged((user) => {
+    
     if (user) {
       if (user.emailVerified) {
         router.push("/");
@@ -43,10 +50,10 @@ export default function Login() {
 
   const onSignIn = (value: any) => {
     console.log(value);
-    loginWithAccountFire(value.Email, value.password);
+    loginWithAccountFire(SetLoading, value.Email, value.password);
   };
   const onSignUp = (value: any) => {
-    handelSingUp(value.Username, value.Email, value.password);
+    handelSingUp(SetLoading,value.Username, value.Email, value.password);
   };
   useEffect(() => {
     if (ref.current) {
@@ -76,6 +83,15 @@ export default function Login() {
             </div>
           </Col>
           <Col xs={24} md={14} lg={10} style={{ position: "relative" }}>
+            {isLoading && (
+              <Spin
+                wrapperClassName={css.overLayLoading}
+                size="large"
+                style={{ maxHeight: "none" }}
+              >
+                <div></div>
+              </Spin>
+            )}
             <div className={css.loginFrom}>
               <div style={{ marginBottom: "25px" }}>
                 <p
@@ -160,12 +176,16 @@ export default function Login() {
                       <li style={{ width: "100%", padding: 0 }}>
                         <GoogleLoginButton
                           className={css.bxlogin}
-                          onClick={loginWithAccountGoogle}
+                          onClick={() =>
+                            loginWithAccountGoogle(SetLoading)
+                          }
                         />
                       </li>
                       <li
                         style={{ width: "100%", padding: 0 }}
-                        onClick={() => loginWithAccountFacebook(toHome)}
+                        onClick={() =>
+                          loginWithAccountFacebook(SetLoading, toHome)
+                        }
                       >
                         <FacebookLoginButton className={css.bxlogin} />
                       </li>
