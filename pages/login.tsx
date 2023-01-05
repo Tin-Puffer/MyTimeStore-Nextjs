@@ -20,6 +20,7 @@ import {
   loginWithAccountGoogle,
 } from "../FireBase/authService";
 import { loginWithAccountFacebook } from "../FireBase/authService";
+import { slider1, slider2, slider3 } from "../public/staticImage";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
@@ -64,11 +65,17 @@ export default function Login() {
       className=""
       style={{ overflow: "hidden", width: "100%", position: "relative" }}
     >
-      <div className={css.loginContainer}></div>
+      <div
+        className={css.loginContainer}
+        style={{ backgroundImage: `url(${slider1.src})` }}
+      ></div>
       <div className={css.loginContent}>
         <Row style={{ height: "100%" }}>
           <Col xs={0} md={10} lg={14}>
-            <div className={css.loginImage}>
+            <div
+              className={css.loginImage}
+              style={{ backgroundImage: `url(${slider2.src})` }}
+            >
               <div className={css.imgText}>
                 <h1 style={{ color: "#cbba9c" }}>MY</h1>
                 <h1> TIME STORE</h1>

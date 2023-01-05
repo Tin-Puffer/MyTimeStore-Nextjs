@@ -7,7 +7,7 @@ import { SiGmail } from "react-icons/si";
 import { BsGithub, BsTwitter, BsPinterest } from "react-icons/bs";
 import { FaFacebookF, FaPaperPlane } from "react-icons/fa";
 import { AiFillInstagram, AiFillYoutube } from "react-icons/ai";
-import { logo, slider1 } from "../../public/staticImage";
+import { logo2, slider1 } from "../../public/staticImage";
 import Image from "next/image";
 
 export function DfFooter() {
@@ -25,7 +25,7 @@ export function DfFooter() {
                   <Image
                     alt="sd"
                     height={80}
-                    src={logo}
+                    src={logo2}
                     className={css.imgLogo}
                   ></Image>
                 </div>

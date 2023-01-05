@@ -174,9 +174,11 @@ export function DefaultHeaderLogo() {
                           <div
                             className={css.userAvata}
                             style={{
-                              backgroundImage: `url(${avatar.src})`,
+                              // backgroundImage: `url({}${avatar.src})`,
+                              backgroundImage: `url(${
+                                user.photoURL || avatar.src
+                              })`,
                             }}
-                            onClick={() => console.log(user.photoURL)}
                           ></div>
                           <span className={css.userName}>
                             {user ? user.displayName || user.email : ""}
