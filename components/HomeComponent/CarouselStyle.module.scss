@@ -4,7 +4,7 @@
 }
 .sliderContent {
   cursor: grab;
- transform: translateX();
+  transform: translateX();
 }
 .SliderImg {
   height: 100%;
@@ -13,30 +13,12 @@
   background-color: transparent;
   background-size: cover;
   background-position: center;
-  &.item1 {
-    background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider1.jpg);
-  }
-  &.item2 {
-    background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider2.jpg);
-  }
-  &.item3 {
-    background-image: url(http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-3.jpg);
-  }
 }
 .SliderImgc3 {
   height: 100%;
   width: 100%;
   background-size: cover;
   background-position: center;
-  &.c3I1 {
-    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-2.jpg);
-  }
-  &.c3I2 {
-    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-3.jpg);
-  }
-  &.c3I3 {
-    background-image: url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/slider3-2.jpg);
-  }
 }
 .cover {
   display: none;
@@ -257,19 +239,18 @@
   .left {
     left: 0;
 
-    background-color: rgb(29, 28, 28);
     animation: lefAnimation 2s ease-in-out;
   }
   .right {
     right: 0;
-    background-color: rgb(218, 22, 22);
+
     animation: rightAnimation 2s ease-in-out;
   }
   .center {
     z-index: 1;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgb(94, 218, 22);
+
     animation: centerAnimation 2s ease-in-out;
   }
 }

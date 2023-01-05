@@ -1,3 +1,4 @@
+import { intro } from "../../public/staticImage";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import css from "./headerStyle.module.scss";
 
@@ -7,13 +8,12 @@ interface HeaderProps {
 }
 
 export function HeaderContact({ page, img }: HeaderProps) {
-  const vi =
-    "https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/blog10_518c7ab0-ce3f-4092-a34a-be939cb0b851.jpg";
+  
   return (
     <div className={css.headerContainer}>
       <div className={css.coverLayout}>
         <div
-          style={{ backgroundImage: `url(${img || vi})` }}
+          style={{ backgroundImage: `url(${img || intro.src})` }}
           className={[css.backgroundColorContent, css.fill].join(" ")}
         ></div>
         <div className={[css.overlay, css.fill].join(" ")}></div>

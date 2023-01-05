@@ -4,6 +4,7 @@ import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import Link from "next/link";
+import { slider1, slider2, slider3, slider3ex } from "../../public/staticImage";
 
 export function HomeCarousel() {
   const [change, setChange] = useState<Number>(0);
@@ -32,7 +33,10 @@ export function HomeCarousel() {
             }}
           >
             <div className={css.sliderItem}>
-              <div className={[css.SliderImg, css.item1].join(" ")}>
+              <div
+                className={[css.SliderImg, css.item1].join(" ")}
+                style={{ backgroundImage: `url(${slider1.src})` }}
+              >
                 <div className={css.cover}></div>
               </div>
               <div className={[css.content, css.c1].join(" ")}>
@@ -55,7 +59,10 @@ export function HomeCarousel() {
               </div>
             </div>
             <div className={css.sliderItem}>
-              <div className={[css.SliderImg, css.item2].join(" ")}>
+              <div
+                className={[css.SliderImg, css.item2].join(" ")}
+                style={{ backgroundImage: `url(${slider2.src})` }}
+              >
                 <div className={css.cover}></div>
               </div>
               <div className={[css.content, css.c2].join(" ")}>
@@ -71,7 +78,10 @@ export function HomeCarousel() {
               </div>
             </div>
             <div className={css.sliderItem}>
-              <div className={[css.SliderImg, css.item3].join(" ")}>
+              <div
+                className={[css.SliderImg, css.item3].join(" ")}
+                style={{ backgroundImage: `url(${slider3.src})` }}
+              >
                 <div className={css.cover}></div>
               </div>
               <div className={[css.content, css.c3].join(" ")}>
@@ -87,17 +97,28 @@ export function HomeCarousel() {
                 <div className={css.c3Item}>
                   <div className={css.left}>
                     <div
-                      className={[css.SliderImgc3, css.c3I1].join(" ")}
+                      className={css.SliderImgc3}
+                      style={{
+                        backgroundImage: `url(${slider3ex.src})`,
+                        backgroundPositionX: "80%",
+                        filter: "brightness(50%)",
+                      }}
                     ></div>
                   </div>
                   <div className={css.center}>
                     <div
-                      className={[css.SliderImgc3, css.c3I2].join(" ")}
+                      className={css.SliderImgc3}
+                      style={{ backgroundImage: `url(${slider3.src})` }}
                     ></div>
                   </div>
                   <div className={css.right}>
                     <div
-                      className={[css.SliderImgc3, css.c3I3].join(" ")}
+                      className={css.SliderImgc3}
+                      style={{
+                        backgroundImage: `url(${slider3ex.src})`,
+                        backgroundPositionX: "80%",
+                        filter: "brightness(50%)",
+                      }}
                     ></div>
                   </div>
                 </div>

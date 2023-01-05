@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import { useAnimation, motion } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { collection1, collection2, collection3 } from "../../public/staticImage";
 
 export function HomeNews() {
   const { ref, inView } = useInView();
@@ -40,7 +41,10 @@ export function HomeNews() {
               <div className={css.itemContainer}>
                 <motion.div animate={animation} className={css.img_content}>
                   <Link href={"/news"}>
-                    <div className={css.img}></div>
+                    <div
+                      className={css.img}
+                      style={{ backgroundImage: `url(${collection1.src})` }}
+                    ></div>
                   </Link>
                 </motion.div>
                 <h1>Chronograph 100M</h1>
@@ -53,10 +57,7 @@ export function HomeNews() {
                   <Link href={"/news"}>
                     <div
                       className={css.img}
-                      style={{
-                        backgroundImage:
-                          "url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/Collection-1.jpg)",
-                      }}
+                      style={{ backgroundImage: `url(${collection2.src})` }}
                     ></div>
                   </Link>
                 </motion.div>
@@ -71,10 +72,7 @@ export function HomeNews() {
                   <Link href={"/news"}>
                     <div
                       className={css.img}
-                      style={{
-                        backgroundImage:
-                          "url(https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/collection-3_830c84fe-6697-4a25-9215-2821602a0c3b.jpg)",
-                      }}
+                      style={{ backgroundImage: `url(${collection3.src})` }}
                     ></div>
                   </Link>
                 </motion.div>

@@ -8,7 +8,7 @@ import {
   SliderProduct,
 } from "../components/HomeComponent";
 
-export default function Home() {
+export default function Home({ posts }: { posts: any }) {
   return (
     <div className="">
       <HomeCarousel></HomeCarousel>
@@ -20,4 +20,13 @@ export default function Home() {
       <OutBlog></OutBlog>
     </div>
   );
+}
+export async function getStaticProps() {
+  const posts = "";
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }

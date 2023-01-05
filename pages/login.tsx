@@ -40,7 +40,6 @@ export default function Login() {
   }, []);
 
   auth.onAuthStateChanged((user) => {
-    
     if (user) {
       if (user.emailVerified) {
         router.push("/");
@@ -50,10 +49,10 @@ export default function Login() {
 
   const onSignIn = (value: any) => {
     console.log(value);
-    loginWithAccountFire(SetLoading, value.Email, value.password);
+    loginWithAccountFire(SetLoading, value.Email, value.passwordI);
   };
   const onSignUp = (value: any) => {
-    handelSingUp(SetLoading,value.Username, value.Email, value.password);
+    handelSingUp(SetLoading, value.Username, value.Email, value.password);
   };
   useEffect(() => {
     if (ref.current) {
@@ -129,7 +128,7 @@ export default function Login() {
                     <Form.Item
                       className={cssCA.nameInput}
                       name={"Email"}
-                      label="Emmail Address"
+                      label="Email Address"
                       rules={[{ required: true, type: "email" }]}
                     >
                       <Input
@@ -141,8 +140,8 @@ export default function Login() {
                     </Form.Item>
                     <Form.Item
                       className={cssCA.nameInput}
-                      name="password"
-                      label="Password"
+                      name="passwordI"
+                      label="PasswordI"
                       rules={[
                         {
                           required: true,
@@ -151,7 +150,7 @@ export default function Login() {
                       ]}
                       hasFeedback
                     >
-                      <Input
+                      <Input.Password
                         type="password"
                         className={[cssCA.inputDiscount, cssD.boxInput].join(
                           " "
@@ -176,9 +175,7 @@ export default function Login() {
                       <li style={{ width: "100%", padding: 0 }}>
                         <GoogleLoginButton
                           className={css.bxlogin}
-                          onClick={() =>
-                            loginWithAccountGoogle(SetLoading)
-                          }
+                          onClick={() => loginWithAccountGoogle(SetLoading)}
                         />
                       </li>
                       <li

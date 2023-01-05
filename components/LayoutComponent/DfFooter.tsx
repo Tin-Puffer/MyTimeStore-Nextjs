@@ -7,22 +7,27 @@ import { SiGmail } from "react-icons/si";
 import { BsGithub, BsTwitter, BsPinterest } from "react-icons/bs";
 import { FaFacebookF, FaPaperPlane } from "react-icons/fa";
 import { AiFillInstagram, AiFillYoutube } from "react-icons/ai";
+import { logo, slider1 } from "../../public/staticImage";
+import Image from "next/image";
 
 export function DfFooter() {
   return (
     <>
-      <div className={[cssH.headerWapper, css.container].join(" ")}>
+      <div
+        className={[cssH.headerWapper, css.container].join(" ")}
+        style={{ backgroundImage: `url(${slider1.src})` }}
+      >
         <div className={cssH.headerMain}>
           <Row>
             <Col className={css.botBox} xs={24} sm={12} md={6}>
               <div className={[css.botBoxContent, css.logo].join(" ")}>
                 <div className={css.logo}>
-                  <img
+                  <Image
+                    alt="sd"
+                    height={80}
+                    src={logo}
                     className={css.imgLogo}
-                    style={{ width: "200px", height: "90px" }}
-                    src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/logo-watch-white-2.png"
-                    alt=""
-                  />
+                  ></Image>
                 </div>
               </div>
             </Col>

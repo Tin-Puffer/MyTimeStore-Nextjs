@@ -6,20 +6,14 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssC from "../ContactComponent/contentStyle.module.scss";
 
 import css from "./introduceStyle.module.scss";
+import { contact, slider3 } from "../../public/staticImage";
 
 export function Introduct() {
-  const imgDecript = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrnxPGBIa4Rao0rN7SlFZ0__hrrhqJ1TSgcVIJ5rnunIzxNmClaoOp7a4jHhCVB4tip_Q&usqp=CAU",
-    ,
-    "https://www.erawatch.vn/wp-content/uploads/2017/09/dewitt-academia-skeleton-1-e1504686496721.jpg",
-    ,
-    "https://cdn3.dhht.vn/wp-content/uploads/2018/07/top-5-dong-ho-co-lo-may-fossil-sieu-dep-ma-gia-cung-re-nhat-ME3099-1.jpg",
-  ];
-  const img =
-    " http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/blog5.jpg";
+ 
+  
   return (
     <div className={css.container}>
-      <HeaderContact img={img} page="giới thiệu"></HeaderContact>
+      <HeaderContact img={contact.src} page="giới thiệu"></HeaderContact>
       <div className={cssP.gridPoduct} style={{ marginTop: "50px" }}>
         <Col xs={18} md={10} lg={10} style={{ margin: "auto   " }}>
           <div className={css.lableHeader}>
@@ -36,7 +30,7 @@ export function Introduct() {
             </p>
           </div>
         </Col>
-        <Row style={{marginBottom:"50px"}}>
+        <Row style={{ marginBottom: "50px" }}>
           <Col xs={24} md={6}>
             <div className={css.colContainer}>
               <div className={css.contentDR}>
@@ -68,7 +62,10 @@ export function Introduct() {
           </Col>
           <Col xs={24} md={12}>
             <div className={css.colContainer}>
-              <img className={css.img}></img>
+              <div
+                className={css.img}
+                style={{ backgroundImage: `url(${slider3.src})` }}
+              ></div>
             </div>
           </Col>
           <Col xs={24} md={6}>

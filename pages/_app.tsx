@@ -22,11 +22,10 @@ function Loading() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleStart = (url: any) => url !== router.asPath && setLoading(true);
-    const handleComplete = (url: any) =>
-      url === router.asPath &&
-      // setTimeout(() => {
-      setLoading(false);
+    const handleStart = (url: any) => setLoading(true);
+    const handleComplete = (url: any) => setLoading(false);
+    // setTimeout(() => {
+
     // }, 5000);
 
     router.events.on("routeChangeStart", handleStart);
@@ -42,7 +41,11 @@ function Loading() {
 
   return loading ? (
     <div className="spinner-wrapper">
-      <div className="spinner"></div>
+      <div className="loader-content">
+        <div className="loader">
+         
+        </div>
+      </div>
     </div>
   ) : (
     <></>

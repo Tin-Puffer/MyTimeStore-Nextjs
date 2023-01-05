@@ -10,13 +10,13 @@ import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import { auth } from "../../FireBase/config";
-
+import Image from "next/image";
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { signOut, User } from "firebase/auth";
 import { LogoutUser } from "../../FireBase/authService";
-
+import { logo, avatar } from "../../public/staticImage";
 export function CartItem() {
   return (
     <>
@@ -108,6 +108,7 @@ export function DefaultHeaderLogo() {
   const searchInput = useRef<HTMLInputElement>(null);
   const [drop, setDrop] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) setUser(user);
@@ -138,10 +139,7 @@ export function DefaultHeaderLogo() {
               <div className={css.logoCenter}>
                 <div className={css.logo}>
                   <Link href={"/"}>
-                    <img
-                      src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/12/logo.png"
-                      className={css.img}
-                    ></img>
+                    <Image alt="sd" height={80} src={logo}></Image>
                   </Link>
                 </div>
               </div>
@@ -176,10 +174,7 @@ export function DefaultHeaderLogo() {
                           <div
                             className={css.userAvata}
                             style={{
-                              backgroundImage: `url(${
-                                user.photoURL ||
-                                "https://media.istockphoto.com/id/1327592449/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?b=1&s=170667a&w=0&k=20&c=GHn-aw4tVt8wpe8PyFBp4PRYNMO473UVUIYtAMxT5l0="
-                              })`,
+                              backgroundImage: `url(${avatar.src})`,
                             }}
                             onClick={() => console.log(user.photoURL)}
                           ></div>
@@ -208,9 +203,8 @@ export function DefaultHeaderLogo() {
                         </>
                       ) : (
                         <>
-                          <div style={{padding:"5px 0"}}>
-
-                          <ImUserTie size="20px" />
+                          <div style={{ padding: "5px 0" }}>
+                            <ImUserTie size="20px" />
                           </div>
                           <div
                             className={[css.cartView, cssD.boxInput].join(" ")}
