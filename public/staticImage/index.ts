@@ -10,7 +10,7 @@ import banner1 from "./banner-1.jpg";
 import banner2 from "./banner-2.jpg";
 import banner3 from "./banner-3.jpg";
 import banner4 from "./banner-4.jpg";
-import collection1 from "./collection-1.jpg";
+import collection1 from "./Collection-1.jpg";
 import collection2 from "./collection-2.jpg";
 import collection3 from "./collection-3.jpg";
 import contact from "./contact.jpg";
