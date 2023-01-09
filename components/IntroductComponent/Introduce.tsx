@@ -1,16 +1,20 @@
 import { Col, Row } from "antd";
 import { FaGitlab } from "react-icons/fa";
 import { HeaderContact } from "../ContactComponent";
+
 import cssP from "../HomeComponent/ProductStyle.module.scss";
-
 import cssC from "../ContactComponent/contentStyle.module.scss";
-
 import css from "./introduceStyle.module.scss";
-import { contact, slider3 } from "../../public/staticImage";
+import {
+  contact,
+  slider3,
+  introduct1,
+  introduct2,
+  introduct3,
+  introduct4,
+} from "../../public/staticImage";
 
 export function Introduct() {
- 
-  
   return (
     <div className={css.container}>
       <HeaderContact img={contact.src} page="giới thiệu"></HeaderContact>
@@ -27,6 +31,7 @@ export function Introduct() {
             <p className={css.decripTitle}>
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
               nonummy nibh.
+
             </p>
           </div>
         </Col>
@@ -35,7 +40,10 @@ export function Introduct() {
             <div className={css.colContainer}>
               <div className={css.contentDR}>
                 <div className={css.content}>
-                  <div className={css.imgContent}></div>
+                  <div
+                    className={css.imgContent}
+                    style={{ backgroundImage: `url(${introduct1.src})` }}
+                  ></div>
                   <h2>Kính Sapphire</h2>
                   <p>
                     Là loại kính có độ bền cao, chống xước tuyệt đối, thường
@@ -48,7 +56,7 @@ export function Introduct() {
                   <div
                     className={css.imgContent}
                     style={{
-                      backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrnxPGBIa4Rao0rN7SlFZ0__hrrhqJ1TSgcVIJ5rnunIzxNmClaoOp7a4jHhCVB4tip_Q&usqp=CAU)`,
+                      backgroundImage: `url(${introduct3.src})`,
                     }}
                   ></div>
                   <h2>Chống nước 5ATM</h2>
@@ -75,7 +83,7 @@ export function Introduct() {
                   <div
                     className={css.imgContent}
                     style={{
-                      backgroundImage: `url(https://www.erawatch.vn/wp-content/uploads/2017/09/dewitt-academia-skeleton-1-e1504686496721.jpg)`,
+                      backgroundImage: `url(${introduct2.src})`,
                     }}
                   ></div>
                   <h2>Máy Miyota</h2>
@@ -89,7 +97,7 @@ export function Introduct() {
                   <div
                     className={css.imgContent}
                     style={{
-                      backgroundImage: `url(https://cdn3.dhht.vn/wp-content/uploads/2018/07/top-5-dong-ho-co-lo-may-fossil-sieu-dep-ma-gia-cung-re-nhat-ME3099-1.jpg)`,
+                      backgroundImage: `url(${introduct4.src})`,
                     }}
                   ></div>
                   <h2>thiết kế cổ điển </h2>
