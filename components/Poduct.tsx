@@ -1,21 +1,38 @@
 import css from "./ProductStyle.module.scss";
 import cssL from "./LayoutComponent/DfHeaderLogo.module.scss";
 import { useRouter } from "next/router";
-export function Product() {
+import { product } from "../common/product/interface";
+export function Product({ product }: { product: product }) {
   const router = useRouter();
+  const priceFormat = product.price.toLocaleString("en-US", {
+    style: "currency",
+    currency: "VND",
+  });
+  var priceNow = "";
+  if (product.deal)
+    priceNow = ((product.price / 100) * (100 - product.deal)).toLocaleString(
+      "en-US",
+      {
+        style: "currency",
+        currency: "VND",
+      }
+    );
   return (
     <div
       className={css.cardContainer}
-      onClick={() => router.push("/product/idproduct")}
+      onClick={() => router.push(`/product/${product.id}`)}
     >
       <div className={css.container}>
         <div className={css.content}>
           <div style={{ position: "relative", height: "100%" }}>
-            <div className={css.Img}>
+            <div
+              className={css.Img}
+              style={{ backgroundImage: `url("${product.image[0]}")` }}
+            >
               <div
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
-                <div className={css.disCount}>-55%</div>
+                <div className={css.disCount}>{product.deal}%</div>
                 <div className={css.addItemBnt}>
                   <div className={cssL.itemIcon}>
                     <ul style={{ marginBottom: "15px", display: "flex" }}>
@@ -37,11 +54,11 @@ export function Product() {
       </div>
       <div className={css.decript}>
         <div className={css.name}>
-          <span>BIG BANG MXM18 SANG BLEU 39</span>
+          <span>{product.name}</span>
         </div>
         <div className={css.price}>
-          <span>18,330,000 ₫ </span> <span> &nbsp;</span>
-          <span>8,330,000 ₫</span>
+          <span>{priceFormat} ₫</span> <span> &nbsp;</span>
+          {product.deal && <span>{priceNow} ₫</span>}
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { product } from "../common/product/interface";
 import {
   HomeCarousel,
   HomeNews,
@@ -7,14 +9,17 @@ import {
   OutBlog,
   SliderProduct,
 } from "../components/HomeComponent";
+import { Fproduct } from "../fakeData/Fproduct";
+import { ProductHomeAPI } from "./api/productAPI/Home";
 
-export default function Home({ posts }: { posts: any }) {
+export default function Home({ productList }: { productList: product[] }) {
+  // console.log("posst", productList[0].name);
   return (
     <div className="">
       <HomeCarousel></HomeCarousel>
       <HomeSelect></HomeSelect>
       <div style={{ padding: "30px 0" }}></div>
-      <HomeProduct></HomeProduct>
+      <HomeProduct products={productList}></HomeProduct>
       <SliderProduct></SliderProduct>
       <HomeNews></HomeNews>
       <OutBlog></OutBlog>
@@ -22,11 +27,11 @@ export default function Home({ posts }: { posts: any }) {
   );
 }
 export async function getStaticProps() {
-  const posts = "";
-
+  const productList: product[] = await ProductHomeAPI.getProduct();
+  // const productList = Fproduct;
   return {
     props: {
-      posts,
+      productList,
     },
   };
 }

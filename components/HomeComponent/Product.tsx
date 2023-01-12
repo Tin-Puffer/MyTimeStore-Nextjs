@@ -5,8 +5,11 @@ import css from "./ProductStyle.module.scss";
 import {  motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
-export function HomeProduct() {
-  const x = [1, 2, 3, 4, 5, 6];
+import { product } from "../../common/product/interface";
+
+
+export function HomeProduct({products}:{products:product[]}) {
+
   const { ref, inView } = useInView();
   const animation = useAnimation();
 
@@ -34,9 +37,9 @@ export function HomeProduct() {
       </div>
       <motion.div animate={animation} ref={ref} className={css.gridPoduct}>
         <Row gutter={[40, 45]} className={css.rowSet}>
-          {x.map((e, i) => (
+          {products.map((e, i) => (
             <Col key={i} xs={24} sm={12} lg={8}>
-              <Product></Product>
+              <Product product={e}></Product>
             </Col>
           ))}
         </Row>

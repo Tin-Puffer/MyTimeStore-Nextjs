@@ -111,8 +111,17 @@ export function DefaultHeaderLogo() {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) setUser(user);
-      else setUser(null);
+      if (user) {
+        setUser(user);
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({
+            id: user.uid,
+            name: user.displayName,
+            image: user.photoURL,
+          })
+        );
+      } else setUser(null);
     });
   }, [auth]);
   useEffect(() => {
@@ -139,7 +148,12 @@ export function DefaultHeaderLogo() {
               <div className={css.logoCenter}>
                 <div className={css.logo}>
                   <Link href={"/"}>
-                    <Image alt="sd" height={80} src={logo}></Image>
+                    <Image
+                      loading="lazy"
+                      alt="sd"
+                      height={80}
+                      src={logo}
+                    ></Image>
                   </Link>
                 </div>
               </div>

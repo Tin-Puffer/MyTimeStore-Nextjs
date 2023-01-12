@@ -23,18 +23,18 @@ export interface authState {
 
 const initAuthLoad = (): authState => {
   if (typeof window !== "undefined") {
-    if (!localStorage.getItem("access_token")) {
+    if (!localStorage.getItem("auth")) {
       return {
         isLogin: false,
         login: false,
         currentUser: undefined,
       };
     } else {
-      // const local = JSON.parse(localStorage?.getItem("user") || "") as string;
+      const user = JSON.parse(localStorage?.getItem("auth") || "") as string;
       return {
         isLogin: true,
         login: false,
-        // currentUser: local,
+        currentUser: user,
       };
     }
   } else

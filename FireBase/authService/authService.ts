@@ -17,6 +17,7 @@ export const LogoutUser = (auth: Auth) => {
     document.cookie =
       "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     console.log("LogOut");
+    localStorage.removeItem('auth')
   }
 };
 export async function loginWithAccountFire(
