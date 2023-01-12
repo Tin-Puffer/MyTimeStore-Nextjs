@@ -4,7 +4,7 @@ import { collection, doc, getDoc, getDocs, limit,query } from "firebase/firestor
 
 import { db } from "../../../FireBase/config";
 const Product = collection(db, "Product");
-const docRef = query(Product, limit(2));
+const docRef = query(Product, limit(6));
 
 
 

@@ -8,7 +8,7 @@ export interface figures {
     brandMaterial: string
     code: string
     caseMaterial: string
-    sex:  1|2|3,
+    sex:  0|1|2,
     lenght: string,
     trademark: string,
     insurance: number,
@@ -24,19 +24,19 @@ export interface review{
 }
 
 export interface product{
-    image:string[];
+    id:string,
     name:string;
     price:number;
     kho:number;
-    category:string[];
     deal?:number;
-    decription?:string[];
-    endOfSale:string;
-    figures:figures,
-    id:string,
-    key:string[],
-    review:review[]
     sold:number
+    endOfSale?:string;
+    image:string[];
+    category:string[];
+    decription?:string[];
+    key:string[],
+    review:review[]|null
+    figures:figures,
 }
 
 

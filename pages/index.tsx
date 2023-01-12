@@ -13,7 +13,7 @@ import { Fproduct } from "../fakeData/Fproduct";
 import { ProductHomeAPI } from "./api/productAPI/Home";
 
 export default function Home({ productList }: { productList: product[] }) {
-  // console.log("posst", productList[0].name);
+  console.log("posst", productList);
   return (
     <div className="">
       <HomeCarousel></HomeCarousel>
@@ -26,9 +26,18 @@ export default function Home({ productList }: { productList: product[] }) {
     </div>
   );
 }
-export async function getStaticProps() {
-  const productList: product[] = await ProductHomeAPI.getProduct();
-  // const productList = Fproduct;
+// export async function getStaticProps() {
+//   // const productList: product[] = await ProductHomeAPI.getProduct();
+//   const productList = Fproduct;
+//   return {
+//     props: {
+//       productList,
+//     },
+//   };
+// }
+export async function getServerSideProps() {
+  // const productList: product[] = await ProductHomeAPI.getProduct();
+  const productList = Fproduct;
   return {
     props: {
       productList,

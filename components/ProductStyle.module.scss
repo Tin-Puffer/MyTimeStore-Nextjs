@@ -46,12 +46,12 @@
 .price {
   margin-top: 5px;
   font-size: 16px;
-  span:first-child {
+  .after {
     font-style: oblique;
     text-decoration: line-through;
     opacity: 0.6;
   }
-  span:last-child {
+  .before {
     text-decoration: none;
     color: black;
     font-weight: bold;

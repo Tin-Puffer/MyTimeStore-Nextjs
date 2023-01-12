@@ -32,7 +32,9 @@ export function Product({ product }: { product: product }) {
               <div
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
-                <div className={css.disCount}>{product.deal}%</div>
+                {product.deal && (
+                  <div className={css.disCount}>{product.deal}%</div>
+                )}
                 <div className={css.addItemBnt}>
                   <div className={cssL.itemIcon}>
                     <ul style={{ marginBottom: "15px", display: "flex" }}>
@@ -57,8 +59,15 @@ export function Product({ product }: { product: product }) {
           <span>{product.name}</span>
         </div>
         <div className={css.price}>
-          <span>{priceFormat} ₫</span> <span> &nbsp;</span>
-          {product.deal && <span>{priceNow} ₫</span>}
+          {product.deal ? (
+            <>
+              <span className={css.after}>{priceFormat} ₫</span>{" "}
+              <span> &nbsp;</span>
+              <span className={css.before}>{priceNow} ₫</span>
+            </>
+          ) : (
+            <span className={css.before}>{priceFormat} ₫</span>
+          )}
         </div>
       </div>
     </div>
