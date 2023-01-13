@@ -2,21 +2,13 @@ import css from "./ProductStyle.module.scss";
 import cssL from "./LayoutComponent/DfHeaderLogo.module.scss";
 import { useRouter } from "next/router";
 import { product } from "../common/product/interface";
+import { formatNew, formatOld } from "../PriceFormat";
 export function Product({ product }: { product: product }) {
   const router = useRouter();
-  const priceFormat = product.price.toLocaleString("en-US", {
-    style: "currency",
-    currency: "VND",
-  });
-  var priceNow = "";
-  if (product.deal)
-    priceNow = ((product.price / 100) * (100 - product.deal)).toLocaleString(
-      "en-US",
-      {
-        style: "currency",
-        currency: "VND",
-      }
-    );
+  const priceFormat = formatOld(product.price);
+
+  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
+
   return (
     <div
       className={css.cardContainer}
@@ -33,7 +25,7 @@ export function Product({ product }: { product: product }) {
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
                 {product.deal && (
-                  <div className={css.disCount}>{product.deal}%</div>
+                  <div className={css.disCount}>-{product.deal}%</div>
                 )}
                 <div className={css.addItemBnt}>
                   <div className={cssL.itemIcon}>

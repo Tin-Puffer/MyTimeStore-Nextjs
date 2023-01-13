@@ -11,10 +11,17 @@ import { CarouselRef } from "antd/es/carousel";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import { useAnimation, motion } from "framer-motion";
-export function SliderItem() {
+import { product } from "../../common/product/interface";
+import { formatNew, formatOld } from "../../PriceFormat";
+export function SliderItem({ sliderItem }: { sliderItem: product }) {
   const { ref, inView } = useInView();
   const animationL = useAnimation();
   const animationR = useAnimation();
+  const priceFormat = formatOld(sliderItem.price);
+  const priceNow = formatNew(
+    sliderItem.price,
+    sliderItem.deal ? sliderItem.deal : 0
+  );
   useEffect(() => {
     if (inView) {
       animationR.start({
@@ -52,29 +59,44 @@ export function SliderItem() {
         >
           {/* <div style={{width:"100%"}}> */}
 
-          <motion.div animate={animationL} className={css.image}>
-            <div className={cssP.disCount} style={{ left: "5%" }}>
-              -55%
-            </div>
+          <motion.div
+            animate={animationL}
+            className={css.image}
+            style={{ backgroundImage: `url("${sliderItem.image[0]}")` }}
+          >
+            {sliderItem.deal && (
+              <div className={cssP.disCount} style={{ left: "5%" }}>
+                -{sliderItem.deal}%
+              </div>
+            )}
           </motion.div>
           {/* </div> */}
         </Col>
         <Col xs={24} md={12}>
           <motion.div animate={animationR} className={css.ContentSlider}>
             <div className={css.textContent}>
-              <h1>OMEGA SEAMASTER 39MM</h1>
+              <h1>{sliderItem.name}</h1>
               <div className={css.driver}></div>
               <div className={css.priceWapper}>
                 <div className={css.productPagePrice}>
-                  <span className={css.oldPrice}>
-                    386,300,000&nbsp;
-                    <span>₫</span>
-                  </span>
-                  <span>&nbsp;&nbsp;</span>
-                  <span>
-                    238,700,000&nbsp;
-                    <span>₫</span>
-                  </span>
+                  {sliderItem.deal ? (
+                    <>
+                      <span className={css.oldPrice}>
+                        {priceFormat}&nbsp;
+                        <span>₫</span>
+                      </span>
+                      <span>&nbsp;&nbsp;</span>
+                      <span>
+                        {priceNow}&nbsp;
+                        <span>₫</span>
+                      </span>
+                    </>
+                  ) : (
+                    <span>
+                      {priceNow}&nbsp;
+                      <span>₫</span>
+                    </span>
+                  )}
                 </div>
               </div>
               <div className={css.productDecription}>
@@ -140,7 +162,7 @@ export function SliderItem() {
     </div>
   );
 }
-export function SliderProduct() {
+export function SliderProduct({ productSlider }: { productSlider: product[] }) {
   const ref = useRef<CarouselRef>(null);
   return (
     <div className={cssH.container}>
@@ -154,10 +176,15 @@ export function SliderProduct() {
         <div className={css.sliderContainer}>
           <div className={css.sliderContent}>
             <Carousel speed={800} dotPosition="bottom" ref={ref}>
+              {productSlider.map((e, i) => (
+                <div key={i}>
+                  <SliderItem sliderItem={e} />
+                </div>
+              ))}
+              {/* <SliderItem />
               <SliderItem />
               <SliderItem />
-              <SliderItem />
-              <SliderItem />
+              <SliderItem /> */}
             </Carousel>
             <div
               className={[css.BtnCarousel, css.prevBtn].join(" ")}

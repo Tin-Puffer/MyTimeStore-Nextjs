@@ -12,15 +12,21 @@ import {
 import { Fproduct } from "../fakeData/Fproduct";
 import { ProductHomeAPI } from "./api/productAPI/Home";
 
-export default function Home({ productList }: { productList: product[] }) {
-  console.log("posst", productList);
+export default function Home({
+  productList,
+  productSlider,
+}: {
+  productList: product[];
+  productSlider: product[];
+}) {
+  // console.log("posst", productList);
   return (
     <div className="">
       <HomeCarousel></HomeCarousel>
       <HomeSelect></HomeSelect>
       <div style={{ padding: "30px 0" }}></div>
       <HomeProduct products={productList}></HomeProduct>
-      <SliderProduct></SliderProduct>
+      <SliderProduct productSlider={productSlider}></SliderProduct>
       <HomeNews></HomeNews>
       <OutBlog></OutBlog>
     </div>
@@ -38,9 +44,12 @@ export default function Home({ productList }: { productList: product[] }) {
 export async function getServerSideProps() {
   // const productList: product[] = await ProductHomeAPI.getProduct();
   const productList = Fproduct;
+  const productSlider = Fproduct;
+
   return {
     props: {
       productList,
+      productSlider,
     },
   };
 }
