@@ -22,7 +22,7 @@ export default function Home({
   // console.log("posst", productList);
   return (
     <div className="">
-      <HomeCarousel></HomeCarousel>
+      {/* <HomeCarousel></HomeCarousel> */}
       <HomeSelect></HomeSelect>
       <div style={{ padding: "30px 0" }}></div>
       <HomeProduct products={productList}></HomeProduct>
@@ -34,17 +34,22 @@ export default function Home({
 }
 // export async function getStaticProps() {
 //   // const productList: product[] = await ProductHomeAPI.getProduct();
-//   const productList = Fproduct;
+//   const productList: any = [];
+//   const productSlider: any = [];
+
 //   return {
 //     props: {
 //       productList,
+//       productSlider,
 //     },
 //   };
 // }
+
 export async function getServerSideProps() {
-  // const productList: product[] = await ProductHomeAPI.getProduct();
-  const productList = Fproduct;
-  const productSlider = Fproduct;
+  const productList: product[] = await ProductHomeAPI.getProduct();
+  const productSlider = await ProductHomeAPI.getProductBestSell();
+  // const productList = Fproduct;
+  // const productSlider = Fproduct;
 
   return {
     props: {

@@ -16,6 +16,16 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+export function LoadingPage() {
+  return (
+    <div className="spinner-wrapper">
+      <div className="loader-content">
+        <div className="loader"></div>
+      </div>
+    </div>
+  );
+}
+
 function Loading() {
   const router = useRouter();
 
@@ -42,9 +52,7 @@ function Loading() {
   return loading ? (
     <div className="spinner-wrapper">
       <div className="loader-content">
-        <div className="loader">
-         
-        </div>
+        <div className="loader"></div>
       </div>
     </div>
   ) : (
