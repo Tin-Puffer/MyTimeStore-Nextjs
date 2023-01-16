@@ -10,6 +10,7 @@ import cssCa from "../CategoryComponent/TitleStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DetailStyle.module.scss";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { product } from "../../common/product/interface";
 export function QuantityComponent({ small = false }: { small?: boolean }) {
   return (
     <div className={[css.quantity, small && css.small].join(" ")}>
@@ -19,9 +20,14 @@ export function QuantityComponent({ small = false }: { small?: boolean }) {
     </div>
   );
 }
-export function DetailProduct() {
+
+export function DetailProduct({ product }: { product: product }) {
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");
+  const [active, setActive] = useState(0);
+  const handelChangeImage = (index: number) => {
+    if (index != active) setActive(index);
+  };
   const handleMouseMove = (e: any) => {
     const { left, top, width, height } = e.target.getBoundingClientRect();
     const x = ((e.pageX - left) / width) * 100;
@@ -41,16 +47,22 @@ export function DetailProduct() {
                   slidesToShow={1}
                   dotPosition="bottom"
                   ref={ref}
-                  beforeChange={(e: any) => console.log(e)}
                   className={css.carousel}
                 >
                   <div>
                     <div className={css.containerImg}>
-                      <div className={css.img} onMouseMove={handleMouseMove}>
+                      <div
+                        className={css.img}
+                        onMouseMove={handleMouseMove}
+                        style={{
+                          backgroundImage: `url("${product.image[active]}")`,
+                        }}
+                      >
                         <div
                           className={css.imgZoom}
                           style={{
                             backgroundPosition: position,
+                            backgroundImage: `url("${product.image[active]}")`,
                           }}
                         ></div>
                       </div>
@@ -58,9 +70,12 @@ export function DetailProduct() {
                   </div>
                   <div className={css.img}></div>
                 </Carousel>
-                <div className={cssPc.disCount} style={{ left: "5%" }}>
-                  -55%
-                </div>
+                {product.deal && (
+                  <div className={cssPc.disCount} style={{ left: "5%" }}>
+                    -{product.deal}%
+                  </div>
+                )}
+
                 <Tooltip title="Zoom">
                   <div className={css.openView}>
                     <FaExpandAlt size={20}></FaExpandAlt>
@@ -83,23 +98,24 @@ export function DetailProduct() {
             </div>
             <div style={{ padding: " 0 30px" }}>
               <Row>
-                <Col span={6}>
-                  <div className={[css.outline, css.active].join(" ")}>
+                {product.image.map((e, i) => (
+                  <Col span={6} key={i}>
                     <div
-                      className={[css.img, css.small].join(" ")}
-                      onClick={() => ref.current?.goTo(0)}
-                    ></div>
-                  </div>
-                </Col>
-
-                <Col span={6}>
-                  <div className={css.outline}>
-                    <div
-                      className={[css.img, css.small].join(" ")}
-                      onClick={() => ref.current?.goTo(1)}
-                    ></div>
-                  </div>
-                </Col>
+                      className={[css.outline, active == i && css.active].join(
+                        " "
+                      )}
+                      onClick={() => handelChangeImage(i)}
+                    >
+                      <div
+                        className={[css.img, css.small].join(" ")}
+                        style={{
+                          backgroundImage: `url("${e}")`,
+                        }}
+                        onClick={() => ref.current?.goTo(0)}
+                      ></div>
+                    </div>
+                  </Col>
+                ))}
               </Row>
             </div>
           </Col>

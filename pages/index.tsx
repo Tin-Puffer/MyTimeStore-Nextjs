@@ -44,7 +44,7 @@ export async function getStaticProps() {
     },
   };
 }
-
+//===========================server main ================
 // export async function getServerSideProps() {
 //   const productList: product[] = await ProductHomeAPI.getProduct();
 //   const productSlider = await ProductHomeAPI.getProductBestSell();
