@@ -2,7 +2,7 @@
 
 
 export  function formatOld(value :number){
-    const priceFormat = value.toLocaleString("en-US", {
+    const priceFormat = value.toLocaleString("it-IT", {
         style: "currency",
         currency: "VND",
       });
@@ -11,7 +11,7 @@ export  function formatOld(value :number){
 export  function formatNew(value :number,percent :number){
 
     const priceNow = ((value / 100) * (100 - percent)).toLocaleString(
-        "en-US",
+        "it-IT",
         {
           style: "currency",
           currency: "VND",

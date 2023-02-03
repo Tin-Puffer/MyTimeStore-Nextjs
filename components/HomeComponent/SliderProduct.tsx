@@ -13,6 +13,7 @@ import { useInView } from "react-intersection-observer";
 import { useAnimation, motion } from "framer-motion";
 import { product } from "../../common/product/interface";
 import { formatNew, formatOld } from "../../PriceFormat";
+import { productDecription } from "../../common/constag";
 export function SliderItem({ sliderItem }: { sliderItem: product }) {
   const { ref, inView } = useInView();
   const animationL = useAnimation();
@@ -100,30 +101,11 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                 </div>
               </div>
               <div className={css.productDecription}>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Sản
-                  phẩm nhập khẩu chính hãng.
-                </p>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Vận
-                  chuyển miễn phí toàn quốc.
-                </p>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Giao
-                  hàng trong ngày.
-                </p>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Thanh
-                  toán sau khi nhận hàng.
-                </p>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
-                  hành 5 năm tại Công ty.
-                </p>
-                <p>
-                  <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
-                  hành chính hãng toàn cầu.
-                </p>
+              {productDecription.map((e,i)=>(
+                    <p key={i}>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} />{e}
+                  </p>
+                  ))}
               </div>
               <div className={css.product_meta}>
                 <span className={css.sku_wrapper}>

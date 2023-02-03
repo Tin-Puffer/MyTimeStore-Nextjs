@@ -5,7 +5,7 @@ import { product } from "../common/product/interface";
 
 export const Fproduct:product[]=[
   {
-    key: [ 'Đồng hồ nữ', 'LOBINNI', 'L5016-3' ],
+    keyWord: [ 'Đồng hồ nữ', 'LOBINNI', 'L5016-3' ],
     figures: {
       insurance: 24,
       brandMaterial: 'Dây da cao cấp',
@@ -22,7 +22,6 @@ export const Fproduct:product[]=[
     deal: 40,
     endOfSale: '10/10/2030',
     image: [
-      'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(18).jpg',
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(18).jpg',
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(4).jpg', 
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(20).jpg',
@@ -45,7 +44,7 @@ export const Fproduct:product[]=[
   {
     deal: 30,
     endOfSale: '20/10/2000',
-    key: [ 'LOBINNI', 'L8886-5' ],
+    keyWord: [ 'LOBINNI', 'L8886-5' ],
     category: [ 'Đồng hồ nam', 'Automatic', 'Hot' ],
     figures: {
       caseMaterial: 'Thép không gỉ 316L',
@@ -65,8 +64,10 @@ export const Fproduct:product[]=[
     image: [
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(12).jpg',
       'https://thegioidongho.vip/uploads/Lobinni_Tourbillon_L8886_(10).jpg',
-      'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(7).jpg'
+      'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(7).jpg',
+
     ],
+
     kho: 100,
     decription: [
       'Ngày 20 tháng 12 năm 1963, Chiếc đồng hồ Lobinni đầu tiên được sinh ra ở Interlaken, Thụy Sĩ. Đây cũng là lúc mở ra cuộc hành trình huyền thoại của những chiếc đồng hồ Lobinni. Thương hiệu đồng hồ Lobinni nhanh chóng được biết đến bởi những thiết kế ấn tượng, chất lượng vượt trội cũng như giá thành khá phù hợp với túi tiền của người tiêu dùng.',
@@ -75,7 +76,7 @@ export const Fproduct:product[]=[
       'Trải qua nhiều thập kỷ, Lobinni đã không ngừng phát triển và đã có những bước tiến vô cùng vuợt bậc. Trong đó có việc chế tạo thành công những chiếc đồng hồ Tourbillon đẳng cấp và sang trọng. Không ngừng học hỏi và ứng dụng nhiều công nghệ mới vào việc chế tác đồng hồ, do đó Đồng hồ Lobinni luôn được đánh giá cao và được nhiều người tiêu dùng ưa thích, lựa chọn.'
     ],
     review: null,
-    id: 'L88865',
+    id: 'L88865', 
     name: 'Đồng hồ nam chính hãng LOBINNI Tourbillon L8886-5'
   },
   {
@@ -86,7 +87,10 @@ export const Fproduct:product[]=[
       'https://thegioidongho.vip/uploads/MF0226-1_(7).jpg',
       'https://thegioidongho.vip/uploads/MF0226-1_(2).jpg',
       'https://thegioidongho.vip/uploads/MF0226-1_(5).jpg',
-      'https://thegioidongho.vip/uploads/MF0226-1_(4).jpg'
+      'https://thegioidongho.vip/uploads/MF0226-1_(4).jpg',
+      'https://thegioidongho.vip/uploads/MF0226-1_(4).jpg',
+    
+
     ],
     category: [ 'Nomal', 'Đồng hồ nữ', 'Hot' ],
     sold: 120,
@@ -104,9 +108,9 @@ export const Fproduct:product[]=[
       trademark: 'Mini Focus'
     },
     kho: 1,
-    name: 'Đồng hồ nữ chính hãng Mini Focus MF0226-1',
+    name: 'Đồng hồ nữ chính hãng Mini Focus MF02261',
     deal: 20,
-    key: [ 'Mini Focus', 'MF0226-1' ],
+    keyWord: [ 'Mini Focus', 'MF0226-1' ],
     id: 'MF0226-1'
   },
   {
@@ -144,7 +148,7 @@ export const Fproduct:product[]=[
     ],
     review: null,
     id: 'L3033-17',
-    key: [ 'LOBINNI', 'L3033-17' ],
+    keyWord: [ 'LOBINNI', 'L3033-17' ],
     endOfSale: '23/11/2020'
   },
   {
@@ -170,7 +174,7 @@ export const Fproduct:product[]=[
     review: null,
     name: 'Đồng hồ đôi chính hãng KASSAW K863-7',
     id: 'K863-7',
-    key: [ 'Nam&Nữ', 'KASSAW', 'K863-8' ],
+    keyWord: [ 'Nam&Nữ', 'KASSAW', 'K863-8' ],
     category: [ 'Đồng hồ cặp đôi', 'Hot', 'Automatic' ],
     price: 16150000,
     kho: 300,
@@ -202,7 +206,7 @@ export const Fproduct:product[]=[
     review: null,
     deal: 32,
     sold: 24,
-    key: [ 'LOBINNI', ' L8886-6', 'Tourbillon' ],
+    keyWord: [ 'LOBINNI', ' L8886-6', 'Tourbillon' ],
     price: 38600000,
     image: [
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(13).jpg',

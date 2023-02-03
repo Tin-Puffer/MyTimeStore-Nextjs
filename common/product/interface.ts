@@ -34,7 +34,7 @@ export interface product{
     image:string[];
     category:string[];
     decription?:string[];
-    key:string[],
+    keyWord:string[],
     review:review[]|null
     figures:figures,
 }

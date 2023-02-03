@@ -53,12 +53,12 @@ export function Product({ product }: { product: product }) {
         <div className={css.price}>
           {product.deal ? (
             <>
-              <span className={css.after}>{priceFormat} ₫</span>{" "}
+              <span className={css.after}>{priceFormat} </span>{" "}
               <span> &nbsp;</span>
-              <span className={css.before}>{priceNow} ₫</span>
+              <span className={css.before}>{priceNow} </span>
             </>
           ) : (
-            <span className={css.before}>{priceFormat} ₫</span>
+            <span className={css.before}>{priceFormat} </span>
           )}
         </div>
       </div>

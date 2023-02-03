@@ -18,7 +18,7 @@ export default function Detail(detailProduct: any) {
   );
 }
 export async function getServerSideProps(context: any) {
-  const detailProduct = Fproduct[4];
+  const detailProduct = Fproduct[2];
   // const detailProduct = await ProductHomeAPI.getDetailProduct(
   //   context.params.id
   // );

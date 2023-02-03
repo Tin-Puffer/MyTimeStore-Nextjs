@@ -11,17 +11,36 @@ import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DetailStyle.module.scss";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { product } from "../../common/product/interface";
+import Link from "next/link";
+import { productDecription } from "../../common/constag";
+import { formatNew, formatOld } from "../../PriceFormat";
 export function QuantityComponent({ small = false }: { small?: boolean }) {
+  const [quantity, setQuantity] = useState(1);
+
   return (
     <div className={[css.quantity, small && css.small].join(" ")}>
-      <input type="button" value="-" className={css.minus}></input>
-      <input type="number" defaultValue={1} className={css.value}></input>
-      <input type="button" value="+" className={css.plus}></input>
+      <input
+        type="button"
+        value="-"
+        className={css.minus}
+        onClick={() => setQuantity((pr) => (pr > 1 ? pr - 1 : pr))}
+      ></input>
+      <input type="number" className={css.value} value={quantity}></input>
+      <input
+        type="button"
+        value="+"
+        className={css.plus}
+        onClick={() => setQuantity((pr) => pr + 1)}
+      ></input>
     </div>
   );
 }
 
 export function DetailProduct({ product }: { product: product }) {
+  const priceFormat = formatOld(product.price);
+
+  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
+
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");
   const [active, setActive] = useState(0);
@@ -42,34 +61,26 @@ export function DetailProduct({ product }: { product: product }) {
           <Col xs={24} sm={24} md={12}>
             <div className={cssO.contentMain}>
               <div className={css.carouselImg}>
-                <Carousel
-                  dots={false}
-                  slidesToShow={1}
-                  dotPosition="bottom"
-                  ref={ref}
-                  className={css.carousel}
-                >
-                  <div>
-                    <div className={css.containerImg}>
+                <div>
+                  <div className={css.containerImg}>
+                    <div
+                      className={css.img}
+                      onMouseMove={handleMouseMove}
+                      style={{
+                        backgroundImage: `url("${product.image[active]}")`,
+                      }}
+                    >
                       <div
-                        className={css.img}
-                        onMouseMove={handleMouseMove}
+                        className={css.imgZoom}
                         style={{
+                          backgroundPosition: position,
                           backgroundImage: `url("${product.image[active]}")`,
                         }}
-                      >
-                        <div
-                          className={css.imgZoom}
-                          style={{
-                            backgroundPosition: position,
-                            backgroundImage: `url("${product.image[active]}")`,
-                          }}
-                        ></div>
-                      </div>
+                      ></div>
                     </div>
                   </div>
-                  <div className={css.img}></div>
-                </Carousel>
+                </div>
+
                 {product.deal && (
                   <div className={cssPc.disCount} style={{ left: "5%" }}>
                     -{product.deal}%
@@ -82,25 +93,19 @@ export function DetailProduct({ product }: { product: product }) {
                   </div>
                 </Tooltip>
               </div>
-              <div
-                className={[cssO.BtnCarousel, cssO.prev].join(" ")}
-                onClick={() => ref.current?.prev()}
-              >
-                <MdNavigateBefore size={50}></MdNavigateBefore>
-              </div>
-
-              <div
-                className={[cssO.BtnCarousel, cssO.next].join(" ")}
-                onClick={() => ref.current?.next()}
-              >
-                <MdNavigateNext size={50}></MdNavigateNext>
-              </div>
             </div>
-            <div style={{ padding: " 0 30px" }}>
-              <Row>
-                {product.image.map((e, i) => (
-                  <Col span={6} key={i}>
+            <div className={cssO.contentMain}>
+              <div>
+                <Carousel
+                  slidesToShow={
+                    product.image.length < 4 ? product.image.length : 4
+                  }
+                  dots={false}
+                  ref={ref}
+                >
+                  {product.image.map((e, i) => (
                     <div
+                      key={i}
                       className={[css.outline, active == i && css.active].join(
                         " "
                       )}
@@ -114,64 +119,63 @@ export function DetailProduct({ product }: { product: product }) {
                         onClick={() => ref.current?.goTo(0)}
                       ></div>
                     </div>
-                  </Col>
-                ))}
-              </Row>
+                  ))}
+                </Carousel>
+              </div>
+              {product.image.length > 4 && (
+                <>
+                  <div
+                    className={[cssO.BtnCarousel, cssO.prev].join(" ")}
+                    onClick={() => ref.current?.prev()}
+                  >
+                    <MdNavigateBefore size={50}></MdNavigateBefore>
+                  </div>
+
+                  <div
+                    className={[cssO.BtnCarousel, cssO.next].join(" ")}
+                    onClick={() => ref.current?.next()}
+                  >
+                    <MdNavigateNext size={50}></MdNavigateNext>
+                  </div>
+                </>
+              )}
             </div>
           </Col>
           <Col xs={24} sm={24} md={12}>
-            <div style={{ padding: " 0 30px" }}>
+            <div className={cssO.contentMain}>
               <div
                 className={cssCa.BreadCrumb}
                 style={{ fontSize: "14px", marginBottom: "10px" }}
               >
-                TRANG CHU / <span>SAN PHAM HOT</span>
+                <Link href={"/"}>TRANG CHU</Link> /{" "}
+                <Link href={"/category/hot"}>SAN PHAM HOT</Link>
               </div>
               <div className={cssS.textContent} style={{ padding: 0 }}>
-                <h1 style={{ fontSize: "26px" }}>
-                  BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM
-                </h1>
+                <h1 style={{ fontSize: "26px" }}>{product.name}</h1>
                 <div className={cssS.driver}></div>
                 <div className={cssS.priceWapper}>
                   <p className={cssS.productPagePrice}>
-                    <span className={cssS.oldPrice}>
-                      386,300,000&nbsp;
-                      <span>₫</span>
-                    </span>
-                    <span>&nbsp;&nbsp;</span>
-                    <span>
-                      238,700,000&nbsp;
-                      <span>₫</span>
-                    </span>
+                    {product.deal ? (
+                      <>
+                        <span className={cssS.oldPrice}>{priceFormat} </span>{" "}
+                        <span> &nbsp;</span>
+                        <span>{priceNow} </span>
+                      </>
+                    ) : (
+                      <span>{priceFormat} </span>
+                    )}
                   </p>
                 </div>
                 <div
                   className={[cssS.productDecription, css.SetSize].join(" ")}
                 >
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Sản
-                    phẩm nhập khẩu chính hãng.
-                  </p>
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Vận
-                    chuyển miễn phí toàn quốc.
-                  </p>
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Giao
-                    hàng trong ngày.
-                  </p>
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Thanh
-                    toán sau khi nhận hàng.
-                  </p>
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
-                    hành 5 năm tại Công ty.
-                  </p>
-                  <p>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Bảo
-                    hành chính hãng toàn cầu.
-                  </p>
+                  {productDecription.map((e, i) => (
+                    <p key={i}>
+                      <RiArrowRightSLine style={{ marginBottom: "-1px" }} />
+                      {e}
+                    </p>
+                  ))}
+
                   <div className={css.call}>
                     <RiArrowRightSLine style={{ marginBottom: "-1px" }} /> Gọi{" "}
                     <span>1800 0091</span> hoặc <span>028 3833 9999 </span> để
@@ -240,13 +244,14 @@ export function DetailProduct({ product }: { product: product }) {
 
                 <div className={cssS.product_meta}>
                   <span className={cssS.sku_wrapper}>
-                    Mã: <p className="sku">77228</p>
+                    Mã: <p className="sku">{product.id}</p>
                   </span>
                   <span className={cssS.posted_in}>
-                    Danh mục: <p>Đồng hồ cặp đôi</p>, <p>Đồng hồ nam</p>
+                    Danh mục: {product.category.map((e,i)=>(<p key={i}>{e} &nbsp;</p>))}
+
                   </span>
                   <span className={cssS.tagged_as}>
-                    Từ khóa: <p>casio</p>, <p>men</p>
+                    Từ khóa: {product.keyWord.map((e,i)=>(<p key={i}>{e} &nbsp;</p>))}
                   </span>
                 </div>
               </div>
