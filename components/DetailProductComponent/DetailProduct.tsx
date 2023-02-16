@@ -263,9 +263,9 @@ export function DetailProduct({ product }: { product: product }) {
                   </span>
                   <span className={cssS.tagged_as}>
                     Từ khóa:{" "}
-                    {product.keyWord.map((e, i) => (
+                    {/* {product.keyWord.map((e, i) => (
                       <p key={i}>{e} &nbsp;</p>
-                    ))}
+                    ))} */}
                   </span>
                 </div>
               </div>
