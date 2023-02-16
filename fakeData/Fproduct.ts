@@ -75,7 +75,22 @@ export const Fproduct:product[]=[
       'Lobinni cam kết chất lượng của sản phẩm luôn là tiêu chí hàng đầu. Mỗi sản phẩm được tạo ra đều xuất phát từ cảm xúc của nghệ nhân sáng tác. Với mỗi chiếc đồng hồ tạo ra chúng đánh dấu khoảng khắc quý giá của của các nghệ nhân và là một phần lịch sử thương hiệu trong chặng đường chinh phục trái tim người yêu đồng hồ',
       'Trải qua nhiều thập kỷ, Lobinni đã không ngừng phát triển và đã có những bước tiến vô cùng vuợt bậc. Trong đó có việc chế tạo thành công những chiếc đồng hồ Tourbillon đẳng cấp và sang trọng. Không ngừng học hỏi và ứng dụng nhiều công nghệ mới vào việc chế tác đồng hồ, do đó Đồng hồ Lobinni luôn được đánh giá cao và được nhiều người tiêu dùng ưa thích, lựa chọn.'
     ],
-    review: null,
+    review: [{
+      avatar: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg",
+      name: "Nguyễn văn tèo",
+      message: "ssản phẩm như cặc",
+      like: 10,
+      disLike: 0,
+      rating: 4,
+    },{
+      avatar: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg",
+      name: "Nguyễn văn A",
+      message: "ssản phẩm Tốt vcl",
+      like: 10,
+      disLike: 0,
+      rating: 5,
+    }],
+    
     id: 'L88865', 
     name: 'Đồng hồ nam chính hãng LOBINNI Tourbillon L8886-5'
   },

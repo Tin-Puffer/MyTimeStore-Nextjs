@@ -12,22 +12,26 @@ export default function Detail(detailProduct: any) {
   return (
     <>
       <DetailProduct product={detailProduct}></DetailProduct>
-      <ProductDecription></ProductDecription>
+      <ProductDecription product={detailProduct}></ProductDecription>
       <SameProduct></SameProduct>
     </>
   );
 }
 export async function getServerSideProps(context: any) {
-  const detailProduct = Fproduct[2];
-  // const detailProduct = await ProductHomeAPI.getDetailProduct(
-  //   context.params.id
-  // );
-  // if (detailProduct.length == 0) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // } else
-  return {
-    props: detailProduct,
-  };
+  // const detailProduct = Fproduct[1];
+
+  const detailProduct = await ProductHomeAPI.getDetailProduct(
+    context.params.id
+  );
+  
+
+  if (detailProduct.length == 0) {
+    return {
+      notFound: true,
+    };
+  } else {
+    return {
+      props: detailProduct,
+    };
+  }
 }

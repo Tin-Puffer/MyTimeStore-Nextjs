@@ -32,24 +32,10 @@ export default function Home({
     </div>
   );
 }
-export async function getStaticProps() {
-  // const productList: product[] = await ProductHomeAPI.getProduct();
-  const productList = Fproduct;
-  const productSlider = Fproduct;
-
-  return {
-    props: {
-      productList,
-      productSlider,
-    },
-  };
-}
-//===========================server main ================
-// export async function getServerSideProps() {
-//   const productList: product[] = await ProductHomeAPI.getProduct();
-//   const productSlider = await ProductHomeAPI.getProductBestSell();
-//   // const productList = Fproduct;
-//   // const productSlider = Fproduct;
+// export async function getStaticProps() {
+//   // const productList: product[] = await ProductHomeAPI.getProduct();
+//   const productList = Fproduct;
+//   const productSlider = Fproduct;
 
 //   return {
 //     props: {
@@ -58,3 +44,17 @@ export async function getStaticProps() {
 //     },
 //   };
 // }
+//===========================server main ================
+export async function getServerSideProps() {
+  const productList: product[] = await ProductHomeAPI.getProduct();
+  const productSlider = await ProductHomeAPI.getProductBestSell();
+  // const productList = Fproduct;
+  // const productSlider = Fproduct;
+
+  return {
+    props: {
+      productList,
+      productSlider,
+    },
+  };
+}

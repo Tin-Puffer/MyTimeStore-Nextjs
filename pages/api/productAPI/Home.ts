@@ -21,7 +21,7 @@ export const ProductHomeAPI = {
         resoult.push(doc.data())
       });
       
-     return resoult;
+     return resoult[0];
 
   },
   getProduct: async()=> {

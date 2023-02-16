@@ -25,7 +25,14 @@ export function QuantityComponent({ small = false }: { small?: boolean }) {
         className={css.minus}
         onClick={() => setQuantity((pr) => (pr > 1 ? pr - 1 : pr))}
       ></input>
-      <input type="number" className={css.value} value={quantity}></input>
+      <input
+        type="number"
+        className={css.value}
+        value={quantity}
+        onChange={(e) => {
+          Number(e.target.value) != 0 && setQuantity(Number(e.target.value));
+        }}
+      ></input>
       <input
         type="button"
         value="+"
@@ -157,9 +164,11 @@ export function DetailProduct({ product }: { product: product }) {
                   <p className={cssS.productPagePrice}>
                     {product.deal ? (
                       <>
-                        <span className={cssS.oldPrice}>{priceFormat} </span>{" "}
-                        <span> &nbsp;</span>
                         <span>{priceNow} </span>
+                        <span> &nbsp;</span>
+                        <span className={cssS.oldPrice}>
+                          {priceFormat}{" "}
+                        </span>{" "}
                       </>
                     ) : (
                       <span>{priceFormat} </span>
@@ -247,11 +256,16 @@ export function DetailProduct({ product }: { product: product }) {
                     Mã: <p className="sku">{product.id}</p>
                   </span>
                   <span className={cssS.posted_in}>
-                    Danh mục: {product.category.map((e,i)=>(<p key={i}>{e} &nbsp;</p>))}
-
+                    Danh mục:{" "}
+                    {product.category.map((e, i) => (
+                      <p key={i}>{e} &nbsp;</p>
+                    ))}
                   </span>
                   <span className={cssS.tagged_as}>
-                    Từ khóa: {product.keyWord.map((e,i)=>(<p key={i}>{e} &nbsp;</p>))}
+                    Từ khóa:{" "}
+                    {product.keyWord.map((e, i) => (
+                      <p key={i}>{e} &nbsp;</p>
+                    ))}
                   </span>
                 </div>
               </div>
