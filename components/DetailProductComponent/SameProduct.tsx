@@ -2,15 +2,21 @@ import cssD from "./DecriptionStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { Carousel } from "antd";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { CarouselRef } from "antd/es/carousel";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { ProductItem } from "../CategoryComponent";
 import css from "./DecriptionStyle.module.scss";
+import { Fproduct } from "../../fakeData/Fproduct";
+import { product } from "../../common/product/interface";
 
 export function SameProduct() {
   const ref = useRef<CarouselRef>(null);
-
+  const [sameProduct, setSameProduct] = useState<product[]>();
+  useEffect(() => {
+    setSameProduct(Fproduct);
+  }, []);
   return (
     <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
       <div className={cssD.decriptionContainter}>
@@ -44,21 +50,12 @@ export function SameProduct() {
             style={{ display: "flex" }}
             className={cssO.carousel}
           >
-            <div className={css.ItemSame}>
-              <ProductItem></ProductItem>
-            </div>
-            <div className={css.ItemSame}>
-              <ProductItem></ProductItem>
-            </div>
-            <div className={css.ItemSame}>
-              <ProductItem></ProductItem>
-            </div>
-            <div className={css.ItemSame}>
-              <ProductItem></ProductItem>
-            </div>
-            <div className={css.ItemSame}>
-              <ProductItem></ProductItem>
-            </div>
+            {sameProduct?.map((e, i) => (
+              <div className={css.ItemSame} key={i}>
+                <ProductItem product={e}></ProductItem>
+              </div>
+            ))}
+           
           </Carousel>
           <div
             className={[cssO.BtnCarousel, cssO.prev].join(" ")}

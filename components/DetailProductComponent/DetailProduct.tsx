@@ -3,7 +3,7 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { Carousel, Col, Row, Tooltip } from "antd";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
@@ -14,6 +14,7 @@ import { product } from "../../common/product/interface";
 import Link from "next/link";
 import { productDecription } from "../../common/constag";
 import { formatNew, formatOld } from "../../PriceFormat";
+import { Fproduct } from "../../fakeData/Fproduct";
 export function QuantityComponent({ small = false }: { small?: boolean }) {
   const [quantity, setQuantity] = useState(1);
 
@@ -61,6 +62,7 @@ export function DetailProduct({ product }: { product: product }) {
     setPosition(`${x}% ${y}%`);
     console.log("ss");
   };
+
   return (
     <>
       <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>

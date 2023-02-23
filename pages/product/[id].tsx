@@ -18,20 +18,22 @@ export default function Detail(detailProduct: any) {
   );
 }
 export async function getServerSideProps(context: any) {
-  // const detailProduct = Fproduct[1];
+  const detailProduct = Fproduct[1];
 
-  const detailProduct = await ProductHomeAPI.getDetailProduct(
-    context.params.id
-  );
-  
+  // const detailProduct = await ProductHomeAPI.getDetailProduct(
+  //   context.params.id
+  // );
 
-  if (detailProduct.length == 0) {
-    return {
-      notFound: true,
-    };
-  } else {
-    return {
-      props: detailProduct,
-    };
-  }
+  // if (detailProduct.length == 0) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // } else {
+  //   return {
+  //     props: detailProduct,
+  //   };
+  // }
+  return {
+    props: detailProduct,
+  };
 }

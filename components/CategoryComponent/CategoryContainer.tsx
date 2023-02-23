@@ -5,6 +5,8 @@ import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
 import css from "./ContainerStyle.module.scss";
 import Link from "next/link";
+import { product } from "../../common/product/interface";
+import { formatNew, formatOld } from "../../PriceFormat";
 
 export function SliderInput() {
   const [a, sa] = useState([1, 700]);
@@ -31,7 +33,6 @@ export function SliderInput() {
         Giá <span className="from">{a[0]},000,000&nbsp;₫</span> —{" "}
         <span className="to">{a[1]},000,000&nbsp;₫</span>
       </div>
-     
     </>
   );
 }
@@ -184,11 +185,19 @@ export function CategoryLeft() {
     </>
   );
 }
-export function ProductItem() {
+export function ProductItem({ product }: { product: product }) {
+  const priceFormat = formatOld(product.price);
+
+  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
   return (
     <Link href={"/product/hot"}>
       <div className={css.itemContainer}>
-        <div className={css.img}>
+        <div
+          className={css.img}
+          style={{
+            backgroundImage: `url("${product.image[0]}")`,
+          }}
+        >
           <ul style={{ margin: 0, display: "flex" }}>
             <span className={[cssL.cartIcon, css.cartIcon].join(" ")}>
               <strong className={cssL.itemOnCart}>+</strong>
@@ -196,24 +205,28 @@ export function ProductItem() {
           </ul>
         </div>
         <div className={css.decript}>
-          <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
-            -55%
-          </div>
-          <span className={css.name}>BIG BANG MXM18 SANG BLEU 39</span>
+          {product.deal && (
+            <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
+              -{product.deal}%
+            </div>
+          )}
+          <span className={css.name}>{product.name}</span>
           <div
             className={[css.price, css.Item].join(" ")}
             style={{ textAlign: "center" }}
           >
+            {product.deal&&(
+
             <del className={css.old}>
-              {" "}
               <span>
-                739,370,000&nbsp;<span>₫</span>
+                <span>{priceFormat}</span>
+                <span> &nbsp;</span>
               </span>
             </del>
+            )}
             <ins className={css.new}>
-              {" "}
               <span>
-                739,370,000&nbsp;<span>₫</span>
+                <span>{priceNow}</span>
               </span>
             </ins>
           </div>
@@ -231,7 +244,7 @@ export function CategoryContainer() {
         </Col>
         <Col xs={24} md={24} lg={18} style={{ margin: "30px 0" }}>
           <Row gutter={[20, 30]}>
-            <Col xs={12} sm={12} md={8}>
+            {/* <Col xs={12} sm={12} md={8}>
               <ProductItem></ProductItem>
             </Col>
             <Col xs={12} sm={12} md={8}>
@@ -245,7 +258,7 @@ export function CategoryContainer() {
             </Col>
             <Col xs={12} sm={12} md={8}>
               <ProductItem></ProductItem>
-            </Col>
+            </Col> */}
           </Row>
         </Col>
       </Row>
