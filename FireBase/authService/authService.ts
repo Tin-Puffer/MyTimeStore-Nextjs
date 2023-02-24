@@ -19,6 +19,8 @@ export const LogoutUser = (auth: Auth) => {
     console.log("LogOut");
     localStorage.removeItem('auth')
   }
+  
+
 };
 export async function loginWithAccountFire(
   setLoading: Function,

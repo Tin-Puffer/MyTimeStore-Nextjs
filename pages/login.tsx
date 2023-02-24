@@ -20,7 +20,9 @@ import {
   loginWithAccountGoogle,
 } from "../FireBase/authService";
 import { loginWithAccountFacebook } from "../FireBase/authService";
-import { slider1, slider2, slider3 } from "../public/staticImage";
+import { slider1, slider2 } from "../public/staticImage";
+import { useAppDispatch } from "../app/Hook";
+import { authAction } from "../app/splice/authSlipe";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
@@ -31,7 +33,6 @@ export default function Login() {
   const [page, setPage] = useState(0);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-
   const SetLoading = useCallback((value: boolean) => {
     setIsLoading(value);
   }, []);
@@ -40,13 +41,16 @@ export default function Login() {
     router.push("/");
   }, []);
 
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      if (user.emailVerified) {
-        router.push("/");
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        if (user.emailVerified) {
+          router.push("/");
+    
+        }
       }
-    }
-  });
+    });
+  }, [auth]);
 
   const onSignIn = (value: any) => {
     console.log(value);

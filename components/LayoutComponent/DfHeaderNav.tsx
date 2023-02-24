@@ -1,10 +1,10 @@
 import css from "./DfHeaderNav.module.scss";
 
-import { Col, Row } from "antd";
+import { Col } from "antd";
 import { useEffect } from "react";
 import Link from "next/link";
-import { BsChevronDown } from "react-icons/bs";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export function DfHeaderNav() {
   useEffect(() => {
@@ -16,33 +16,36 @@ export function DfHeaderNav() {
     });
     return window.removeEventListener("scroll", () => {});
   }, []);
+  const router = useRouter();
+  const { Type } = router.query;
+
   return (
     <>
       <div className={[css.container, "navContent"].join(" ")}>
         <Col xs={0} md={24}>
           <div className={css.content}>
             <ul className={css.category}>
-              <li className={css.active}>
+              <li className={router.pathname == "/" ? css.active : ""}>
                 <Link href={"/"}>
                   <p>trang chủ</p>
                 </Link>
               </li>
-              <li>
+              <li className={Type == "hot" ? css.active : ""}>
                 <Link href={"/category/hot"}>
                   <p>sản phẩm hot</p>
                 </Link>
               </li>
-              <li>
+              <li className={Type == "sale" ? css.active : ""}>
                 <Link href={"/category/sale"}>
                   <p>sale</p>
                 </Link>
               </li>
-              <li>
+              <li className={Type == "woman" ? css.active : ""}>
                 <Link href={"/category/woman"}>
                   <p>đồng hồ nữ</p>
                 </Link>
               </li>
-              <li>
+              <li className={Type == "man" ? css.active : ""}>
                 <Link href={"/category/man"}>
                   <p>đồng hồ nam</p>
                 </Link>
@@ -50,7 +53,7 @@ export function DfHeaderNav() {
               <li>
                 <div className={css.dropDown}>
                   <div>
-                    <p >brands </p>
+                    <p>brands </p>
                     <div className={css.downIcon}>
                       <AiOutlineCaretDown size={15}></AiOutlineCaretDown>{" "}
                     </div>

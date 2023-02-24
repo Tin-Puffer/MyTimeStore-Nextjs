@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
+import { UserF } from "../../common/user";
 import { auth } from "../../FireBase/config";
 // import { user } from '../../model/user';
 
@@ -10,7 +11,7 @@ export interface loginState {
 export interface authState {
   isLogin: boolean;
   login?: boolean;
-  currentUser?: string;
+  currentUser?: UserF;
 }
 //  auth.onAuthStateChanged((user) => {
 //     if (user) {
@@ -30,7 +31,7 @@ const initAuthLoad = (): authState => {
         currentUser: undefined,
       };
     } else {
-      const user = JSON.parse(localStorage?.getItem("auth") || "") as string;
+      const user = JSON.parse(localStorage?.getItem("auth") || "") as UserF;
       return {
         isLogin: true,
         login: false,
@@ -49,6 +50,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initAuthLoad() || {},
   reducers: {
+    clearUser(state){
+      state.login = false;
+      state.isLogin = false;
+      state.currentUser = undefined;
+    },
+    LoginUser(state,action: PayloadAction<UserF>){
+      state.currentUser = action.payload;
+    },
     login(state) {
       // state.login = true;
     },

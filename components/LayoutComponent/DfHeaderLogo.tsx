@@ -14,9 +14,13 @@ import Image from "next/image";
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
 import { GoSignIn, GoSignOut } from "react-icons/go";
-import { signOut, User } from "firebase/auth";
+import { User } from "firebase/auth";
 import { LogoutUser } from "../../FireBase/authService";
 import { logo, avatar } from "../../public/staticImage";
+import { useAppDispatch } from "../../app/Hook";
+import { authAction } from "../../app/splice/authSlipe";
+import { UserAPI } from "../../pages/api/userAPI/user";
+import { async } from "@firebase/util";
 export function CartItem() {
   return (
     <>
@@ -108,19 +112,22 @@ export function DefaultHeaderLogo() {
   const searchInput = useRef<HTMLInputElement>(null);
   const [drop, setDrop] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const dispactch = useAppDispatch();
 
+  async function setUserss() {
+    if (user) {
+      const userx = await UserAPI.getUser(user.uid);
+      dispactch(authAction.LoginUser(userx));
+      localStorage.setItem("auth", JSON.stringify(userx));
+    }
+  }
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        localStorage.setItem(
-          "auth",
-          JSON.stringify({
-            id: user.uid,
-            name: user.displayName,
-            image: user.photoURL,
-          })
-        );
+        setUserss();
+
+        // dispactch(authAction.LoginUser('xx'))
       } else setUser(null);
     });
   }, [auth]);
@@ -203,7 +210,12 @@ export function DefaultHeaderLogo() {
                           >
                             <div>
                               <ul className={css.userMenu}>
-                                <li onClick={() => LogoutUser(auth)}>
+                                <li
+                                  onClick={() => {
+                                    LogoutUser(auth);
+                                    dispactch(authAction.clearUser());
+                                  }}
+                                >
                                   <GoSignOut
                                     size={20}
                                     style={{
