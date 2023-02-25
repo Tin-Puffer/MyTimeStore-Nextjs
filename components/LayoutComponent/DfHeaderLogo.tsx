@@ -20,7 +20,8 @@ import { logo, avatar } from "../../public/staticImage";
 import { useAppDispatch } from "../../app/Hook";
 import { authAction } from "../../app/splice/authSlipe";
 import { UserAPI } from "../../pages/api/userAPI/user";
-import { async } from "@firebase/util";
+import { CartAPI } from "../../pages/api/Cart";
+import { cartAction } from "../../app/splice/cartSlipe";
 export function CartItem() {
   return (
     <>
@@ -121,14 +122,25 @@ export function DefaultHeaderLogo() {
       localStorage.setItem("auth", JSON.stringify(userx));
     }
   }
+  async function setCart() {
+    if (user ) {
+      dispactch(cartAction.LoadingCart(user.uid));
+      // const Cart = await CartAPI.getCart(user.uid);
+      // localStorage.setItem("cart", JSON.stringify(Cart));
+      // console.log(Cart);
+    }
+  }
+  useEffect(() => {
+    if (user) {
+      setUserss();
+      setCart();
+    }
+  }, [user]);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        setUserss();
-
-        // dispactch(authAction.LoginUser('xx'))
-      } else setUser(null);
+      }
     });
   }, [auth]);
   useEffect(() => {
@@ -195,7 +207,6 @@ export function DefaultHeaderLogo() {
                           <div
                             className={css.userAvata}
                             style={{
-                              // backgroundImage: `url({}${avatar.src})`,
                               backgroundImage: `url(${
                                 user.photoURL || avatar.src
                               })`,
@@ -213,6 +224,7 @@ export function DefaultHeaderLogo() {
                                 <li
                                   onClick={() => {
                                     LogoutUser(auth);
+                                    setUser(null);
                                     dispactch(authAction.clearUser());
                                   }}
                                 >

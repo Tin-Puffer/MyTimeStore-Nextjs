@@ -3,12 +3,14 @@ import creatSAGA from "redux-saga";
 import rootSaga from "./rootSaga";
 import { createWrapper } from "next-redux-wrapper";
 import { authReducer } from "./splice/authSlipe";
+import { cartReducer } from "./splice/cartSlipe";
 
 const sagaMiddleware = creatSAGA();
 export const store =
   configureStore({
     reducer: {
       auth: authReducer,
+      cart: cartReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

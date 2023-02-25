@@ -18,9 +18,8 @@ export const LogoutUser = (auth: Auth) => {
       "islogin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     console.log("LogOut");
     localStorage.removeItem('auth')
+    localStorage.removeItem('cart')
   }
-  
-
 };
 export async function loginWithAccountFire(
   setLoading: Function,

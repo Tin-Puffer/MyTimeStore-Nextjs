@@ -46,10 +46,10 @@ export default function Home({
 // }
 //===========================server main ================
 export async function getServerSideProps() {
-  const productList: product[] = await ProductHomeAPI.getProduct();
-  const productSlider = await ProductHomeAPI.getProductBestSell();
-  // const productList = Fproduct;
-  // const productSlider = Fproduct;
+  // const productList: product[] = await ProductHomeAPI.getProduct();
+  // const productSlider = await ProductHomeAPI.getProductBestSell();
+  const productList = Fproduct;
+  const productSlider = Fproduct;
 
   return {
     props: {
