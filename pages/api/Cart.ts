@@ -10,14 +10,15 @@ const User = collection(db, "Cart");
 
 export const CartAPI = {
   getCart: async(id:string)=> {
-    const listPRoduct=  await getDocs(query(User, where("UserID", "==", id),where("Status","==",0)))
+    console.log("run")
+    const listPRoduct=  await getDocs(query(User, where("UserID", "==", id)))
     const resoult:any=[]
     listPRoduct.forEach((doc) => {
         resoult.push(doc.data())
       });
       
+      console.log(resoult[0])
      return resoult[0];
-
   },
   
 };

@@ -8,12 +8,15 @@ import { cartAction, cartState, ProductSlI } from "../splice/cartSlipe";
 
 const callApiUser = async (uid: string) => {
     const Cart =await CartAPI.getCart(uid);
-    let lisproduct:any=null
-   const x=Cart.ItemList.map((item:any)=>{
-    return item.ProductID
-   })
+ 
+  //  const x =Cart.ItemList.map((item:any)=>{
+  //   return item.ProductID
+  //  })
     
-   return  lisproduct = await ProductHomeAPI.getCartlist(x)
+  console.log("list  cua toi",Cart);
+   const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
+
+   return list
 //     console.log("danhsach",xx)
     
 //     const resoult:cartState= {Uid:uid,isLoading:true,loading:false,ProductSl:[...xx] }
@@ -26,8 +29,9 @@ const callApiUser = async (uid: string) => {
 
 function* handleLogin(value: string) {
   try {
-    const  resoult: product[]  = yield call(callApiUser, value);
+    const  resoult: any[]  = yield call(callApiUser, value);
     
+    console.log("nhav",resoult);
 
     
     

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { product } from "../../common/product/interface";
+import { Fproduct } from "../../fakeData/Fproduct";
 import { auth } from "../../FireBase/config";
 
 
@@ -10,7 +11,9 @@ export interface ProductSlI {
   image:string;
   price: number;
 discount?: number;
-endSale?:string
+endSale?:string;
+quantity: number;
+
 }
 export interface cartState {
   isLoading: boolean,
@@ -44,22 +47,35 @@ const initAuthLoad = (): cartState => {
     };
 };
 
-function covertProductList (pr:product[]){
-  console.log(pr);
-  const nnnmm:ProductSlI[]=[]
-  pr.forEach(p=>{
+function covertProductList (pr:any){
+  
+  const prrr=[...pr]
+  const pr2=Fproduct;
+
+
+
+  console.log("chieu dai cua pr",pr.length);
+  console.log("chieu dai cua prrrr",pr2.length);
+
+  const nnnmm:any=[]
+  prrr.forEach(p=>{
     const xxx:ProductSlI= {
       Pid: p.id,
       name: p.name,
       image:p.image[0],
       price: p.price,
-    discount: p.deal,
-    endSale:p.endOfSale,
-    }
-    nnnmm.push(xxx)
-  })
+      discount: p.deal,
+       endSale:p.endOfSale,
+       quantity:1
+     }
+      nnnmm.push(xxx)
+      console.log("chay vong lap")
+      
+    })
+   
   console.log(nnnmm);
-  return nnnmm
+  
+  return 1
 }
 const cartSlice = createSlice({
   name: "cart",
@@ -72,10 +88,12 @@ const cartSlice = createSlice({
       state.Uid = action.payload;
       
     },
-    LoadingCartSucess(state,action: PayloadAction<product[]>){
+    LoadingCartSucess(state,action: PayloadAction<any[]>){
       state.isLoading = false;
       state.loading = false;
-      state.ProductSl = covertProductList(action.payload);
+      console.log(action.payload);
+
+      // state.ProductSl = covertProductList(action.payload);
 
     },
     CartLoadingFailed(state) {
