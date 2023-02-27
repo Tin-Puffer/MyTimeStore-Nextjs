@@ -62,7 +62,7 @@ export const ProductHomeAPI = {
           resolve(listrs)
           clearInterval(time)
         }
-      },100)
+      },800)
   })
    return await promise.then((list)=>{
     return list;

@@ -8,11 +8,10 @@ import { cartAction, cartState, ProductSlI } from "../splice/cartSlipe";
 
 const callApiUser = async (uid: string) => {
     const Cart =await CartAPI.getCart(uid);
- 
-  //  const x =Cart.ItemList.map((item:any)=>{
-  //   return item.ProductID
-  //  })
     
+    if(Cart.ItemList.length == 0){
+      return undefined
+    }
   console.log("list  cua toi",Cart);
    const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
 
@@ -30,14 +29,12 @@ const callApiUser = async (uid: string) => {
 function* handleLogin(value: string) {
   try {
     const  resoult: any[]  = yield call(callApiUser, value);
-    
-    console.log("nhav",resoult);
+
 
     
     
     if (resoult) {
         yield put(cartAction.LoadingCartSucess(resoult));
-        // localStorage.setItem('cart', JSON.stringify(resoult1));
     } else {
         yield put(cartAction.CartLoadingFailed());
     }

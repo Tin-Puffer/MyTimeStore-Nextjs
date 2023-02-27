@@ -33,7 +33,13 @@ export const loginWithAccountGoogle = async (setLoading: Function) => {
         }).catch((err) => {
           setLoading(false);
           alert(err);
-        });
+        }
+        )
+         addDoc(collection(db, "Cart"), {
+          ItemList: [],
+          UserID: user.uid
+        })
+
       }
       // ...
     })

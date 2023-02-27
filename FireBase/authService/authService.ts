@@ -98,6 +98,10 @@ export const handelSingUp = async (
           setLoading(false);
           console.log(err);
         });
+        await addDoc(collection(db, "Cart"), {
+          ItemList: [],
+          UserID: user.uid
+        })
     })
     .catch((error) => {
       setLoading(false);

@@ -40,7 +40,11 @@ export const loginWithAccountFacebook = async (
         }).catch((err) => {
           setLoading(false);
           alert(err);
-        });
+        })
+        await addDoc(collection(db, "Cart"), {
+          ItemList: [],
+          UserID: user.uid
+        })
       }
 
       FN();
