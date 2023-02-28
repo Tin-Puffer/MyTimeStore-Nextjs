@@ -21,7 +21,8 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
   const priceFormat = formatOld(sliderItem.price);
   const priceNow = formatNew(
     sliderItem.price,
-    sliderItem.deal ? sliderItem.deal : 0
+    sliderItem.deal,
+    sliderItem.endOfSale
   );
   useEffect(() => {
     if (inView) {
@@ -65,7 +66,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
             className={css.image}
             style={{ backgroundImage: `url("${sliderItem.image[0]}")` }}
           >
-            {sliderItem.deal && (
+            {priceNow && (
               <div className={cssP.disCount} style={{ left: "5%" }}>
                 -{sliderItem.deal}%
               </div>
@@ -80,7 +81,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
               <div className={css.driver}></div>
               <div className={css.priceWapper}>
                 <div className={css.productPagePrice}>
-                  {sliderItem.deal ? (
+                  {priceNow ? (
                     <>
                       <span className={css.oldPrice}>
                         {priceFormat}&nbsp;
@@ -94,18 +95,19 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                     </>
                   ) : (
                     <span>
-                      {priceNow}&nbsp;
+                      {priceFormat}&nbsp;
                       <span>₫</span>
                     </span>
                   )}
                 </div>
               </div>
               <div className={css.productDecription}>
-              {productDecription.map((e,i)=>(
-                    <p key={i}>
-                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} />{e}
+                {productDecription.map((e, i) => (
+                  <p key={i}>
+                    <RiArrowRightSLine style={{ marginBottom: "-1px" }} />
+                    {e}
                   </p>
-                  ))}
+                ))}
               </div>
               <div className={css.product_meta}>
                 <span className={css.sku_wrapper}>

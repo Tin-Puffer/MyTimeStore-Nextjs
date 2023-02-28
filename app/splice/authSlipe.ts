@@ -10,7 +10,7 @@ export interface loginState {
 }
 export interface authState {
   isLogin: boolean;
-  login?: boolean;
+  login: boolean;
   currentUser?: UserF;
 }
 //  auth.onAuthStateChanged((user) => {
@@ -23,22 +23,22 @@ export interface authState {
 //   });
 
 const initAuthLoad = (): authState => {
-  if (typeof window !== "undefined") {
-    if (!localStorage.getItem("auth")) {
-      return {
-        isLogin: false,
-        login: false,
-        currentUser: undefined,
-      };
-    } else {
-      const user = JSON.parse(localStorage?.getItem("auth") || "") as UserF;
-      return {
-        isLogin: true,
-        login: false,
-        currentUser: user,
-      };
-    }
-  } else
+  // if (typeof window !== "undefined") {
+  //   if (!localStorage.getItem("auth")) {
+  //     return {
+  //       isLogin: false,
+  //       login: false,
+  //       currentUser: undefined,
+  //     };
+  //   } else {
+  //     const user = JSON.parse(localStorage?.getItem("auth") || "") as UserF;
+  //     return {
+  //       isLogin: true,
+  //       login: false,
+  //       currentUser: user,
+  //     };
+  //   }
+  // } else
     return {
       isLogin: false,
       login: false,
@@ -55,16 +55,13 @@ const authSlice = createSlice({
       state.isLogin = false;
       state.currentUser = undefined;
     },
-    LoginUser(state,action: PayloadAction<UserF>){
+    LoginUser(state,action: PayloadAction<string>){
+      state.isLogin=true,
+      state.login = true;
+    },
+    loginSuccess(state,action: PayloadAction<UserF>) {
+      state.login = false;
       state.currentUser = action.payload;
-    },
-    login(state) {
-      // state.login = true;
-    },
-    loginSuccess(state, action: PayloadAction<string>) {
-      // state.login = false;
-      // state.isLogin = true;
-      // state.currentUser = action.payload;
     },
     loginFailed(state, action: PayloadAction<String>) {
       // state.login = false;

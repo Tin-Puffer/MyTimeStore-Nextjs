@@ -47,7 +47,7 @@ export function QuantityComponent({ small = false }: { small?: boolean }) {
 export function DetailProduct({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
+  const priceNow = formatNew(product.price, product.deal,product.endOfSale);
 
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");
@@ -90,7 +90,7 @@ export function DetailProduct({ product }: { product: product }) {
                   </div>
                 </div>
 
-                {product.deal && (
+                {priceNow && (
                   <div className={cssPc.disCount} style={{ left: "5%" }}>
                     -{product.deal}%
                   </div>
@@ -164,7 +164,7 @@ export function DetailProduct({ product }: { product: product }) {
                 <div className={cssS.driver}></div>
                 <div className={cssS.priceWapper}>
                   <p className={cssS.productPagePrice}>
-                    {product.deal ? (
+                    {priceNow ? (
                       <>
                         <span>{priceNow} </span>
                         <span> &nbsp;</span>

@@ -188,7 +188,7 @@ export function CategoryLeft() {
 export function ProductItem({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
+  const priceNow = formatNew(product.price, product.deal,product.endOfSale);
   return (
     <Link href={"/product/hot"}>
       <div className={css.itemContainer}>
@@ -205,7 +205,7 @@ export function ProductItem({ product }: { product: product }) {
           </ul>
         </div>
         <div className={css.decript}>
-          {product.deal && (
+          {priceNow && (
             <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
               -{product.deal}%
             </div>
@@ -215,7 +215,7 @@ export function ProductItem({ product }: { product: product }) {
             className={[css.price, css.Item].join(" ")}
             style={{ textAlign: "center" }}
           >
-            {product.deal&&(
+            {priceNow &&(
 
             <del className={css.old}>
               <span>
@@ -226,7 +226,7 @@ export function ProductItem({ product }: { product: product }) {
             )}
             <ins className={css.new}>
               <span>
-                <span>{priceNow}</span>
+                <span>{priceNow || priceFormat}</span>
               </span>
             </ins>
           </div>

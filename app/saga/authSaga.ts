@@ -1,49 +1,41 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { call, fork, put, take } from "redux-saga/effects";
+import { UserF } from "../../common/user";
+import { UserAPI } from "../../pages/api/userAPI/user";
 
-import { authAction, loginState } from "../splice/authSlipe";
+import { authAction } from "../splice/authSlipe";
 
-const callApiUser = async (imfomationLogin: loginState) => {
-  // return await apiMock_1.getUser(imfomationLogin.userName).then((res) =>
-  //  {
-  //     return { res };
-  // });
+const callApiUser = async (Uid: string) => {
+  if(localStorage.getItem("auth")){
+    const user = JSON.parse(localStorage.getItem("auth")||'') as UserF;
+    return user;
+  }else{  
+        console.log("callApiUser load data");
+        const userData= await UserAPI.getUser(Uid);
+        localStorage.setItem("auth", JSON.stringify(userData))
+        return userData;
+    
+  }
 };
-function* handleLogin(value: loginState) {
+function* handleLogin(Uid: string) {
   try {
-    // const { res }: { res: user } = yield call(callApiUser, value);
-    // if (res) {
-    //     yield put(authAction.loginSuccess(res));
-    //     localStorage.setItem('user', JSON.stringify(res));
-    //     localStorage.setItem('access_token', 'TOken');
-    // } else {
-    //     yield put(authAction.loginFailed('loginFailed'));
-    // }
+
+      const  resoult: UserF  = yield call(callApiUser, Uid);
+      // console.log("ket qua",resoult);
+      
+      yield put(authAction.loginSuccess(resoult));
+    
   } catch (error) {
     yield put(authAction.loginFailed("loginFailed"));
   }
 }
 
-function* handleLogout() {
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("user");
-  // yield put(autheMCAction.resetListMC());
-}
-
 function* whatLoginFlow() {
   while (true) {
-    const isLogin = localStorage.getItem("access_token");
-    if (!isLogin) {
-      console.log("chaylogin");
-      const acction: PayloadAction<loginState> = yield take(
-        authAction.login.type
+      const acction: PayloadAction<string> = yield take(
+        authAction.LoginUser.type
       );
       yield call(handleLogin, acction.payload);
-    } else {
-      console.log("chay logout");
-      yield take(authAction.logout.type);
-      yield call(handleLogout);
-    }
   }
 }
 export function* authSaga() {

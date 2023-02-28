@@ -7,7 +7,7 @@ export function Product({ product }: { product: product }) {
   const router = useRouter();
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal ? product.deal : 0);
+  const priceNow = formatNew(product.price, product.deal ,product.endOfSale);
 
   return (
     <div
@@ -24,7 +24,7 @@ export function Product({ product }: { product: product }) {
               <div
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
-                {product.deal && (
+                {priceNow && (
                   <div className={css.disCount}>-{product.deal}%</div>
                 )}
                 <div className={css.addItemBnt}>
@@ -51,7 +51,7 @@ export function Product({ product }: { product: product }) {
           <span>{product.name}</span>
         </div>
         <div className={css.price}>
-          {product.deal ? (
+          {priceNow ? (
             <>
               <span className={css.after}>{priceFormat} </span>{" "}
               <span> &nbsp;</span>

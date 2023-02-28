@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
-import { product } from "../../common/product/interface";
-import { Fproduct } from "../../fakeData/Fproduct";
-import { auth } from "../../FireBase/config";
+import { CartInfirebase } from "../saga/cartSaga";
+
 
 
 export interface ProductSlI {
@@ -18,47 +16,44 @@ quantity: number;
 export interface cartState {
   isLoading: boolean,
   loading: boolean,
-  Uid: string;
-  ProductSl?: ProductSlI[];
+  Cid: string;
+  Userid: string;
+  ProductSl: ProductSlI[];
 }
 
+
+
 const initAuthLoad = (): cartState => {
-  if (typeof window !== "undefined") {
-    if (!localStorage.getItem("cart")) {
-      return {
-        isLoading: false,
-        loading: false,
-        Uid:''
-      };
-    } else {
-      const cart = JSON.parse(localStorage?.getItem("cart") || "") as cartState;
-      return {
-        isLoading: false,
-        loading: true,
-        Uid: cart.Uid,
-        ProductSl: cart.ProductSl
-      };
-    }
-  } else
+  // if (typeof window !== "undefined") {
+  //   if (!localStorage.getItem("cart")) {
+  //     return {
+  //       isLoading: false,
+  //       loading: false,
+  //       Cid:'',
+  //       ProductSl:[]
+  //     };
+  //   } else {
+  //     const cart = JSON.parse(localStorage?.getItem("cart") || "") as cartState;
+  //     return {
+  //       isLoading: false,
+  //       loading: true,
+  //       Cid: cart.Uid,
+  //       ProductSl: cart.ProductSl
+  //     };
+  //   }
+  // } else
     return {
       isLoading: false,
       loading: false,
-      Uid:''
+   Userid: "",
+      
+      Cid:'',
+      ProductSl:[]
     };
 };
-
-function covertProductList (pr:any){
-  
-  const prrr=[...pr]
-  const pr2=Fproduct;
-
-
-
-  console.log("chieu dai cua pr",pr.length);
-  console.log("chieu dai cua prrrr",pr2.length);
-
-  const nnnmm:any=[]
-  prrr.forEach(p=>{
+function covertProductList (pr:any[]){
+  const list:any=[]
+  pr.forEach(p=>{
     const xxx:ProductSlI= {
       Pid: p.id,
       name: p.name,
@@ -66,40 +61,56 @@ function covertProductList (pr:any){
       price: p.price,
       discount: p.deal,
        endSale:p.endOfSale,
-       quantity:1
+       quantity:p.Quantity
      }
-      nnnmm.push(xxx)
-      console.log("chay vong lap")
+     list.push(xxx)
       
     })
-   
-  console.log(nnnmm);
-  
-  return 1
+  return list
 }
+function getcardID(){
+  const cart = JSON.parse(localStorage.getItem('cart') || "") as CartInfirebase;
+
+  return cart.Cid
+  
+}
+
+function deleteItem(id:string,list:ProductSlI[]){
+  localStorage.removeItem('cart')
+  return list.filter(item => item.Pid !== id)
+}
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: initAuthLoad() || {},
   reducers: {
     LoadingCart(state,action: PayloadAction<string>){
-     
       state.isLoading = true;
       state.loading = false;
-      state.Uid = action.payload;
-      
+      state.Userid = action.payload;
     },
     LoadingCartSucess(state,action: PayloadAction<any[]>){
       state.isLoading = false;
-      state.loading = false;
-      console.log(action.payload);
-
-      // state.ProductSl = covertProductList(action.payload);
+      state.loading = true;
+      state.ProductSl = covertProductList(action.payload);
+      state.Cid=getcardID()
 
     },
     CartLoadingFailed(state) {
       state.isLoading= false,
+      state.loading= true,
+      state.ProductSl = [];
+
+    },
+    clearCart(state){
+      state.isLoading= false,
       state.loading= false,
-      state.Uid=''
+      state.ProductSl = [];
+    },
+    deleteItem(state,action: PayloadAction<string>){
+      state.ProductSl = deleteItem(action.payload,state.ProductSl);;
+      
+      
     },
     loginSuccess(state, action: PayloadAction<string>) {
       // state.login = false;

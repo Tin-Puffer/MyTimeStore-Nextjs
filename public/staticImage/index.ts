@@ -15,6 +15,7 @@ import introduct1 from "./introduct-1.jpg";
 import introduct2 from "./introduct-2.jpg";
 import introduct3 from "./introduct-3.jpg";
 import introduct4 from "./introduct-4.jpg";
+import empty from "./empty-cart.png";
 
 import collection2 from "./collection-2.jpg";
 import collection3 from "./collection-3.jpg";
@@ -42,4 +43,5 @@ export {
   introduct2,
   introduct3,
   introduct4,
+  empty,
 };

@@ -10,98 +10,128 @@ import { FaSearch } from "react-icons/fa";
 import cssF from "./DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import { auth } from "../../FireBase/config";
-import Image from "next/image";
 import { BsChevronDown } from "react-icons/bs";
 import css from "./DfHeaderLogo.module.scss";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { User } from "firebase/auth";
 import { LogoutUser } from "../../FireBase/authService";
-import { logo, avatar } from "../../public/staticImage";
-import { useAppDispatch } from "../../app/Hook";
+import { logo, avatar, empty } from "../../public/staticImage";
+import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { authAction } from "../../app/splice/authSlipe";
-import { UserAPI } from "../../pages/api/userAPI/user";
+import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
+import Image from "next/image";
 import { CartAPI } from "../../pages/api/Cart";
-import { cartAction } from "../../app/splice/cartSlipe";
-export function CartItem() {
+import openNotification from "../Notifycation/Notification";
+import { checkSale, formatNew, formatOld } from "../../PriceFormat";
+export function CartItem({ item }: { item: ProductSlI }) {
+  const dispactch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.Cid);
+  const priceSale = formatNew(item.price, item.discount, item.endSale);
+  const price = formatOld(item.price);
+
+  const deleteCartItem = async (item: ProductSlI) => {
+    await CartAPI.removeItem({
+      id: item.Pid,
+      quantity: item.quantity,
+      cartId: cart,
+    })
+      .then((res) => {
+        dispactch(cartAction.deleteItem(item.Pid));
+      })
+      .catch((err) => {
+        console.log("loi :", err);
+      });
+  };
   return (
     <>
-      <span className={css.remove}>x</span>
+      <span className={css.remove} onClick={() => deleteCartItem(item)}>
+        x
+      </span>
       <p className={css.nameProductItem}>
-        BIG BANG MXM18 SANG BLEU 39{" "}
-        <img
+        {item.name}
+        <Image
+          alt="Picture of the author"
           width={60}
           height={60}
-          src={
-            "http://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/21-480x480.jpg"
-          }
-        ></img>
+          src={item.image}
+        ></Image>
       </p>
       <p className={css.quantity}>
-        1 ×{" "}
-        <span>
-          739,370,000&nbsp;
-          <span>₫</span>
-        </span>
+        {item.quantity} ×{" "}
+        {priceSale ? <span>{priceSale}</span> : <span>{price}</span>}
       </p>
     </>
   );
 }
 
-export function ListCart() {
+export function ListCart({ listPd, total }: { listPd: any[]; total: string }) {
   return (
-    <div className={css.listItem}>
-      <ul className={css.list}>
-        <li>
-          <CartItem />
-        </li>
-        <li>
-          <CartItem />
-        </li>
-      </ul>
-      <p className={css.totalPrice}>
-        <strong>Tổng:</strong>
-        {"  "}
-        <span>
-          870,719,000&nbsp;
-          <span>₫</span>
-        </span>
-      </p>
-      <div className={css.bnt}>
-        <div
-          className={cssS.button}
-          style={{
-            fontSize: "18px",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <Link href={"/cart"}>
-            <p style={{ padding: "8px 18px" }}>XEM GIỎ HÀNG</p>
-          </Link>
-        </div>
-        <div
-          className={cssS.button}
-          style={{
-            marginTop: ".5em",
-            fontSize: "18px",
-            backgroundColor: "#d26e4b",
-            width: "100%",
-            textAlign: "center",
-          }}
-        >
-          <Link href={"/checkout"}>
-            <p
+    <>
+      {listPd.length > 0 ? (
+        <div className={css.listItem}>
+          <ul className={css.list}>
+            {listPd.map((item, index) => (
+              <li key={index}>
+                <CartItem item={item}></CartItem>
+              </li>
+            ))}
+          </ul>
+          <p className={css.totalPrice}>
+            <strong>Tổng:</strong>
+            {"  "}
+            <span>{total}</span>
+          </p>
+          <div className={css.bnt}>
+            <div
+              className={cssS.button}
               style={{
-                padding: "8px 18px",
-                textTransform: "uppercase",
+                fontSize: "18px",
+                width: "100%",
+                textAlign: "center",
               }}
             >
-              thanh toán
-            </p>
-          </Link>
+              <Link href={"/cart"}>
+                <p style={{ padding: "8px 18px" }}>XEM GIỎ HÀNG</p>
+              </Link>
+            </div>
+            <div
+              className={cssS.button}
+              style={{
+                marginTop: ".5em",
+                fontSize: "18px",
+                backgroundColor: "#d26e4b",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              <Link href={"/checkout"}>
+                <p
+                  style={{
+                    padding: "8px 18px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  thanh toán
+                </p>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className={css.listItem} style={{ padding: "0" }}>
+          <div
+            onClick={() => openNotification("DeleteItemInCart")}
+            style={{
+              backgroundImage: `url(${empty.src})`,
+              backgroundSize: "200%",
+              backgroundPosition: "center",
+              height: "150px",
+              width: "100%",
+            }}
+          ></div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -110,30 +140,35 @@ export function DefaultHeaderLogo() {
   const [openCart, setOpenCart] = useState(false);
   const [onCart, setonCart] = useState(true);
   const [search, setSearch] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+  const [total, setTotal] = useState("");
+
   const searchInput = useRef<HTMLInputElement>(null);
   const [drop, setDrop] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const dispactch = useAppDispatch();
+  const listInCart: ProductSlI[] = useAppSelector(
+    (state) => state.cart.ProductSl
+  );
 
-  async function setUserss() {
-    if (user) {
-      const userx = await UserAPI.getUser(user.uid);
-      dispactch(authAction.LoginUser(userx));
-      localStorage.setItem("auth", JSON.stringify(userx));
-    }
-  }
-  async function setCart() {
-    if (user ) {
-      dispactch(cartAction.LoadingCart(user.uid));
-      // const Cart = await CartAPI.getCart(user.uid);
-      // localStorage.setItem("cart", JSON.stringify(Cart));
-      // console.log(Cart);
-    }
-  }
+  useEffect(() => {
+    setQuantity(listInCart.reduce((acc, item) => acc + item.quantity, 0));
+    setTotal(
+      formatOld(
+        listInCart.reduce(
+          (acc, item) =>
+            acc +
+            (checkSale(item.price, item.discount, item.endSale) || item.price) *
+              item.quantity,
+          0
+        )
+      )
+    );
+  }, [listInCart]);
   useEffect(() => {
     if (user) {
-      setUserss();
-      setCart();
+      dispactch(authAction.LoginUser(user.uid));
+      dispactch(cartAction.LoadingCart(user.uid));
     }
   }, [user]);
   useEffect(() => {
@@ -226,6 +261,7 @@ export function DefaultHeaderLogo() {
                                     LogoutUser(auth);
                                     setUser(null);
                                     dispactch(authAction.clearUser());
+                                    dispactch(cartAction.clearCart());
                                   }}
                                 >
                                   <GoSignOut
@@ -282,9 +318,10 @@ export function DefaultHeaderLogo() {
                           lineHeight: "32px",
                         }}
                       >
-                        1 tỷ cmn đồng .đ
+                        {listInCart.length > 0 ? total : "Empty Cart"}
+
                         <span className={css.cartIcon}>
-                          <strong className={css.itemOnCart}>0</strong>
+                          <strong className={css.itemOnCart}>{quantity}</strong>
                         </span>
                       </p>
                     </Link>
@@ -295,7 +332,7 @@ export function DefaultHeaderLogo() {
                             Chưa có sản phẩm trong giỏ hàng.
                           </p>
                         )}
-                        <ListCart></ListCart>
+                        <ListCart listPd={listInCart} total={total}></ListCart>
                       </div>
                     </div>
                     <div className={css.whiteArow}></div>
@@ -307,7 +344,7 @@ export function DefaultHeaderLogo() {
               <div className={css.itemIcon} onClick={() => setOpenCart(true)}>
                 <ul style={{ margin: 0, display: "flex" }}>
                   <span className={css.cartIcon}>
-                    <strong className={css.itemOnCart}>0</strong>
+                    <strong className={css.itemOnCart}>{quantity}</strong>
                   </span>
                 </ul>
               </div>
@@ -435,7 +472,7 @@ export function DefaultHeaderLogo() {
           ></div>
           {onCart ? (
             <div onClick={() => setOpenCart(false)}>
-              <ListCart></ListCart>
+              <ListCart listPd={listInCart} total={total}></ListCart>
             </div>
           ) : (
             <div>Chưa có sản phẩm trong giỏ hàng.</div>

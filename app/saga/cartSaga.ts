@@ -5,25 +5,47 @@ import { CartAPI } from "../../pages/api/Cart";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
 import { cartAction, cartState, ProductSlI } from "../splice/cartSlipe";
 
+export interface CartInfirebase {
+  Cid:string;
+  UserID:string;
+  ItemList:{ 
+    Quantity:string
+    ProductID:number
+  }[]
+}
+
 
 const callApiUser = async (uid: string) => {
-    const Cart =await CartAPI.getCart(uid);
+  if(localStorage.getItem('cart')){
+    // const Cart =await CartAPI.getCart(uid);
+    const Cart = JSON.parse(localStorage.getItem("cart")||'') as CartInfirebase;
+
     
+    if(Cart==null){
+      console.log("carrt",Cart)
+
+      return undefined
+    }else {
+
+
+      const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
+
+       return list
+    }
+
+  }else{
+    const Cart =await CartAPI.getCart(uid);
+    localStorage.setItem('cart',JSON.stringify(Cart));
     if(Cart.ItemList.length == 0){
       return undefined
     }
-  console.log("list  cua toi",Cart);
    const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
 
    return list
-//     console.log("danhsach",xx)
-    
-//     const resoult:cartState= {Uid:uid,isLoading:true,loading:false,ProductSl:[...xx] }
 
-//   return resoult
-    
-//       localStorage.setItem("cart", JSON.stringify(Cart));
-//       console.log(Cart);
+
+  }
+
 };
 
 function* handleLogin(value: string) {
@@ -46,6 +68,20 @@ function* handleLogin(value: string) {
 
 
 function* whatLoginFlow() {
+  while (true) {
+
+      const acction: PayloadAction<string> = yield take(
+        cartAction.LoadingCart.type
+      );
+      yield call(handleLogin, acction.payload);
+    
+    //   console.log("chay logout");
+    //   yield take(authAction.logout.type);
+    //   yield call(handleLogout);
+    
+  }
+}
+function* whatLoginFlow2() {
   while (true) {
 
       const acction: PayloadAction<string> = yield take(
