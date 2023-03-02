@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { UserF } from "../../common/user";
+import openNotification from "../../components/Notifycation/Notification";
 import { auth } from "../../FireBase/config";
 // import { user } from '../../model/user';
 
@@ -62,6 +63,7 @@ const authSlice = createSlice({
     loginSuccess(state,action: PayloadAction<UserF>) {
       state.login = false;
       state.currentUser = action.payload;
+
     },
     loginFailed(state, action: PayloadAction<String>) {
       // state.login = false;

@@ -4,9 +4,10 @@
 function stringToDate(string:string) {
   return new Date(string);
 }
-function sosanh(strTime:string){
+function sosanh(sateE:string,dateB:string){
   const now = new Date();
-  return now>stringToDate(strTime)
+  return now>stringToDate(sateE) || now<stringToDate(dateB);
+
 }
 
 export  function formatOld(value :number){
@@ -16,15 +17,13 @@ export  function formatOld(value :number){
       });
       return priceFormat;
 }
-export  function formatNew(value :number,percent :number|undefined,date:string|undefined){
-  if(percent===undefined || date===undefined){
+export  function formatNew(value :number,percent :number|undefined,dateE:string|undefined,dateB:string|undefined){
+  if(percent===undefined || dateE===undefined ||dateB===undefined || sosanh(dateE,dateB)){
+
     return undefined
   }
   else{
-    if(sosanh(date)){
-      return undefined
-    }
-    else{
+   
       const priceNow = ((value / 100) * (100 - percent)).toLocaleString(
           "it-IT",
           {
@@ -34,23 +33,20 @@ export  function formatNew(value :number,percent :number|undefined,date:string|u
         );
   
         return priceNow;
-    }
+    
   }
 }
 
-export  function checkSale(value :number,percent :number|undefined,date:string|undefined){
-  if(percent===undefined || date===undefined){
+export  function checkSale(value :number,percent :number|undefined,dateE:string|undefined,dateB:string|undefined){
+  if(percent===undefined || dateE===undefined ||dateB===undefined || sosanh(dateE,dateB)){
     return undefined
   }
   else{
-    if(sosanh(date)){
-      return undefined
-    }
-    else{
+   
       const priceNow = ((value / 100) * (100 - percent))
     
   
         return priceNow;
-    }
+    
   }
 }

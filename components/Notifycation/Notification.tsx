@@ -1,7 +1,5 @@
 import { notification } from "antd";
 import {
-  CheckCircleOutlined,
-  InfoCircleOutlined,
   FrownOutlined,
 } from "@ant-design/icons";
 

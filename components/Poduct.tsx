@@ -3,12 +3,24 @@ import cssL from "./LayoutComponent/DfHeaderLogo.module.scss";
 import { useRouter } from "next/router";
 import { product } from "../common/product/interface";
 import { formatNew, formatOld } from "../PriceFormat";
+import { useAppDispatch, useAppSelector } from "../app/Hook";
+import { cartAction } from "../app/splice/cartSlipe";
 export function Product({ product }: { product: product }) {
   const router = useRouter();
+  const dispactch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.Cid);
+
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal ,product.endOfSale);
+  const priceNow = formatNew(product.price, product.deal ,product.endOfSale,product.beginSale);
 
+  function addItemCart(product:product){
+    dispactch(cartAction.addCartItem({
+      id: product.id,
+      quantity: 1,
+      cartId: cart,
+    }))
+  }
   return (
     <div
       className={css.cardContainer}
@@ -36,7 +48,7 @@ export function Product({ product }: { product: product }) {
                           e.stopPropagation();
                         }}
                       >
-                        <strong className={cssL.itemOnCart}>+</strong>
+                        <strong className={cssL.itemOnCart} onClick={()=>addItemCart(product)}>+</strong>
                       </span>
                     </ul>
                   </div>

@@ -1,9 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { call, fork, put, take } from "redux-saga/effects";
+import { all, call, fork, put, take } from "redux-saga/effects";
 import { product } from "../../common/product/interface";
 import { CartAPI } from "../../pages/api/Cart";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
-import { cartAction, cartState, ProductSlI } from "../splice/cartSlipe";
+import { cartAction, cartState, itemCart, ProductSlI } from "../splice/cartSlipe";
 
 export interface CartInfirebase {
   Cid:string;
@@ -43,7 +43,6 @@ const callApiUser = async (uid: string) => {
 
    return list
 
-
   }
 
 };
@@ -51,22 +50,15 @@ const callApiUser = async (uid: string) => {
 function* handleLogin(value: string) {
   try {
     const  resoult: any[]  = yield call(callApiUser, value);
-
-
-    
-    
     if (resoult) {
         yield put(cartAction.LoadingCartSucess(resoult));
     } else {
-        yield put(cartAction.CartLoadingFailed());
+        yield put(cartAction.deleteItemFail());
     }
   } catch (error) {
     yield put(cartAction.CartLoadingFailed());
   }
 }
-
-
-
 function* whatLoginFlow() {
   while (true) {
 
@@ -84,17 +76,24 @@ function* whatLoginFlow() {
 function* whatLoginFlow2() {
   while (true) {
 
-      const acction: PayloadAction<string> = yield take(
-        cartAction.LoadingCart.type
+      const acction: PayloadAction<itemCart> = yield take(
+        cartAction.deleteCartItem.type
       );
-      yield call(handleLogin, acction.payload);
+     try {
+      yield call(CartAPI.removeItem,acction.payload);
+      yield put(cartAction.deleteItemSucess(acction.payload.id));
+     } catch (error) {
+      console.log(error);
+      
+      yield put(cartAction.deleteItemFail());
+     }
     
-    //   console.log("chay logout");
+    //   console.log("chay logout");  
     //   yield take(authAction.logout.type);
     //   yield call(handleLogout);
     
   }
 }
 export function* cartSaga() {
-  yield fork(whatLoginFlow);
+  yield all([call(whatLoginFlow),call(whatLoginFlow2)]);
 }

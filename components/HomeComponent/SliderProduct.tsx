@@ -22,7 +22,8 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
   const priceNow = formatNew(
     sliderItem.price,
     sliderItem.deal,
-    sliderItem.endOfSale
+    sliderItem.endOfSale,
+    sliderItem.beginSale
   );
   useEffect(() => {
     if (inView) {

@@ -1,11 +1,22 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore,enableIndexedDbPersistence  } from "firebase/firestore";
+import { getFirestore  } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+const firebaseConfigBlog = {
+  apiKey: "AIzaSyCIH5RMT3GVxrQqVa-YRzq9PPYXpPUa3og",
+  authDomain: "mytimestore-64ca6.firebaseapp.com",
+  projectId: "mytimestore-64ca6",
+  storageBucket: "mytimestore-64ca6.appspot.com",
+  messagingSenderId: "43218910968",
+  appId: "1:43218910968:web:a7538f2a5a69c48f21c50d",
+  measurementId: "G-EZL6RGGKPV"
+};
+const appBlog = initializeApp(firebaseConfigBlog,"blog");
+const dbBlog = getFirestore(appBlog);
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -19,10 +30,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig,"main");
 const db = getFirestore(app);
 const auth = getAuth(app);
 auth.languageCode = "vi";
 
 
-export { auth, db };
+export { auth, db ,dbBlog};

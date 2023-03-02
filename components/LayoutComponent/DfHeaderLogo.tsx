@@ -26,21 +26,19 @@ import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 export function CartItem({ item }: { item: ProductSlI }) {
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
-  const priceSale = formatNew(item.price, item.discount, item.endSale);
+  const priceSale = formatNew(
+    item.price,
+    item.discount,
+    item.endSale,
+    item.beginSale
+  );
   const price = formatOld(item.price);
-
   const deleteCartItem = async (item: ProductSlI) => {
-    await CartAPI.removeItem({
+    dispactch(cartAction.deleteCartItem({
       id: item.Pid,
       quantity: item.quantity,
       cartId: cart,
-    })
-      .then((res) => {
-        dispactch(cartAction.deleteItem(item.Pid));
-      })
-      .catch((err) => {
-        console.log("loi :", err);
-      });
+    }));
   };
   return (
     <>
@@ -158,7 +156,12 @@ export function DefaultHeaderLogo() {
         listInCart.reduce(
           (acc, item) =>
             acc +
-            (checkSale(item.price, item.discount, item.endSale) || item.price) *
+            (checkSale(
+              item.price,
+              item.discount,
+              item.endSale,
+              item.beginSale
+            ) || item.price) *
               item.quantity,
           0
         )

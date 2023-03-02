@@ -20,7 +20,9 @@ export const Fproduct:product[]=[
       productLine: 'LOBINNI'
     },
     deal: 40,
-    endOfSale: '10/10/2030',
+    endOfSale: '2030-10-10',
+    beginSale: '2020-03-01',
+
     image: [
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(18).jpg',
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(4).jpg', 
@@ -43,7 +45,8 @@ export const Fproduct:product[]=[
   },
   {
     deal: 30,
-    endOfSale: '20/10/2000',
+    endOfSale: '2030-10-10',
+    beginSale: '2020-03-01',
     keyWord: [ 'LOBINNI', 'L8886-5' ],
     category: [ 'Đồng hồ nam', 'Automatic', 'Hot' ],
     figures: {
@@ -164,7 +167,8 @@ export const Fproduct:product[]=[
     review: null,
     id: 'L3033-17',
     keyWord: [ 'LOBINNI', 'L3033-17' ],
-    endOfSale: '23/11/2020'
+    endOfSale: '2030-10-10',
+    beginSale: '2020-03-01',
   },
   {
     figures: {
@@ -230,7 +234,8 @@ export const Fproduct:product[]=[
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(4).jpg'
     ],
     id: ' L8886-6',
-    endOfSale: '20/12/2024'
+    endOfSale: '2030-10-10',
+    beginSale: '2020-03-01',
   }
 ]
 

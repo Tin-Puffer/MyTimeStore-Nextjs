@@ -11,7 +11,6 @@ const User = collection(db, "Cart");
 export const CartAPI = {
   removeItem: async ({id,quantity,cartId}:{id:string,quantity:number,cartId:string}) => {
     const washingtonRef =  doc(db, "Cart", cartId);
-    console.log({id,quantity})
     // Atomically add a new region to the "regions" array field.
     // await updateDoc(washingtonRef, {
     //   ItemList: arrayUnion({id:"123",name:"23234s"})

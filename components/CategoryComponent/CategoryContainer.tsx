@@ -188,7 +188,7 @@ export function CategoryLeft() {
 export function ProductItem({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal,product.endOfSale);
+  const priceNow = formatNew(product.price, product.deal,product.endOfSale,product.beginSale);
   return (
     <Link href={"/product/hot"}>
       <div className={css.itemContainer}>

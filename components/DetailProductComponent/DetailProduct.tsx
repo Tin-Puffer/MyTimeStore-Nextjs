@@ -47,7 +47,7 @@ export function QuantityComponent({ small = false }: { small?: boolean }) {
 export function DetailProduct({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal,product.endOfSale);
+  const priceNow = formatNew(product.price, product.deal,product.endOfSale,product.beginSale);
 
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");

@@ -28,7 +28,7 @@ export const ProductHomeAPI = {
     const listrs:any=[]
     let resoult:any=[]
     
-       list.forEach(async (item:any,index) =>{
+      list.forEach(async (item:any,index) =>{
         console.log("chay vong lap",index)
 
       await getDocs(query(Product, where("id", "==", item.ProductID))).then(result =>{
@@ -43,8 +43,6 @@ export const ProductHomeAPI = {
           
           
         })
-        console.log("data add vao liss qua tung vong lap ",resoult)
-
         listrs.push({...resoult[0],Quantity:item.Quantity});
         resoult=[]
         if(index==list.length-1){
@@ -60,7 +58,7 @@ export const ProductHomeAPI = {
           resolve(listrs)
           clearInterval(time)
         }
-      },100)
+      },500)
   })
    return await promise.then((list)=>{
     return list;

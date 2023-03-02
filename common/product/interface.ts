@@ -31,6 +31,7 @@ export interface product{
     deal?:number;
     sold:number
     endOfSale?:string;
+    beginSale?:string;
     image:string[];
     category:string[];
     decription?:string[];

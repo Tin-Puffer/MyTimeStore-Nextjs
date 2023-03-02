@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-import Link from "next/link";
+
 import { Product } from "../Poduct";
 import css from "./ProductStyle.module.scss";
 import {  motion, useAnimation } from "framer-motion";

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import openNotification from "../../components/Notifycation/Notification";
 import { CartInfirebase } from "../saga/cartSaga";
 
 
@@ -10,6 +11,7 @@ export interface ProductSlI {
   price: number;
 discount?: number;
 endSale?:string;
+beginSale?:string
 quantity: number;
 
 }
@@ -19,6 +21,11 @@ export interface cartState {
   Cid: string;
   Userid: string;
   ProductSl: ProductSlI[];
+}
+export interface itemCart{
+  id:string;
+  quantity:number;
+  cartId:string
 }
 
 
@@ -76,7 +83,9 @@ function getcardID(){
 }
 
 function deleteItem(id:string,list:ProductSlI[]){
-  localStorage.removeItem('cart')
+  const cart = JSON.parse(localStorage.getItem('cart') || "") as CartInfirebase;
+  cart.ItemList.filter((item:any) => item.ProductID !== id);
+  localStorage.setItem('cart',JSON.stringify(cart));
   return list.filter(item => item.Pid !== id)
 }
 
@@ -107,22 +116,23 @@ const cartSlice = createSlice({
       state.loading= false,
       state.ProductSl = [];
     },
-    deleteItem(state,action: PayloadAction<string>){
-      state.ProductSl = deleteItem(action.payload,state.ProductSl);;
-      
-      
-    },
-    loginSuccess(state, action: PayloadAction<string>) {
-      // state.login = false;
+    deleteCartItem(state, action: PayloadAction<itemCart>) {
+      state.loading=true
       // state.isLogin = true;
       // state.currentUser = action.payload;
     },
-    loginFailed(state, action: PayloadAction<String>) {
-      // state.login = false;
-      // state.isLogin = false;
+    deleteItemSucess(state,action: PayloadAction<string>){
+      state.loading=false
+      state.ProductSl = deleteItem(action.payload,state.ProductSl);;
+      openNotification("DeleteItemInCart")
+      
     },
-    logout(state) {
-      // state.isLogin = false;
+    deleteItemFail(state) {
+      state.loading=false
+    },
+    addCartItem(state,action: PayloadAction<itemCart>) {
+            state.loading=true
+
       // state.currentUser = undefined;
     },
   },
