@@ -9,17 +9,27 @@ export function Product({ product }: { product: product }) {
   const router = useRouter();
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
+  const loading = useAppSelector((state) => state.cart.loading);
 
   const priceFormat = formatOld(product.price);
 
-  const priceNow = formatNew(product.price, product.deal ,product.endOfSale,product.beginSale);
+  const priceNow = formatNew(
+    product.price,
+    product.deal,
+    product.endOfSale,
+    product.beginSale
+  );
 
-  function addItemCart(product:product){
-    dispactch(cartAction.addCartItem({
-      id: product.id,
-      quantity: 1,
-      cartId: cart,
-    }))
+  function addItemCart(product: product) {
+    if (!loading) {
+      dispactch(
+        cartAction.addCartItem({
+          id: product.id,
+          quantity: 1,
+          cartId: cart,
+        })
+      );
+    }
   }
   return (
     <div
@@ -48,7 +58,12 @@ export function Product({ product }: { product: product }) {
                           e.stopPropagation();
                         }}
                       >
-                        <strong className={cssL.itemOnCart} onClick={()=>addItemCart(product)}>+</strong>
+                        <strong
+                          className={cssL.itemOnCart}
+                          onClick={() => addItemCart(product)}
+                        >
+                          +
+                        </strong>
                       </span>
                     </ul>
                   </div>

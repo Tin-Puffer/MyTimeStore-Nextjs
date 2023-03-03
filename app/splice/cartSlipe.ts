@@ -9,11 +9,10 @@ export interface ProductSlI {
   name: string;
   image:string;
   price: number;
-discount?: number;
-endSale?:string;
-beginSale?:string
-quantity: number;
-
+  discount?: number;
+  endSale?:string;
+  beginSale?:string
+  quantity: number;
 }
 export interface cartState {
   isLoading: boolean,
@@ -27,33 +26,11 @@ export interface itemCart{
   quantity:number;
   cartId:string
 }
-
-
-
 const initAuthLoad = (): cartState => {
-  // if (typeof window !== "undefined") {
-  //   if (!localStorage.getItem("cart")) {
-  //     return {
-  //       isLoading: false,
-  //       loading: false,
-  //       Cid:'',
-  //       ProductSl:[]
-  //     };
-  //   } else {
-  //     const cart = JSON.parse(localStorage?.getItem("cart") || "") as cartState;
-  //     return {
-  //       isLoading: false,
-  //       loading: true,
-  //       Cid: cart.Uid,
-  //       ProductSl: cart.ProductSl
-  //     };
-  //   }
-  // } else
     return {
       isLoading: false,
       loading: false,
-   Userid: "",
-      
+      Userid: "",
       Cid:'',
       ProductSl:[]
     };
@@ -71,22 +48,28 @@ function covertProductList (pr:any[]){
        quantity:p.Quantity
      }
      list.push(xxx)
-      
     })
   return list
 }
+
 function getcardID(){
   const cart = JSON.parse(localStorage.getItem('cart') || "") as CartInfirebase;
-
   return cart.Cid
-  
 }
-
 function deleteItem(id:string,list:ProductSlI[]){
   const cart = JSON.parse(localStorage.getItem('cart') || "") as CartInfirebase;
-  cart.ItemList.filter((item:any) => item.ProductID !== id);
+  const newList= cart.ItemList.filter((item:any) => item.ProductID !== id);
+  cart.ItemList=newList
   localStorage.setItem('cart',JSON.stringify(cart));
   return list.filter(item => item.Pid !== id)
+}
+function updateProductQuantity(Pid: string, products: ProductSlI[]): ProductSlI[] {
+  return products.map(product => {
+    if (product.Pid === Pid) {
+      return { ...product, quantity: product.quantity + 1 };
+    }
+    return product;
+  });
 }
 
 const cartSlice = createSlice({
@@ -94,20 +77,18 @@ const cartSlice = createSlice({
   initialState: initAuthLoad() || {},
   reducers: {
     LoadingCart(state,action: PayloadAction<string>){
-      state.isLoading = true;
-      state.loading = false;
+      state.loading= true,
+  
       state.Userid = action.payload;
     },
     LoadingCartSucess(state,action: PayloadAction<any[]>){
-      state.isLoading = false;
-      state.loading = true;
+      state.loading= false,
+
       state.ProductSl = covertProductList(action.payload);
       state.Cid=getcardID()
 
     },
     CartLoadingFailed(state) {
-      state.isLoading= false,
-      state.loading= true,
       state.ProductSl = [];
 
     },
@@ -118,8 +99,6 @@ const cartSlice = createSlice({
     },
     deleteCartItem(state, action: PayloadAction<itemCart>) {
       state.loading=true
-      // state.isLogin = true;
-      // state.currentUser = action.payload;
     },
     deleteItemSucess(state,action: PayloadAction<string>){
       state.loading=false
@@ -131,10 +110,21 @@ const cartSlice = createSlice({
       state.loading=false
     },
     addCartItem(state,action: PayloadAction<itemCart>) {
-            state.loading=true
-
-      // state.currentUser = undefined;
+      state.loading=true
     },
+    addNewItemSucces(state,action: PayloadAction<ProductSlI>) {
+      state.ProductSl.push(action.payload)
+      state.loading=false
+      openNotification("AddItemInCart")
+
+
+   },
+   addQuantityItemSucces(state,action: PayloadAction<string>) {
+     state.ProductSl=updateProductQuantity(action.payload,state.ProductSl);;
+     state.loading=false
+     openNotification("AddItemInCart")
+
+  },
   },
 });
 //action

@@ -5,6 +5,15 @@ import {
 
 const openNotification = (type: string) => {
   switch (type) {
+    case "AddItemInCart": {
+      notification.success({
+        message: "Added Item In Cart ",
+        duration: 1,
+        className: 'SUCSESS-notyfication',
+        placement: "top",
+      });
+      break;
+    }
     case "DeleteItemInCart": {
       notification.success({
         message: "Deleted Item In Cart ",

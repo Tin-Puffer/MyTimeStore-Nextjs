@@ -38,6 +38,7 @@ export interface product{
     keyWord:string[],
     review:review[]|null
     figures:figures,
+  
 }
 
 
