@@ -15,7 +15,7 @@ provider.setCustomParameters({
 export const loginWithAccountGoogle = async (setLoading: Function) => {
   setLoading(true);
   await signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       // The signed-in user info.
@@ -23,7 +23,7 @@ export const loginWithAccountGoogle = async (setLoading: Function) => {
       console.log(user);
       document.cookie = "islogin=true";
       if (getAdditionalUserInfo(result)?.isNewUser) {
-        addDoc(collection(db, "User"), {
+       await addDoc(collection(db, "User"), {
           uid: user.uid,
           name: user.displayName,
           email: user.email,
@@ -35,7 +35,7 @@ export const loginWithAccountGoogle = async (setLoading: Function) => {
           alert(err);
         }
         )
-         addDoc(collection(db, "Cart"), {
+        await addDoc(collection(db, "Cart"), {
           ItemList: [],
           UserID: user.uid
         })

@@ -45,7 +45,8 @@ function covertProductList (pr:any[]){
       price: p.price,
       discount: p.deal,
        endSale:p.endOfSale,
-       quantity:p.Quantity
+       quantity:p.Quantity,
+       beginSale: p.beginSale,
      }
      list.push(xxx)
     })
@@ -63,10 +64,10 @@ function deleteItem(id:string,list:ProductSlI[]){
   localStorage.setItem('cart',JSON.stringify(cart));
   return list.filter(item => item.Pid !== id)
 }
-function updateProductQuantity(Pid: string, products: ProductSlI[]): ProductSlI[] {
+function updateProductQuantity(item: itemCart, products: ProductSlI[]): ProductSlI[] {
   return products.map(product => {
-    if (product.Pid === Pid) {
-      return { ...product, quantity: product.quantity + 1 };
+    if (product.Pid === item.id) {
+      return { ...product, quantity: product.quantity + item.quantity };
     }
     return product;
   });
@@ -119,10 +120,10 @@ const cartSlice = createSlice({
 
 
    },
-   addQuantityItemSucces(state,action: PayloadAction<string>) {
+   addQuantityItemSucces(state,action: PayloadAction<itemCart>) {
      state.ProductSl=updateProductQuantity(action.payload,state.ProductSl);;
      state.loading=false
-     openNotification("AddItemInCart")
+     openNotification("AddItemInCart",action.payload.quantity)
 
   },
   },

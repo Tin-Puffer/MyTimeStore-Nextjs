@@ -21,8 +21,29 @@ import collection2 from "./collection-2.jpg";
 import collection3 from "./collection-3.jpg";
 import contact from "./contact.jpg";
 import intro from "./intro.jpg";
+import ship1 from "./1.png";
+import ship2 from "./2.jpg";
+import ship3 from "./3.jpg";
+import ship4 from "./4.jpg";
+import ship5 from "./5.jpg";
+import ship6 from "./6.jpg";
+import pay1 from "./p1.png";
+import pay2 from "./p2.png";
+import pay3 from "./p3.jpg";
+import pay4 from "./p4.jpg";
+import pay5 from "./p5.jpg";
+import pay6 from "./p6.png";
+
+
+
 
 export {
+  pay5,
+  pay6,
+  pay1,
+  pay2,
+  pay3,
+  pay4,
   logo,
   logo2,
   avatar,
@@ -44,4 +65,10 @@ export {
   introduct3,
   introduct4,
   empty,
+  ship1,
+  ship2,
+  ship3,
+  ship4,
+  ship5,
+  ship6,
 };

@@ -10,21 +10,19 @@ export function Product({ product }: { product: product }) {
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
   const loading = useAppSelector((state) => state.cart.loading);
-
   const priceFormat = formatOld(product.price);
-
   const priceNow = formatNew(
     product.price,
-    product.deal,
-    product.endOfSale,
-    product.beginSale
+    product.sale?.discount,
+    product.sale?.end,
+    product.sale?.begin
   );
 
-  function addItemCart(product: product) {
+  function addItemCart(productID: string) { 
     if (!loading) {
       dispactch(
         cartAction.addCartItem({
-          id: product.id,
+          id: productID,
           quantity: 1,
           cartId: cart,
         })
@@ -47,7 +45,7 @@ export function Product({ product }: { product: product }) {
                 style={{ position: "relative", width: "100%", height: "100%" }}
               >
                 {priceNow && (
-                  <div className={css.disCount}>-{product.deal}%</div>
+                  <div className={css.disCount}>-{product.sale?.discount}%</div>
                 )}
                 <div className={css.addItemBnt}>
                   <div className={cssL.itemIcon}>
@@ -60,7 +58,7 @@ export function Product({ product }: { product: product }) {
                       >
                         <strong
                           className={cssL.itemOnCart}
-                          onClick={() => addItemCart(product)}
+                          onClick={() => addItemCart(product.id)}
                         >
                           +
                         </strong>

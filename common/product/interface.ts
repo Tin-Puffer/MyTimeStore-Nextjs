@@ -21,17 +21,21 @@ export interface review{
     like: number
     disLike: number
     rating: number
+    Time: string
 }
+export interface sale {
+    begin: string
+    end:string
+    discount: number
 
+}
 export interface product{
     id:string,
     name:string;
     price:number;
     kho:number;
-    deal?:number;
     sold:number
-    endOfSale?:string;
-    beginSale?:string;
+    sale?:sale,
     image:string[];
     category:string[];
     decription?:string[];

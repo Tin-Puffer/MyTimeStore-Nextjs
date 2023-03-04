@@ -3,7 +3,7 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { Carousel, Col, Row, Tooltip } from "antd";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
@@ -12,42 +12,82 @@ import css from "./DetailStyle.module.scss";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { product } from "../../common/product/interface";
 import Link from "next/link";
-import { productDecription } from "../../common/constag";
+import { payList, productDecription, shipList } from "../../common/constag";
 import { formatNew, formatOld } from "../../PriceFormat";
-import { Fproduct } from "../../fakeData/Fproduct";
-export function QuantityComponent({ small = false }: { small?: boolean }) {
+import { useAppDispatch, useAppSelector } from "../../app/Hook";
+import { cartAction } from "../../app/splice/cartSlipe";
+export function QuantityComponent({
+  small = false,
+  product,
+}: {
+  small?: boolean;
+  product: product;
+}) {
   const [quantity, setQuantity] = useState(1);
+  const dispactch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart.Cid);
 
+  const loading = useAppSelector((state) => state.cart.loading);
+  function addCartProduct() {
+    if (!loading) {
+      dispactch(
+        cartAction.addCartItem({
+          id: product.id,
+          quantity: quantity,
+          cartId: cart,
+        })
+      );
+    }
+  }
   return (
-    <div className={[css.quantity, small && css.small].join(" ")}>
-      <input
-        type="button"
-        value="-"
-        className={css.minus}
-        onClick={() => setQuantity((pr) => (pr > 1 ? pr - 1 : pr))}
-      ></input>
-      <input
-        type="number"
-        className={css.value}
-        value={quantity}
-        onChange={(e) => {
-          Number(e.target.value) != 0 && setQuantity(Number(e.target.value));
-        }}
-      ></input>
-      <input
-        type="button"
-        value="+"
-        className={css.plus}
-        onClick={() => setQuantity((pr) => pr + 1)}
-      ></input>
-    </div>
+    <>
+      <div className={[css.quantity, small && css.small].join(" ")}>
+        <input
+          type="button"
+          value="-"
+          className={css.minus}
+          onClick={() => setQuantity((pr) => (pr > 1 ? pr - 1 : pr))}
+        ></input>
+        <input
+          type="number"
+          className={css.value}
+          value={quantity}
+          onChange={(e) => {
+            Number(e.target.value) != 0 && setQuantity(Number(e.target.value));
+          }}
+        ></input>
+        <input
+          type="button"
+          value="+"
+          className={css.plus}
+          onClick={() => setQuantity((pr) => pr + 1)}
+        ></input>
+      </div>
+      <div
+        className={cssS.button}
+        style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
+      >
+        <p style={{ padding: "11px 18px" }} onClick={() => addCartProduct()}>
+          Thêm vào giỏ
+        </p>
+      </div>
+    </>
   );
 }
 
 export function DetailProduct({ product }: { product: product }) {
-  const priceFormat = formatOld(product.price);
+  const priceFormat = useMemo(() => formatOld(product.price), [product.price]);
 
-  const priceNow = formatNew(product.price, product.deal,product.endOfSale,product.beginSale);
+  const priceNow = useMemo(
+    () =>
+      formatNew(
+        product.price,
+        product.sale?.discount,
+        product.sale?.end,
+        product.sale?.begin
+      ),
+    [product]
+  );
 
   const ref = useRef<CarouselRef>(null);
   const [position, setPosition] = useState("0% 0%");
@@ -92,7 +132,7 @@ export function DetailProduct({ product }: { product: product }) {
 
                 {priceNow && (
                   <div className={cssPc.disCount} style={{ left: "5%" }}>
-                    -{product.deal}%
+                    -{product.sale?.discount}%
                   </div>
                 )}
 
@@ -194,60 +234,38 @@ export function DetailProduct({ product }: { product: product }) {
                   </div>
                 </div>
                 <div style={{ margin: "30px 0" }}>
-                  <QuantityComponent></QuantityComponent>
-                  <div
-                    className={cssS.button}
-                    style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
-                  >
-                    <p style={{ padding: "11px 18px" }}>Thêm vào giỏ</p>
-                  </div>
+                  <QuantityComponent product={product}></QuantityComponent>
                 </div>
                 <div className={css.Payment}>
                   <Row gutter={[24, 20]}>
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Phí ship tự động</strong>
                       <Row gutter={[10, 10]}>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
+                        {shipList.map((e: any) => {
+                          return (
+                            <Col xs={8} sm={12} lg={8}>
+                              <div
+                                className={css.ItemPay}
+                                style={{ backgroundImage: `url("${e.src}")` }}
+                              ></div>
+                            </Col>
+                          );
+                        })}
                       </Row>
                     </Col>
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Thanh toán</strong>
                       <Row gutter={[10, 10]}>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
-                        <Col xs={8} sm={12} lg={8}>
-                          <div className={css.ItemPay}></div>
-                        </Col>
+                        {payList.map((e: any) => {
+                          return (
+                            <Col xs={8} sm={12} lg={8}>
+                              <div
+                                className={css.ItemPay}
+                                style={{ backgroundImage: `url("${e.src}")` }}
+                              ></div>
+                            </Col>
+                          );
+                        })}
                       </Row>
                     </Col>
                   </Row>
@@ -265,9 +283,9 @@ export function DetailProduct({ product }: { product: product }) {
                   </span>
                   <span className={cssS.tagged_as}>
                     Từ khóa:{" "}
-                    {/* {product.keyWord.map((e, i) => (
+                    {product.keyWord.map((e, i) => (
                       <p key={i}>{e} &nbsp;</p>
-                    ))} */}
+                    ))}
                   </span>
                 </div>
               </div>

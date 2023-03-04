@@ -22,7 +22,7 @@ const getCartList = async (uid: string) => {
       return undefined
     }else {
       const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
-       return list
+      return list
     }
   }else{
     const Cart =await CartAPI.getCart(uid);
@@ -111,14 +111,14 @@ function* WhenAddCart() {
         let CartID=Cart.Cid
         Cart.ItemList.forEach(item => {
           if(item.ProductID === acction.payload.id) {
-            newQtt=item.Quantity+1
-            item.Quantity = item.Quantity+1; 
+            newQtt=item.Quantity+acction.payload.quantity
+            item.Quantity = item.Quantity+acction.payload.quantity; 
             localStorage.setItem("cart", JSON.stringify(Cart));
           }
         });
-        yield call(CartAPI.removeItem,{cartId:CartID,quantity:newQtt-1,id:acction.payload.id});
+        yield call(CartAPI.removeItem,{cartId:CartID,quantity:newQtt-acction.payload.quantity,id:acction.payload.id});
         yield call(CartAPI.addCartItem,{cartId:CartID,quantity:newQtt,id:acction.payload.id});
-        yield put(cartAction.addQuantityItemSucces(acction.payload.id))
+        yield put(cartAction.addQuantityItemSucces(acction.payload))
     
       }
       else {
@@ -129,12 +129,12 @@ function* WhenAddCart() {
           name: newProduct.name,
           image:newProduct.image[0],
           price: newProduct.price,
-          discount: newProduct.deal,
-          endSale:newProduct.endOfSale,
-          beginSale:newProduct.beginSale,
-          quantity: 1
+          discount: newProduct.sale?.discount,
+          endSale:newProduct.sale?.end,
+          beginSale:newProduct.sale?.begin,
+          quantity: acction.payload.quantity,
         }))
-        yield call(addItemLS,{id:newProduct.id, quantity:1})
+        yield call(addItemLS,{id:newProduct.id, quantity:acction.payload.quantity})
       }
       // yield put(cartAction.deleteItemSucess(acction.payload.id));
      } catch (error) {

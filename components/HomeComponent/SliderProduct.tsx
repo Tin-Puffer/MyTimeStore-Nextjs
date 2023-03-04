@@ -21,9 +21,9 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
   const priceFormat = formatOld(sliderItem.price);
   const priceNow = formatNew(
     sliderItem.price,
-    sliderItem.deal,
-    sliderItem.endOfSale,
-    sliderItem.beginSale
+    sliderItem.sale?.discount,
+    sliderItem.sale?.end,
+    sliderItem.sale?.begin
   );
   useEffect(() => {
     if (inView) {
@@ -69,7 +69,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
           >
             {priceNow && (
               <div className={cssP.disCount} style={{ left: "5%" }}>
-                -{sliderItem.deal}%
+                -{sliderItem.sale?.discount}%
               </div>
             )}
           </motion.div>

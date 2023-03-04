@@ -19,9 +19,12 @@ export const Fproduct:product[]=[
       caseMaterial: 'Thép không gỉ 316L',
       productLine: 'LOBINNI'
     },
-    deal: 40,
-    endOfSale: '2030-10-10',
-    beginSale: '2020-03-01',
+   
+    sale:{
+      begin:"2030-10-10",
+      end:'2020-10-10',
+      discount:20
+    },
 
     image: [
       'https://thegioidongho.vip/uploads/LOBINNI_L5016-3_(18).jpg',
@@ -44,9 +47,7 @@ export const Fproduct:product[]=[
     kho: 2
   },
   {
-    deal: 30,
-    endOfSale: '2030-10-10',
-    beginSale: '2020-03-01',
+   
     keyWord: [ 'LOBINNI', 'L8886-5' ],
     category: [ 'Đồng hồ nam', 'Automatic', 'Hot' ],
     figures: {
@@ -85,6 +86,7 @@ export const Fproduct:product[]=[
       like: 10,
       disLike: 0,
       rating: 4,
+      Time:'2020-11-11'
     },{
       avatar: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg",
       name: "Nguyễn văn A",
@@ -92,13 +94,19 @@ export const Fproduct:product[]=[
       like: 10,
       disLike: 0,
       rating: 5,
+      Time:'2020-11-11'
+
     }],
     
     id: 'L88865', 
     name: 'Đồng hồ nam chính hãng LOBINNI Tourbillon L8886-5'
   },
   {
-    endOfSale: '20/04/2023',
+    sale:{
+      begin:"2030-10-10",
+      end:'2020-10-10',
+      discount:20
+    },
     review: null,
     price: 5000000,
     image: [
@@ -127,7 +135,7 @@ export const Fproduct:product[]=[
     },
     kho: 1,
     name: 'Đồng hồ nữ chính hãng Mini Focus MF02261',
-    deal: 20,
+ 
     keyWord: [ 'Mini Focus', 'MF0226-1' ],
     id: 'MF0226-1'
   },
@@ -156,7 +164,7 @@ export const Fproduct:product[]=[
       trademark: 'LOBINNI'
     },
     name: 'Đồng hồ đôi chính hãng LOBINNI L3033-17',
-    deal: 12,
+    
     image: [
       'https://thegioidongho.vip/uploads/%C4%91%E1%BB%93ng_h%E1%BB%93_%C4%91%C3%B4i_Lobinni_L3033_(17).jpg',
       'https://thegioidongho.vip/uploads/%C4%91%E1%BB%93ng_h%E1%BB%93_%C4%91%C3%B4i_Lobinni_L3033_(7).jpg',
@@ -167,8 +175,11 @@ export const Fproduct:product[]=[
     review: null,
     id: 'L3033-17',
     keyWord: [ 'LOBINNI', 'L3033-17' ],
-    endOfSale: '2030-10-10',
-    beginSale: '2020-03-01',
+    sale:{
+      begin:"2030-10-10",
+      end:'2020-10-10',
+      discount:20
+    },
   },
   {
     figures: {
@@ -223,7 +234,12 @@ export const Fproduct:product[]=[
     kho:12,
     name: 'Đồng hồ nam chính hãng LOBINNI Tourbillon L8886-6',
     review: null,
-    deal: 32,
+    sale:{
+      discount:29,
+      end:'2030-01-01',
+      begin:'2016-01-01'
+
+    },
     sold: 24,
     keyWord: [ 'LOBINNI', ' L8886-6', 'Tourbillon' ],
     price: 38600000,
@@ -233,9 +249,8 @@ export const Fproduct:product[]=[
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(11).jpg',
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(4).jpg'
     ],
-    id: ' L8886-6',
-    endOfSale: '2030-10-10',
-    beginSale: '2020-03-01',
+    id: 'L8886-6',
+    
   }
 ]
 

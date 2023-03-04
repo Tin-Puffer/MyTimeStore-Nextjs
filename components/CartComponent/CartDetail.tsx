@@ -55,7 +55,7 @@ export function CartDetail() {
                       </span>{" "}
                     </td>
                     <td>
-                      <QuantityComponent small={true}></QuantityComponent>
+                      {/* <QuantityComponent small={true}></QuantityComponent> */}
                     </td>
                     <td className={css.hide}>
                       <span className={css.price}>

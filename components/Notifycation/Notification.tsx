@@ -3,11 +3,11 @@ import {
   FrownOutlined,
 } from "@ant-design/icons";
 
-const openNotification = (type: string) => {
+const openNotification = (type: string,quantity?:number) => {
   switch (type) {
     case "AddItemInCart": {
       notification.success({
-        message: "Added Item In Cart ",
+        message: `Added ${quantity||"1"} Item  In Your Cart `,
         duration: 1,
         className: 'SUCSESS-notyfication',
         placement: "top",
@@ -16,7 +16,7 @@ const openNotification = (type: string) => {
     }
     case "DeleteItemInCart": {
       notification.success({
-        message: "Deleted Item In Cart ",
+        message: `Delete ${quantity||""} Item  In Your Cart `,
         duration: 1,
         className: 'SUCSESS-notyfication',
         placement: "top",

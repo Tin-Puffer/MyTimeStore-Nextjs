@@ -10,12 +10,43 @@ import { ProductItem } from "../CategoryComponent";
 import css from "./DecriptionStyle.module.scss";
 import { Fproduct } from "../../fakeData/Fproduct";
 import { product } from "../../common/product/interface";
+import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
 
-export function SameProduct() {
+const responsive = [
+  {
+    breakpoint: 1000,
+    settings: {
+      slidesToShow: 3,
+    },
+  },
+  {
+    breakpoint: 700,
+    settings: {
+      slidesToShow: 2,
+    },
+  },
+  {
+    breakpoint: 450,
+    settings: {
+      slidesToShow: 1,
+    },
+  },
+];
+
+export function SameProduct({ sex, brand }: { sex: number; brand: string }) {
   const ref = useRef<CarouselRef>(null);
+  const [list, setList] = useState([]);
   const [sameProduct, setSameProduct] = useState<product[]>();
   useEffect(() => {
-    setSameProduct(Fproduct);
+    const fetchData = async () => {
+      await ProductHomeAPI.getListSameProduct(0, "KASSAW").then((res) => {
+        console.log(res);
+        setSameProduct(res);
+      });
+    };
+    // fetchData();
+    setSameProduct(Fproduct)
+
   }, []);
   return (
     <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
@@ -24,26 +55,7 @@ export function SameProduct() {
           <Carousel
             slidesToShow={4}
             autoplay
-            responsive={[
-              {
-                breakpoint: 1000,
-                settings: {
-                  slidesToShow: 3,
-                },
-              },
-              {
-                breakpoint: 700,
-                settings: {
-                  slidesToShow: 2,
-                },
-              },
-              {
-                breakpoint: 450,
-                settings: {
-                  slidesToShow: 1,
-                },
-              },
-            ]}
+            responsive={responsive}
             dots={false}
             ref={ref}
             autoplaySpeed={5000}
@@ -55,7 +67,6 @@ export function SameProduct() {
                 <ProductItem product={e}></ProductItem>
               </div>
             ))}
-           
           </Carousel>
           <div
             className={[cssO.BtnCarousel, cssO.prev].join(" ")}

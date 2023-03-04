@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+
+import React from "react";
 import { product } from "../common/product/interface";
 import {
   HomeCarousel,
@@ -32,18 +32,7 @@ export default function Home({
     </div>
   );
 }
-// export async function getStaticProps() {
-//   // const productList: product[] = await ProductHomeAPI.getProduct();
-//   const productList = Fproduct;
-//   const productSlider = Fproduct;
 
-//   return {
-//     props: {
-//       productList,
-//       productSlider,
-//     },
-//   };
-// }
 //===========================server main ================
 export async function getServerSideProps() {
   // const productList: product[] = await ProductHomeAPI.getProduct();

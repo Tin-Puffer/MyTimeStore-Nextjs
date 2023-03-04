@@ -32,32 +32,43 @@ export function CartItem({ item }: { item: ProductSlI }) {
     item.endSale,
     item.beginSale
   );
+
   const price = formatOld(item.price);
   const deleteCartItem = async (item: ProductSlI) => {
-    dispactch(cartAction.deleteCartItem({
-      id: item.Pid,
-      quantity: item.quantity,
-      cartId: cart,
-    }));
+    dispactch(
+      cartAction.deleteCartItem({
+        id: item.Pid,
+        quantity: item.quantity,
+        cartId: cart,
+      })
+    );
   };
   return (
     <>
-      <span className={css.remove} onClick={() => deleteCartItem(item)}>
-        x
-      </span>
-      <p className={css.nameProductItem}>
-        {item.name}
-        <Image
-          alt="Picture of the author"
-          width={60}
-          height={60}
-          src={item.image}
-        ></Image>
-      </p>
-      <p className={css.quantity}>
-        {item.quantity} ×{" "}
-        {priceSale ? <span>{priceSale}</span> : <span>{price}</span>}
-      </p>
+        <span
+          className={css.remove}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteCartItem(item);
+          }}
+        >
+          x
+        </span>
+        <Link href={"/product/[id]"} as={`/product/${item.Pid}`}>
+        <p className={css.nameProductItem}>
+          {item.name}
+          <Image
+            alt="Picture of the author"
+            width={60}
+            height={60}
+            src={item.image}
+          ></Image>
+        </p>
+        <p className={css.quantity}>
+          {item.quantity} ×{" "}
+          {priceSale ? <span>{priceSale}</span> : <span>{price}</span>}
+        </p>
+      </Link>
     </>
   );
 }
@@ -140,7 +151,6 @@ export function DefaultHeaderLogo() {
   const [search, setSearch] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [total, setTotal] = useState("");
-
   const searchInput = useRef<HTMLInputElement>(null);
   const [drop, setDrop] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -153,8 +163,8 @@ export function DefaultHeaderLogo() {
     setQuantity(listInCart.reduce((acc, item) => acc + item.quantity, 0));
     setTotal(
       formatOld(
-        listInCart.reduce(
-          (acc, item) =>
+        listInCart.reduce((acc, item) => {
+          return (
             acc +
             (checkSale(
               item.price,
@@ -162,12 +172,13 @@ export function DefaultHeaderLogo() {
               item.endSale,
               item.beginSale
             ) || item.price) *
-              item.quantity,
-          0
-        )
+              item.quantity
+          );
+        }, 0)
       )
     );
   }, [listInCart]);
+
   useEffect(() => {
     if (user) {
       dispactch(authAction.LoginUser(user.uid));

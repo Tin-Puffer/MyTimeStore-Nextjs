@@ -7,7 +7,7 @@ import {
   signOut,
   User,
 } from "firebase/auth";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../config";
 // const user = auth.currentUser;
 

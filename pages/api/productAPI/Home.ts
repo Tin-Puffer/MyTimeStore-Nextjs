@@ -6,7 +6,6 @@ import { db } from "../../../FireBase/config";
 const Product = collection(db, "Product");
 const docRefPoduct = query(Product, where("kho", ">", 0),orderBy("kho"), limit(6));
 const docRefSlide = query(Product,orderBy("sold"), limit(4));
-
 export const ProductHomeAPI = {
   getDetailProduct: async(id:string)=> {
     const listPRoduct=  await getDocs(query(Product, where("id", "==", id)))
@@ -19,15 +18,25 @@ export const ProductHomeAPI = {
      return resoult[0];
 
   }, 
-  
+  getListSameProduct: async(sex:number,brand:string)=> {
+    const listPRoduct=  await getDocs(query(Product, where("figures.trademark", "==", brand),where("figures.sex", "==", sex),limit(6)))
+    const resoult:any=[]
+    listPRoduct.forEach((doc) => {
+        resoult.push(doc.data())
+      });
+      
+     return resoult;
+  },
   getCartlist: async(list:any[])=> {
     
-    console.log("ham nay chay 1");
+    console.log("ham nay chay 1",list);
     let flag=false
+
     const promise= new Promise((resolve) => {
     const listrs:any=[]
     let resoult:any=[]
-    
+    if(list.length > 0){
+
       list.forEach(async (item:any,index) =>{
         console.log("chay vong lap",index)
 
@@ -59,6 +68,8 @@ export const ProductHomeAPI = {
           clearInterval(time)
         }
       },500)
+    }
+    else  resolve(listrs)
   })
    return await promise.then((list)=>{
     return list;

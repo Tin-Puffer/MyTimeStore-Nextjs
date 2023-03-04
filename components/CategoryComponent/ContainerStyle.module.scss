@@ -74,19 +74,20 @@
   }
 }
 .price {
-  margin-top: 5px;
+
   font-weight: bold;
   &.Item {
-    margin-top: 15px;
+    margin-top: 10px;
   }
   .old {
     display: inline-block;
-    margin-bottom: 5px;
+
     font-size: 13px;
     color: rgba(17, 17, 17, 0.452);
   }
   .new {
     text-decoration-line: none;
+    font-size: 16px;
   }
 }
 .itemContainer {
@@ -137,8 +138,8 @@
   .name {
     color: #334862;
     font-size: 14px;
-    line-height: 25px;
-    max-height: 25px;
+
+    height: 40px;
     overflow: hidden;
     display: block;
   }

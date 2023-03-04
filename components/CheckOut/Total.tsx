@@ -1,7 +1,7 @@
 import css from "./totalStyle.module.scss";
 import cssC from "./checkOutStyle.module.scss";
 import { useState } from "react";
-import { Button, Input, Radio, Space } from "antd";
+import {  Radio, Space } from "antd";
 import { RadioChangeEvent } from "antd";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 

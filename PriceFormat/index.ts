@@ -39,6 +39,7 @@ export  function formatNew(value :number,percent :number|undefined,dateE:string|
 
 export  function checkSale(value :number,percent :number|undefined,dateE:string|undefined,dateB:string|undefined){
   if(percent===undefined || dateE===undefined ||dateB===undefined || sosanh(dateE,dateB)){
+
     return undefined
   }
   else{

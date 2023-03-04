@@ -4,9 +4,11 @@ import cssT from "./TitleStyle.module.scss";
 import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
 import css from "./ContainerStyle.module.scss";
-import Link from "next/link";
 import { product } from "../../common/product/interface";
 import { formatNew, formatOld } from "../../PriceFormat";
+import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../../app/Hook";
+import { cartAction } from "../../app/splice/cartSlipe";
 
 export function SliderInput() {
   const [a, sa] = useState([1, 700]);
@@ -187,35 +189,62 @@ export function CategoryLeft() {
 }
 export function ProductItem({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
-
-  const priceNow = formatNew(product.price, product.deal,product.endOfSale,product.beginSale);
+  const loading = useAppSelector((state) => state.cart.loading);
+  const cart = useAppSelector((state) => state.cart.Cid);
+  const dispactch = useAppDispatch();
+  const router = useRouter();
+  const priceNow = formatNew(
+    product.price,
+    product.sale?.discount,
+    product.sale?.end,
+    product.sale?.begin
+  );
+  function addItemCart(productID: string) {
+    if (!loading) {
+      dispactch(
+        cartAction.addCartItem({
+          id: productID,
+          quantity: 1,
+          cartId: cart,
+        })
+      );
+    }
+  }
   return (
-    <Link href={"/product/hot"}>
-      <div className={css.itemContainer}>
-        <div
-          className={css.img}
-          style={{
-            backgroundImage: `url("${product.image[0]}")`,
+    <div
+      className={css.itemContainer}
+      onClick={() => router.push(`/product/${product.id}`)}
+    >
+      <div
+        className={css.img}
+        style={{
+          backgroundImage: `url("${product.image[0]}")`,
+        }}
+      >
+        <ul
+          style={{ margin: 0, display: "flex" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            addItemCart(product.id);
           }}
         >
-          <ul style={{ margin: 0, display: "flex" }}>
-            <span className={[cssL.cartIcon, css.cartIcon].join(" ")}>
-              <strong className={cssL.itemOnCart}>+</strong>
-            </span>
-          </ul>
-        </div>
-        <div className={css.decript}>
-          {priceNow && (
-            <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
-              -{product.deal}%
-            </div>
-          )}
-          <span className={css.name}>{product.name}</span>
-          <div
-            className={[css.price, css.Item].join(" ")}
-            style={{ textAlign: "center" }}
-          >
-            {priceNow &&(
+          <span className={[cssL.cartIcon, css.cartIcon].join(" ")}>
+            <strong className={cssL.itemOnCart}>+</strong>
+          </span>
+        </ul>
+      </div>
+      <div className={css.decript}>
+        {priceNow && (
+          <div className={[cssPc.disCount, css.iconDiscount].join(" ")}>
+            -{product.sale?.discount}%
+          </div>
+        )}
+        <span className={css.name}>{product.name}</span>
+        <div
+          className={[css.price, css.Item].join(" ")}
+          style={{ textAlign: "center" }}
+        >
+          {/* {priceNow &&(
 
             <del className={css.old}>
               <span>
@@ -223,16 +252,15 @@ export function ProductItem({ product }: { product: product }) {
                 <span> &nbsp;</span>
               </span>
             </del>
-            )}
-            <ins className={css.new}>
-              <span>
-                <span>{priceNow || priceFormat}</span>
-              </span>
-            </ins>
-          </div>
+            )} */}
+          <ins className={css.new}>
+            <span>
+              <span>{priceNow || priceFormat}</span>
+            </span>
+          </ins>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 export function CategoryContainer() {
