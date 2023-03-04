@@ -241,9 +241,9 @@ export function DetailProduct({ product }: { product: product }) {
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Phí ship tự động</strong>
                       <Row gutter={[10, 10]}>
-                        {shipList.map((e: any) => {
+                        {shipList.map((e: any,i) => {
                           return (
-                            <Col xs={8} sm={12} lg={8}>
+                            <Col xs={8} sm={12} lg={8} key={i}>
                               <div
                                 className={css.ItemPay}
                                 style={{ backgroundImage: `url("${e.src}")` }}
@@ -256,9 +256,9 @@ export function DetailProduct({ product }: { product: product }) {
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Thanh toán</strong>
                       <Row gutter={[10, 10]}>
-                        {payList.map((e: any) => {
+                        {payList.map((e: any,i ) => {
                           return (
-                            <Col xs={8} sm={12} lg={8}>
+                            <Col xs={8} sm={12} lg={8} key={i}>
                               <div
                                 className={css.ItemPay}
                                 style={{ backgroundImage: `url("${e.src}")` }}
