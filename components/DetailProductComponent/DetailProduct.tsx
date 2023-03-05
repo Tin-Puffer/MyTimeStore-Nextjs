@@ -3,7 +3,7 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { Carousel, Col, Row, Tooltip } from "antd";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
@@ -15,21 +15,27 @@ import Link from "next/link";
 import { payList, productDecription, shipList } from "../../common/constag";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
-import { cartAction } from "../../app/splice/cartSlipe";
+import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
 export function QuantityComponent({
+  changeQuantity,
   small = false,
   product,
+  cartDeltailItem,
 }: {
+  changeQuantity?: (id: string, quantity: number) => void;
   small?: boolean;
-  product: product;
+  product?: product;
+  cartDeltailItem?: ProductSlI;
 }) {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(
+    cartDeltailItem ? cartDeltailItem.quantity : 1
+  );
+
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
-
   const loading = useAppSelector((state) => state.cart.loading);
   function addCartProduct() {
-    if (!loading) {
+    if (!loading && product) {
       dispactch(
         cartAction.addCartItem({
           id: product.id,
@@ -46,31 +52,48 @@ export function QuantityComponent({
           type="button"
           value="-"
           className={css.minus}
-          onClick={() => setQuantity((pr) => (pr > 1 ? pr - 1 : pr))}
+          onClick={() => {
+            setQuantity((pr) => (pr > 1 ? pr - 1 : pr));
+            cartDeltailItem &&
+              changeQuantity &&
+              quantity > 1 &&
+              changeQuantity(cartDeltailItem.Pid, quantity - 1);
+          }}
         ></input>
         <input
           type="number"
           className={css.value}
           value={quantity}
           onChange={(e) => {
-            Number(e.target.value) != 0 && setQuantity(Number(e.target.value));
+            Number(e.target.value) > 0 && 
+            setQuantity(Number(e.target.value))
+            cartDeltailItem &&
+              changeQuantity &&
+              changeQuantity(cartDeltailItem.Pid, Number(e.target.value));
           }}
         ></input>
         <input
           type="button"
           value="+"
           className={css.plus}
-          onClick={() => setQuantity((pr) => pr + 1)}
+          onClick={() => {
+            setQuantity((pr) => pr + 1);
+            cartDeltailItem &&
+              changeQuantity &&
+              changeQuantity(cartDeltailItem.Pid, quantity + 1);
+          }}
         ></input>
       </div>
-      <div
-        className={cssS.button}
-        style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
-      >
-        <p style={{ padding: "11px 18px" }} onClick={() => addCartProduct()}>
-          Thêm vào giỏ
-        </p>
-      </div>
+      {!cartDeltailItem && (
+        <div
+          className={cssS.button}
+          style={{ fontSize: "18px", backgroundColor: "#d26e4b" }}
+        >
+          <p style={{ padding: "11px 18px" }} onClick={() => addCartProduct()}>
+            Thêm vào giỏ
+          </p>
+        </div>
+      )}
     </>
   );
 }
@@ -241,7 +264,7 @@ export function DetailProduct({ product }: { product: product }) {
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Phí ship tự động</strong>
                       <Row gutter={[10, 10]}>
-                        {shipList.map((e: any,i) => {
+                        {shipList.map((e: any, i) => {
                           return (
                             <Col xs={8} sm={12} lg={8} key={i}>
                               <div
@@ -256,7 +279,7 @@ export function DetailProduct({ product }: { product: product }) {
                     <Col xs={24} sm={12} md={12}>
                       <strong className={css.payTitle}>Thanh toán</strong>
                       <Row gutter={[10, 10]}>
-                        {payList.map((e: any,i ) => {
+                        {payList.map((e: any, i) => {
                           return (
                             <Col xs={8} sm={12} lg={8} key={i}>
                               <div

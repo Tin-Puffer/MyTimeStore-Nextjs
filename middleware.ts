@@ -8,7 +8,6 @@ export function middleware(req: NextRequest) {
   if (login && url.includes("/login")) {
     return NextResponse.redirect("https://mytimestore.vercel.app");
   }
-  
 }
 export const config = {
   matcher: ['/about/:path*', '/another/:path*'],

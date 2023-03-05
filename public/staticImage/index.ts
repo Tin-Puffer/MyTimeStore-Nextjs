@@ -16,7 +16,6 @@ import introduct2 from "./introduct-2.jpg";
 import introduct3 from "./introduct-3.jpg";
 import introduct4 from "./introduct-4.jpg";
 import empty from "./empty-cart.png";
-
 import collection2 from "./collection-2.jpg";
 import collection3 from "./collection-3.jpg";
 import contact from "./contact.jpg";
@@ -33,10 +32,6 @@ import pay3 from "./p3.jpg";
 import pay4 from "./p4.jpg";
 import pay5 from "./p5.jpg";
 import pay6 from "./p6.png";
-
-
-
-
 export {
   pay5,
   pay6,

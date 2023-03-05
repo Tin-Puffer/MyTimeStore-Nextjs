@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { LocalAPI } from "../../pages/api/provincesAPI";
 import { Total } from "./Total";
 
-interface selectType {
+export interface selectType {
   value: string;
   label: string;
 }

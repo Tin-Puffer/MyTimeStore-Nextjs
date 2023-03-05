@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Row, Select } from "antd";
 import { AiFillTag } from "react-icons/ai";
 import { QuantityComponent } from "../DetailProductComponent";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
@@ -7,13 +7,74 @@ import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 
 import css from "./cartStyle.module.scss";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "../../app/Hook";
+import { useState, useEffect } from "react";
+import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
+import { formatNew, formatOld } from "../../PriceFormat";
+import { selectType } from "../CheckOut";
+import { useRouter } from "next/router";
 
 export function CartDetail() {
+  const dispactch = useAppDispatch();
+
+  const cartList = useAppSelector((state) => state.cart.ProductSl);
+  const cartId = useAppSelector((state) => state.cart.Cid);
+
+  const listAddress = useAppSelector(
+    (state) => state.auth.currentUser?.address
+  );
+
+  const address = useAppSelector((state) => state.auth.currentUser?.address);
+  const [province, setProvince] = useState<selectType[]>([]);
+  const [addressShow, setAddressShow] = useState<string>(
+    address ? address[0] : "Chưa có địa chỉ nhận hàng"
+  );
+  const router = useRouter();
+  const [list, setList] = useState<ProductSlI[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [showChangeAddress, setShowChangeAddress] = useState(false);
+
+  const deleteCartItem = async (item: ProductSlI) => {
+    dispactch(
+      cartAction.deleteCartItem({
+        id: item.Pid,
+        quantity: item.quantity,
+        cartId: cartId,
+      })
+    );
+  };
+
+  function updateCart() {}
+
+  useEffect(() => {
+    setList(cartList);
+  }, [cartList]);
+  useEffect(() => {
+    if (listAddress && listAddress.length > 1) {
+      setProvince(
+        listAddress.map((item) => {
+          return { value: item, label: item };
+        })
+      );
+    }
+  }, [listAddress]);
+  useEffect(() => {
+    setTotal(list.reduce((acc, item) => acc + item.price * item.quantity, 0));
+  }, [list]);
+
+  const setListQuantity = (id: string, quantity: number) => {
+    setList((pr) =>
+      pr.map((item) => {
+        if (item.Pid === id) return { ...item, quantity: quantity };
+        else return item;
+      })
+    );
+  };
   return (
     <div className={css.cartContainer}>
       <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
         <Row className={css.payContent}>
-          <Col xs={24} sm={24} lg={14} className={css.line}>
+          <Col md={24} lg={14} className={css.line}>
             <div className={css.mainItem}>
               <table cellSpacing={0}>
                 <thead>
@@ -25,51 +86,85 @@ export function CartDetail() {
                   </tr>
                 </thead>
                 <tbody className={css.tabBody}>
-                  <tr className={css.cartItem}>
-                    <td>
-                      <span className={css.delete}>x</span>{" "}
-                    </td>
-                    <td>
-                      <img
-                        style={{ width: "80px", height: "80px" }}
-                        src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/5-480x480.jpg"
-                      />
-                    </td>
-                    <td>
-                      <span className={css.nameProduct}>
-                        FOSSIL ME3104 TOWNSMAN AUTOMATIC LEATHER WATCH 44MM
-                      </span>{" "}
-                      <p className={css.extraPrice}>
-                        <span>1 x </span>
-                        <span className={css.price}>
-                          423,150,000&nbsp;
-                          <span>₫</span>
-                        </span>{" "}
-                      </p>
-                    </td>
+                  {list.map((item, index) => {
+                    const priceFormat = formatOld(item.price);
+                    const priceNow = formatNew(
+                      item.price,
+                      item.discount,
+                      item.endSale,
+                      item.beginSale
+                    );
+                    return (
+                      <tr className={css.cartItem} key={index}>
+                        <td>
+                          <span
+                            className={css.delete}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteCartItem(item);
+                            }}
+                          >
+                            x
+                          </span>{" "}
+                        </td>
+                        <td>
+                          <img
+                            style={{ width: "80px", height: "80px" }}
+                            src={item.image}
+                          />
+                        </td>
+                        <td>
+                          <span
+                            className={css.nameProduct}
+                            onClick={() => router.push("/product/" + item.Pid)}
+                          >
+                            {item.name}
+                          </span>{" "}
+                          <p className={css.extraPrice}>
+                            <span>{item.quantity} x </span>
+                            <span className={css.price}>
+                              {priceNow ? priceNow : priceFormat}
+                            </span>
+                          </p>
+                        </td>
 
-                    <td className={css.hide}>
-                      <span className={css.price}>
-                        5,800,000&nbsp;
-                        <span>₫</span>
-                      </span>{" "}
-                    </td>
-                    <td>
-                      {/* <QuantityComponent small={true}></QuantityComponent> */}
-                    </td>
-                    <td className={css.hide}>
-                      <span className={css.price}>
-                        46,400,000&nbsp;
-                        <span>₫</span>
-                      </span>{" "}
-                    </td>
-                  </tr>
+                        <td className={css.hide}>
+                          <span className={css.price}>
+                            {priceNow ? priceNow : priceFormat}
+                          </span>
+                        </td>
+                        <td>
+                          <QuantityComponent
+                            changeQuantity={setListQuantity}
+                            small={true}
+                            cartDeltailItem={item}
+                          ></QuantityComponent>
+                        </td>
+                        <td className={css.hide}>
+                          <span className={css.price}>
+                            <span className={css.price}>
+                              {priceNow
+                                ? formatNew(
+                                    item.price * item.quantity,
+                                    item.discount,
+                                    item.endSale,
+                                    item.beginSale
+                                  )
+                                : formatOld(item.price * item.quantity)}
+                            </span>
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
                   <tr>
                     <td colSpan={6} className={css.bntProduct}>
                       <div>
-                        <span className={css.continueShop}>
-                          ← Tiếp tục xem sản phẩm{" "}
-                        </span>
+                        <Link href="/">
+                          <span className={css.continueShop}>
+                            ← Tiếp tục xem sản phẩm
+                          </span>
+                        </Link>
                         <div
                           className={cssS.button}
                           style={{ fontSize: "18px" }}
@@ -86,7 +181,7 @@ export function CartDetail() {
             </div>
           </Col>
 
-          <Col xs={24} sm={24} lg={10}>
+          <Col md={24} lg={10}>
             <div className={css.mainItem}>
               <table cellSpacing={0} className={css.lableTable}>
                 <thead>
@@ -100,29 +195,49 @@ export function CartDetail() {
                   <tr className={css.cartItem}>
                     <td>Tổng phụ</td>
                     <td className={css.payRight}>
-                      <span className={css.price}>
-                        469,550,000&nbsp;
-                        <span>₫</span>
-                      </span>
+                      <span className={css.price}>{formatOld(total)}</span>
                     </td>
                   </tr>
                   <tr className={css.cartItem}>
                     <td>Giao hàng</td>
-                    <td className={css.payRight}>
+                    <td className={css.payRight} colSpan={2}>
                       <p>Giao hàng miễn phí</p>
                       <p>
-                        Ước tính cho <strong>Áo</strong>.{" "}
+                        <strong>
+                          {" "}
+                          {addressShow || "Chưa có địa chỉ nhận hàng"}
+                        </strong>
                       </p>
-                      <p>Đổi địa chỉ</p>
+                      {address && address.length > 1 && (
+                        <p onClick={() => setShowChangeAddress((pr) => !pr)}>
+                          Đổi địa chỉ
+                        </p>
+                      )}
+                      {showChangeAddress && (
+                        <Select
+                          onSelect={(e: any) => {
+                            setAddressShow(e);
+                            setShowChangeAddress((pr) => !pr);
+                          }}
+                          className={[css.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                          size="large"
+                          popupClassName={css.Drop}
+                          style={{ width: "200px" }}
+                          options={province}
+                          defaultValue={
+                            address ? addressShow : "Chưa có địa chỉ nhận hàng"
+                          }
+                        />
+                      )}
                     </td>
                   </tr>
+
                   <tr>
-                    <td>Tổng</td>
+                    <td>Tổng Cộng</td>
                     <td className={css.payRight}>
-                      <span className={css.price}>
-                        469,550,000&nbsp;
-                        <span>₫</span>
-                      </span>
+                      <span className={css.price}>{formatOld(total)}</span>
                     </td>
                   </tr>
                   <tr>
