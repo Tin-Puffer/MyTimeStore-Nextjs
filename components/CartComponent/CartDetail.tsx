@@ -1,4 +1,4 @@
-import { Col, Row, Select } from "antd";
+import { Col, notification, Row, Select } from "antd";
 import { AiFillTag } from "react-icons/ai";
 import { QuantityComponent } from "../DetailProductComponent";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
@@ -13,6 +13,7 @@ import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { selectType } from "../CheckOut";
 import { useRouter } from "next/router";
+import openNotification from "../Notifycation/Notification";
 
 export function CartDetail() {
   const dispactch = useAppDispatch();
@@ -33,6 +34,7 @@ export function CartDetail() {
   const [list, setList] = useState<ProductSlI[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [showChangeAddress, setShowChangeAddress] = useState(false);
+  const [activeCheckOut, setActiveCheckOut] = useState(true);
 
   const deleteCartItem = async (item: ProductSlI) => {
     dispactch(
@@ -44,7 +46,9 @@ export function CartDetail() {
     );
   };
 
-  function updateCart() {}
+  const updateCart = () => {
+    dispactch(cartAction.updateCart(list));
+  };
 
   useEffect(() => {
     setList(cartList);
@@ -60,6 +64,13 @@ export function CartDetail() {
   }, [listAddress]);
   useEffect(() => {
     setTotal(list.reduce((acc, item) => acc + item.price * item.quantity, 0));
+    let isActive = false;
+    list.forEach((item) => {
+      if (item.quantity > item.kho) {
+        isActive = true;
+      }
+    });
+    setActiveCheckOut(isActive);
   }, [list]);
 
   const setListQuantity = (id: string, quantity: number) => {
@@ -133,12 +144,15 @@ export function CartDetail() {
                             {priceNow ? priceNow : priceFormat}
                           </span>
                         </td>
-                        <td>
+                        <td className={css.waningQuantity}>
                           <QuantityComponent
                             changeQuantity={setListQuantity}
                             small={true}
                             cartDeltailItem={item}
                           ></QuantityComponent>
+                          {item.kho < item.quantity && (
+                            <span>Only {item.kho} products left</span>
+                          )}
                         </td>
                         <td className={css.hide}>
                           <span className={css.price}>
@@ -169,7 +183,10 @@ export function CartDetail() {
                           className={cssS.button}
                           style={{ fontSize: "18px" }}
                         >
-                          <p style={{ padding: "8px 18px" }}>
+                          <p
+                            style={{ padding: "8px 18px" }}
+                            onClick={updateCart}
+                          >
                             CẬP NHẬT GIỎ HÀNG
                           </p>
                         </div>
@@ -242,27 +259,18 @@ export function CartDetail() {
                   </tr>
                   <tr>
                     <td colSpan={2}>
-                      <Link href={"/checkout"}>
-                        <div
-                          className={cssS.button}
-                          style={{
-                            marginTop: "15px",
-                            fontSize: "18px",
-                            backgroundColor: "#d26e4b",
-                            width: "100%",
-                            textAlign: "center",
-                          }}
-                        >
-                          <p
-                            style={{
-                              padding: "11px 18px",
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            Tiến hành thanh toán
-                          </p>
-                        </div>
-                      </Link>
+                      <div
+                        onClick={() =>
+                          activeCheckOut? openNotification("BansCheckOut") : router.push("/checkout")
+                        }
+                        className={[
+                          cssS.button,
+                          css.checkOut,
+                          activeCheckOut && css.disible,
+                        ].join(" ")}
+                      >
+                        <p>Tiến hành thanh toán</p>
+                      </div>
                     </td>
                   </tr>
                   <tr>

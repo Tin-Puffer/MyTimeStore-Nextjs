@@ -1,24 +1,40 @@
 import { notification } from "antd";
-import {
-  FrownOutlined,
-} from "@ant-design/icons";
+import { FrownOutlined } from "@ant-design/icons";
 
-const openNotification = (type: string,quantity?:number) => {
+const openNotification = (type: string, quantity?: number) => {
   switch (type) {
+    case "UdateCartSuccess": {
+      notification.success({
+        message: `Update Cart Success `,
+        duration: 1,
+        className: "SUCSESS-notyfication",
+        placement: "top",
+      });
+      break;
+    }
+    case "BansCheckOut": {
+      notification.warning({
+        message: `Not enough products for your order `,
+        duration: 1,
+        className: "SUCSESS-notyfication",
+        placement: "top",
+      });
+      break;
+    }
     case "AddItemInCart": {
       notification.success({
-        message: `Added ${quantity||"1"} Item  In Your Cart `,
+        message: `Added ${quantity || "1"} Item  In Your Cart `,
         duration: 1,
-        className: 'SUCSESS-notyfication',
+        className: "SUCSESS-notyfication",
         placement: "top",
       });
       break;
     }
     case "DeleteItemInCart": {
       notification.success({
-        message: `Delete ${quantity||""} Item  In Your Cart `,
+        message: `Delete ${quantity || ""} Item  In Your Cart `,
         duration: 1,
-        className: 'SUCSESS-notyfication',
+        className: "SUCSESS-notyfication",
         placement: "top",
       });
       break;

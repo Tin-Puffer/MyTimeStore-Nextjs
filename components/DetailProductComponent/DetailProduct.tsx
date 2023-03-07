@@ -47,7 +47,7 @@ export function QuantityComponent({
   }
   return (
     <>
-      <div className={[css.quantity, small && css.small].join(" ")}>
+      <div className={[css.quantity, small && css.small].join(" ")} >
         <input
           type="button"
           value="-"

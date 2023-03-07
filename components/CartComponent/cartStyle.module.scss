@@ -37,6 +37,16 @@
     vertical-align: middle;
   }
 }
+.waningQuantity{
+  position: relative;
+  span{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: red;
+    font-style: italic;
+  }
+}
 .delete {
   display: block;
   width: 24px;
@@ -124,6 +134,27 @@
   &:hover {
     cursor: pointer;
     box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
+  }
+}
+.checkOut{
+  margin-top: 15px;
+  font-size: 18px;
+  background-color: #d26e4b;
+  width: 100%;
+  text-align: center;
+  p{
+    padding: 11px 18px;
+    text-transform: uppercase;
+  }
+  &.disible{
+    background-color: #cccccc;
+   &:hover{
+
+      background-color: initial;
+      color: white;
+      text-decoration: none;
+    
+   }
   }
 }
 @media only screen and (max-width: 700px) {

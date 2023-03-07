@@ -1,4 +1,4 @@
-import {  Form, Input, Row, Col, Select, Checkbox } from "antd";
+import { Form, Input, Row, Col, Select, Checkbox } from "antd";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { CreateAc, layout, validateMessages } from "./CreateAc";
@@ -7,6 +7,7 @@ import css from "./checkOutStyle.module.scss";
 import { useEffect, useState } from "react";
 import { LocalAPI } from "../../pages/api/provincesAPI";
 import { Total } from "./Total";
+import { useAppSelector } from "../../app/Hook";
 
 export interface selectType {
   value: string;
@@ -22,7 +23,8 @@ export function CheckOut() {
   const [OpenCreate, SetOpenCreate] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [form] = Form.useForm();
-  // const [W, setW] = useState();
+  const auth = useAppSelector((state) => state.auth.isLogin);
+  const user = useAppSelector((state) => state.auth.currentUser);
 
   useEffect(() => {
     form.setFieldValue("districts", null);
@@ -79,9 +81,7 @@ export function CheckOut() {
     <div className={css.container}>
       <div className={cssP.gridPoduct} style={{ marginTop: "30px" }}>
         <div className={css.content}>
-          <div className={css.content}>
-            <CreateAc></CreateAc>
-          </div>
+          <div className={css.content}>{auth && <CreateAc></CreateAc>}</div>
           <Row>
             <Col xs={24} md={24} lg={14}>
               <div className={css.content}>
@@ -100,12 +100,102 @@ export function CheckOut() {
                   validateMessages={validateMessages}
                   id="myformX"
                 >
-                  <Row gutter={40}>
-                    <Col xs={24} sm={12}>
+                  {!auth && (
+                    <>
+                      <Row gutter={40}>
+                        <Col xs={24} sm={12}>
+                          <Form.Item
+                            className={cssC.nameInput}
+                            name={"Ho"}
+                            label="Họ"
+                            rules={[{ required: true }]}
+                          >
+                            <Input
+                              defaultValue={"asd"}
+                              className={[
+                                cssC.inputDiscount,
+                                cssD.boxInput,
+                              ].join(" ")}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={12}>
+                          <Form.Item
+                            className={cssC.nameInput}
+                            name={["Ten"]}
+                            label="Tên"
+                            rules={[{ required: true }]}
+                          >
+                            <Input
+                              className={[
+                                cssC.inputDiscount,
+                                cssD.boxInput,
+                              ].join(" ")}
+                            />
+                          </Form.Item>
+                        </Col>
+                      </Row>
                       <Form.Item
                         className={cssC.nameInput}
-                        name={"Ho"}
-                        label="Họ"
+                        name={"province"}
+                        label="Tỉnh /Thành phố "
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          onSelect={(e: any) => setP(e)}
+                          className={[css.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                          size="large"
+                          popupClassName={css.Drop}
+                          // defaultValue="lucy"
+                          style={{ width: "100%" }}
+                          // showSearch={true}
+                          options={province}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        className={cssC.nameInput}
+                        name={"districts"}
+                        label="Quận /Huyện"
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          onSelect={(e: any) => setD(e)}
+                          className={[css.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                          size="large"
+                          disabled={districts.length ? false : true}
+                          popupClassName={css.Drop}
+                          style={{ width: "100%" }}
+                          // showSearch={true}
+                          options={districts}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        className={cssC.nameInput}
+                        name={"wards"}
+                        label="Phường /Xã"
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          className={[css.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                          size="large"
+                          popupClassName={css.Drop}
+                          // defaultValue="lucy"
+                          style={{ width: "100%" }}
+                          // showSearch={true}
+                          disabled={wards.length ? false : true}
+                          options={wards}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        className={cssC.nameInput}
+                        name={"adress"}
+                        label="Địa chỉ"
                         rules={[{ required: true }]}
                       >
                         <Input
@@ -114,13 +204,25 @@ export function CheckOut() {
                           )}
                         />
                       </Form.Item>
-                    </Col>
-                    <Col xs={24} sm={12}>
                       <Form.Item
                         className={cssC.nameInput}
-                        name={["Ten"]}
-                        label="Tên"
+                        name={"SDT"}
+                        label="Số điện thoại"
                         rules={[{ required: true }]}
+                      >
+                        <Input
+                          type="tel"
+                          autoComplete="tel"
+                          className={[cssC.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        className={cssC.nameInput}
+                        name={"Email"}
+                        label="Địa chỉ email"
+                        rules={[{ type: "email" }]}
                       >
                         <Input
                           className={[cssC.inputDiscount, cssD.boxInput].join(
@@ -128,112 +230,31 @@ export function CheckOut() {
                           )}
                         />
                       </Form.Item>
-                    </Col>
-                  </Row>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"province"}
-                    label="Tỉnh /Thành phố "
-                    rules={[{ required: true }]}
-                  >
-                    <Select
-                      onSelect={(e: any) => setP(e)}
-                      className={[css.inputDiscount, cssD.boxInput].join(" ")}
-                      size="large"
-                      popupClassName={css.Drop}
-                      // defaultValue="lucy"
-                      style={{ width: "100%" }}
-                      // showSearch={true}
-                      options={province}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"districts"}
-                    label="Quận /Huyện"
-                    rules={[{ required: true }]}
-                  >
-                    <Select
-                      onSelect={(e: any) => setD(e)}
-                      className={[css.inputDiscount, cssD.boxInput].join(" ")}
-                      size="large"
-                      disabled={districts.length ? false : true}
-                      popupClassName={css.Drop}
-                      style={{ width: "100%" }}
-                      // showSearch={true}
-                      options={districts}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"wards"}
-                    label="Phường /Xã"
-                    rules={[{ required: true }]}
-                  >
-                    <Select
-                      className={[css.inputDiscount, cssD.boxInput].join(" ")}
-                      size="large"
-                      popupClassName={css.Drop}
-                      // defaultValue="lucy"
-                      style={{ width: "100%" }}
-                      // showSearch={true}
-                      disabled={wards.length ? false : true}
-                      options={wards}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"adress"}
-                    label="Địa chỉ"
-                    rules={[{ required: true }]}
-                  >
-                    <Input
-                      className={[cssC.inputDiscount, cssD.boxInput].join(" ")}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"SDT"}
-                    label="Số điện thoại"
-                    rules={[{ required: true }]}
-                  >
-                    <Input
-                      type="tel"
-                      autoComplete="tel"
-                      className={[cssC.inputDiscount, cssD.boxInput].join(" ")}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    className={cssC.nameInput}
-                    name={"Email"}
-                    label="Địa chỉ email"
-                    rules={[{ type: "email" }]}
-                  >
-                    <Input
-                      className={[cssC.inputDiscount, cssD.boxInput].join(" ")}
-                    />
-                  </Form.Item>
+                    </>
+                  )}
 
-                  <Checkbox onChange={() => SetOpenCreate((pr) => !pr)}>
-                    Tạo tài khoản mới?
-                  </Checkbox>
-                  {OpenCreate && (
-                    <Form.Item
-                      style={{ marginTop: "10px" }}
-                      className={cssC.nameInput}
-                      name={"Password"}
-                      label="Tạo mật khẩu của tài khoản"
-                    >
-                      <Input.Password
-                        visibilityToggle={{
-                          visible: passwordVisible,
-                          onVisibleChange: setPasswordVisible,
-                        }}
-                        className={[cssC.inputDiscount, cssD.boxInput].join(
-                          " "
-                        )}
-                      />
-                    </Form.Item>
+                  {OpenCreate && !auth && (
+                    <>
+                      <Checkbox onChange={() => SetOpenCreate((pr) => !pr)}>
+                        Tạo tài khoản mới?
+                      </Checkbox>
+                      <Form.Item
+                        style={{ marginTop: "10px" }}
+                        className={cssC.nameInput}
+                        name={"Password"}
+                        label="Tạo mật khẩu của tài khoản"
+                      >
+                        <Input.Password
+                          visibilityToggle={{
+                            visible: passwordVisible,
+                            onVisibleChange: setPasswordVisible,
+                          }}
+                          className={[cssC.inputDiscount, cssD.boxInput].join(
+                            " "
+                          )}
+                        />
+                      </Form.Item>
+                    </>
                   )}
                   <Form.Item
                     style={{ marginTop: "10px" }}

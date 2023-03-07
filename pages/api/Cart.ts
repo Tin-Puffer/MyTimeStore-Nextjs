@@ -1,7 +1,7 @@
 
 
 import { arrayRemove, arrayUnion, collection, doc, getDocs,query, updateDoc, where } from "firebase/firestore";
-import { itemCart } from "../../app/splice/cartSlipe";
+import { itemCart, ProductSlI } from "../../app/splice/cartSlipe";
 import { db } from "../../FireBase/config";
 const User = collection(db, "Cart");
 export const CartAPI = {
@@ -15,6 +15,13 @@ export const CartAPI = {
     const washingtonRef =  doc(db, "Cart", item.cartId);
     await updateDoc(washingtonRef, {
       ItemList: arrayUnion({ProductID:item.id,Quantity:item.quantity})
+    });
+  },
+  updateCart: async (item:any,cartId:string) => {
+    const washingtonRef =  doc(db, "Cart", cartId);
+    
+    await updateDoc(washingtonRef, {
+      ItemList: item
     });
   },
   getCart: async(id:string)=> {

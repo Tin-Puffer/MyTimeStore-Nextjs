@@ -13,6 +13,7 @@ export interface ProductSlI {
   endSale?:string;
   beginSale?:string
   quantity: number;
+  kho:number
 }
 export interface cartState {
   isLoading: boolean,
@@ -47,6 +48,7 @@ function covertProductList (pr:any[]){
        endSale:p.endOfSale,
        quantity:p.Quantity,
        beginSale: p.beginSale,
+       kho: p.kho
      }
      list.push(xxx)
     })
@@ -106,6 +108,19 @@ const cartSlice = createSlice({
       state.ProductSl = deleteItem(action.payload,state.ProductSl);;
       openNotification("DeleteItemInCart")
       
+    },
+    updateCart(state,action: PayloadAction<ProductSlI[]>){
+      state.loading=true
+
+    },
+    updateCartSuccess(state,action: PayloadAction<ProductSlI[]>){
+      state.loading=false
+      state.ProductSl=action.payload
+      openNotification("UdateCartSuccess")
+
+    },
+    updateCartFail(state) {
+      state.loading=false
     },
     deleteItemFail(state) {
       state.loading=false

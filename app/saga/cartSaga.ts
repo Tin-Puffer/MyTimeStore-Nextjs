@@ -84,6 +84,31 @@ function* WhenDeleteCart() {
      }
   }
 }
+function* WhenUpdateCart() {
+  while (true) {
+      const acction: PayloadAction<ProductSlI[]> = yield take(
+        cartAction.updateCart.type
+      );
+     try {
+      // const cartID:string = yield select((state)=> state.cart.Cid)
+      const Cart = JSON.parse(localStorage.getItem("cart")||'') as CartInfirebase;
+
+      const list = acction.payload.map(item => { return {
+        ProductID:item.Pid,
+        Quantity:item.quantity
+      }})
+      Cart.ItemList=list
+      localStorage.setItem("cart", JSON.stringify(Cart));
+
+      yield call(CartAPI.updateCart,list,Cart.Cid);
+      yield put(cartAction.updateCartSuccess(acction.payload));
+     } catch (error) {
+      console.log(error);
+      
+      yield put(cartAction.updateCartFail());
+     }
+  }
+}
 
 function addItemLS({id,quantity}:{id:string,quantity:number}){
   const Cart = JSON.parse(localStorage.getItem("cart")||'') as CartInfirebase;
@@ -133,6 +158,7 @@ function* WhenAddCart() {
           endSale:newProduct.sale?.end,
           beginSale:newProduct.sale?.begin,
           quantity: acction.payload.quantity,
+          kho:newProduct.kho
         }))
         yield call(addItemLS,{id:newProduct.id, quantity:acction.payload.quantity})
       }
@@ -143,5 +169,5 @@ function* WhenAddCart() {
   }
 }
 export function* cartSaga() {
-  yield all([call(WhenLoadingCart),call(WhenDeleteCart),call(WhenAddCart)]);
+  yield all([call(WhenLoadingCart),call(WhenDeleteCart),call(WhenAddCart),call(WhenUpdateCart)]);
 }
