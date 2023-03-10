@@ -204,6 +204,7 @@ export function DetailNew() {
           </Row>
         </div>
       </div>
+    
     </div>
   );
 }

@@ -62,17 +62,20 @@ function Loading() {
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <div>
-      <Provider store={store}>
-        <Loading />
-        {Component.getLayout ? (
-          getLayout(<Component {...pageProps} />)
-        ) : (
-          <DefaultLayout>
-            <Component {...pageProps} />
-          </DefaultLayout>
-        )}
-      </Provider>
-    </div>
+    <>
+  
+      <div>
+        <Provider store={store}>
+          <Loading />
+          {Component.getLayout ? (
+            getLayout(<Component {...pageProps} />)
+          ) : (
+            <DefaultLayout>
+              <Component {...pageProps} />
+            </DefaultLayout>
+          )}
+        </Provider>
+      </div>
+    </>
   );
 }

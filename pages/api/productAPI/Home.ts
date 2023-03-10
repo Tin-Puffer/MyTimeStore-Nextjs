@@ -1,6 +1,6 @@
 
 
-import { collection, doc, getDoc, getDocs, limit,orderBy,query, where } from "firebase/firestore";
+import { collection, getDocs, limit,orderBy,query, where } from "firebase/firestore";
 
 import { db } from "../../../FireBase/config";
 const Product = collection(db, "Product");

@@ -1,16 +1,43 @@
 import css from "./totalStyle.module.scss";
 import cssC from "./checkOutStyle.module.scss";
-import { useState } from "react";
-import {  Radio, Space } from "antd";
+import { useState, useEffect } from "react";
+import { Radio, Space } from "antd";
 import { RadioChangeEvent } from "antd";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import { useAppSelector } from "../../app/Hook";
+import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 
-export function Total() {
+export function Total({ code }: { code?: { name: string; discount: number } }) {
+
+
   const [value, setValue] = useState(1);
+  const list = useAppSelector((state) => state.cart.ProductSl);
+  const [total, setTotal] = useState<string>();
   const onChange = (e: RadioChangeEvent) => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
+  useEffect(() => {
+    setTotal(
+      formatOld(
+        list.reduce(
+          (acc, item) => {
+            return (
+              acc +
+              (checkSale(
+                item.price,
+                item.discount,
+                item.endSale,
+                item.beginSale
+              ) || item.price) *
+                item.quantity
+            );
+          },
+          code ? -code?.discount : 0
+        )
+      )
+    );
+  }, [list, total]);
   return (
     <div className={css.container}>
       <h3 className={cssC.titleLable}>Đơn hàng của bạn</h3>
@@ -22,25 +49,29 @@ export function Total() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className={[css.titleLeft, css.productItem].join(" ")}>
-              OMEGA SEAMASTER AQUA TERRA WATCH 34MM&nbsp; <span>× 1</span>{" "}
-            </td>
-            <td>
-              <span>
-                423,150,000&nbsp;
-                <span>₫</span>
-              </span>
-            </td>
-          </tr>
+          {list.map((item, index) => (
+            <tr key={index}>
+              <td className={[css.titleLeft, css.productItem].join(" ")}>
+                {item.name}&nbsp; <span>× {item.quantity}</span>{" "}
+              </td>
+              <td>
+                <span>
+                  {formatNew(
+                    item.price * item.quantity,
+                    item.discount,
+                    item.endSale,
+                    item.beginSale
+                  ) || formatOld(item.price * item.quantity)}
+                </span>
+              </td>
+            </tr>
+          ))}
         </tbody>
         <tfoot>
           <tr>
             <th className={[css.titleLeft, css.fade].join(" ")}>Tổng phụ</th>
             <td>
-              <span>
-                423,150,000&nbsp;<span>₫</span>
-              </span>
+              <span>{total}</span>
             </td>
           </tr>
 
@@ -60,6 +91,20 @@ export function Total() {
                       <label>Giao hàng miễn phí</label>{" "}
                     </td>
                   </tr>
+                  {code && (
+                    <tr>
+                      <td className={css.titleLeft}>{code.name}</td>
+                      <td
+                        style={{
+                          textAlign: "right",
+                          paddingRight: 0,
+                          fontWeight: "normal",
+                        }}
+                      >
+                        <label>-{formatOld(code.discount)}</label>{" "}
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </td>
@@ -69,10 +114,7 @@ export function Total() {
             <th className={[css.titleLeft, css.fade].join(" ")}>Tổng</th>
             <td>
               <strong>
-                <span>
-                  423,150,000&nbsp;
-                  <span>₫</span>
-                </span>
+                <span>{total}</span>
               </strong>
             </td>
           </tr>
@@ -101,7 +143,7 @@ export function Total() {
             )}
           </Space>
         </Radio.Group>
-        <button 
+        <button
           form="myformX"
           className={cssS.button}
           style={{
@@ -111,7 +153,7 @@ export function Total() {
             width: "100%",
             maxWidth: "200px",
             textAlign: "center",
-            border: "none"
+            border: "none",
           }}
         >
           <p

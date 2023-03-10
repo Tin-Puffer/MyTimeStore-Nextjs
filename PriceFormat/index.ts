@@ -4,7 +4,7 @@
 function stringToDate(string:string) {
   return new Date(string);
 }
-function sosanh(sateE:string,dateB:string){
+export function sosanh(sateE:string,dateB:string){
   const now = new Date();
   return now>stringToDate(sateE) || now<stringToDate(dateB);
 
@@ -51,3 +51,4 @@ export  function checkSale(value :number,percent :number|undefined,dateE:string|
     
   }
 }
+

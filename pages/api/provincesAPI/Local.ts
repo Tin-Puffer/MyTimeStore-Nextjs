@@ -20,12 +20,16 @@ export const LocalAPI = {
     const URL = `/d/${e}?depth=2`;
     return LOCALs.get(URL).then((res) => res.data.wards);
   },
-  getComment(idFilm: string): Promise<AnyPtrRecord> {
-    const URL = "/comment";
-    return LOCALs.get(URL, {
-      params: {
-        idFilm: idFilm,
-      },
-    }).then((res) => res.data[0]);
+  getAddressAll: async(Pid:number|undefined,Did:number|undefined,Wid: number|undefined) => {
+
+    if(Pid && Did && Wid) {
+    const P = await LOCALs.get("/p/"+Pid).then((res) => res.data.name);  
+    const D= await LOCALs.get("/d/"+Did).then((res) => res.data.name);  
+    const W= await LOCALs.get("/w/"+Wid).then((res) => res.data.name);  
+
+    return W+" "+D+" "+P;
+    }
+    else return ''
   },
+  
 };

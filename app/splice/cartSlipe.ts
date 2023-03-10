@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { product } from "../../common/product/interface";
 import openNotification from "../../components/Notifycation/Notification";
-import { CartInfirebase } from "../saga/cartSaga";
+import { CartInfirebase, ItemOder } from "../saga/cartSaga";
 
 
 
@@ -25,7 +26,25 @@ export interface cartState {
 export interface itemCart{
   id:string;
   quantity:number;
-  cartId:string
+  cartId:string;
+}
+export interface oderNow{
+  ItemList:ItemOder[]
+  Total:number;
+  Address:string,
+  province?:number
+  Email:string,
+  districts?:number
+  PhoneNumber:string
+  wards?:number
+  name:string
+  adress:string
+  note?:string
+  uid:string
+  voucher?:string
+  discount?:number,
+  
+  
 }
 const initAuthLoad = (): cartState => {
     return {
@@ -44,10 +63,10 @@ function covertProductList (pr:any[]){
       name: p.name,
       image:p.image[0],
       price: p.price,
-      discount: p.deal,
-       endSale:p.endOfSale,
+      discount: p.sale?.discount|| undefined,
+       endSale:p.sale?.end ||undefined,
        quantity:p.Quantity,
-       beginSale: p.beginSale,
+       beginSale: p.sale?.begin||undefined,
        kho: p.kho
      }
      list.push(xxx)
@@ -86,15 +105,14 @@ const cartSlice = createSlice({
     },
     LoadingCartSucess(state,action: PayloadAction<any[]>){
       state.loading= false,
-
       state.ProductSl = covertProductList(action.payload);
       state.Cid=getcardID()
 
     },
     CartLoadingFailed(state) {
       state.ProductSl = [];
-
     },
+    
     clearCart(state){
       state.isLoading= false,
       state.loading= false,
@@ -119,6 +137,14 @@ const cartSlice = createSlice({
       openNotification("UdateCartSuccess")
 
     },
+    oderSuccess(state){
+      state.ProductSl = [];
+      const cart={Cid:state.Cid,
+        UserID:state.Userid,
+        ItemList:[]}
+      localStorage.setItem('cart',JSON.stringify(cart));
+
+    },
     updateCartFail(state) {
       state.loading=false
     },
@@ -128,12 +154,13 @@ const cartSlice = createSlice({
     addCartItem(state,action: PayloadAction<itemCart>) {
       state.loading=true
     },
+    oderNow(state,action: PayloadAction<oderNow>) {
+      state.loading=true
+    },
     addNewItemSucces(state,action: PayloadAction<ProductSlI>) {
       state.ProductSl.push(action.payload)
       state.loading=false
       openNotification("AddItemInCart")
-
-
    },
    addQuantityItemSucces(state,action: PayloadAction<itemCart>) {
      state.ProductSl=updateProductQuantity(action.payload,state.ProductSl);;

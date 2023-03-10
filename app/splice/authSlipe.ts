@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { UserF } from "../../common/user";
 import openNotification from "../../components/Notifycation/Notification";
@@ -24,29 +24,48 @@ export interface authState {
 //   });
 
 const initAuthLoad = (): authState => {
-  // if (typeof window !== "undefined") {
-  //   if (!localStorage.getItem("auth")) {
-  //     return {
-  //       isLogin: false,
-  //       login: false,
-  //       currentUser: undefined,
-  //     };
-  //   } else {
-  //     const user = JSON.parse(localStorage?.getItem("auth") || "") as UserF;
-  //     return {
-  //       isLogin: true,
-  //       login: false,
-  //       currentUser: user,
-  //     };
-  //   }
-  // } else
+
     return {
       isLogin: false,
       login: false,
       currentUser: undefined,
     };
 };
+const uprateAddressLC=(newAddress:string)=>{
+  if(localStorage.getItem("auth")){
 
+    const user = JSON.parse(localStorage.getItem("auth")||'') as UserF;
+    user.address.push(newAddress)
+    localStorage.setItem("auth", JSON.stringify(user))
+  }
+  
+}
+const currentAddEmail=(newEmail:string,currentUser?:UserF)=>{
+  if(currentUser){
+    currentUser.email=newEmail
+    const user = JSON.parse(localStorage.getItem("auth")||'') as UserF;
+    user.email=newEmail
+    localStorage.setItem("auth", JSON.stringify(user))
+    return currentUser;
+  }
+  else{
+    return undefined
+}
+}
+
+const currentAddPhone=(Phone:string,currentUser?:UserF)=>{
+  if(currentUser){
+    currentUser.phone=Phone
+    const user = JSON.parse(localStorage.getItem("auth")||'') as UserF;
+    user.phone=Phone
+    localStorage.setItem("auth", JSON.stringify(user))
+    return currentUser;
+  }
+  else{
+    return undefined
+}
+  
+}
 const authSlice = createSlice({
   name: "auth",
   initialState: initAuthLoad() || {},
@@ -65,6 +84,19 @@ const authSlice = createSlice({
       state.currentUser = action.payload;
 
     },
+    updateAdress(state, action: PayloadAction<string>) {
+      state.currentUser?.address.push(action.payload)
+      uprateAddressLC(action.payload)
+    },
+    updateEmail(state, action: PayloadAction<string>) {
+      state.currentUser= currentAddEmail(action.payload,state.currentUser)
+      
+    },
+    updatePhone(state, action: PayloadAction<string>) {
+      state.currentUser= currentAddPhone(action.payload,state.currentUser)
+
+    },
+    
     loginFailed(state, action: PayloadAction<String>) {
       // state.login = false;
       // state.isLogin = false;

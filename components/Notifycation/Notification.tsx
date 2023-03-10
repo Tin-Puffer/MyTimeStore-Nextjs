@@ -12,6 +12,24 @@ const openNotification = (type: string, quantity?: number) => {
       });
       break;
     }
+    case "applyVoucherSuccess": {
+      notification.success({
+        message: `Apply Voucher Success `,
+        duration: 1,
+        className: "Your order is " + quantity + " discount",
+        placement: "top",
+      });
+      break;
+    }
+    case "errorVoucher": {
+      notification.error({
+        message: `incorrect or expired voucher`,
+        duration: 1.5,
+        className: "SUCSESS-notyfication",
+        placement: "top",
+      });
+      break;
+    }
     case "BansCheckOut": {
       notification.warning({
         message: `Not enough products for your order `,

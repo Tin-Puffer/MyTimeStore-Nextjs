@@ -45,4 +45,21 @@ export interface product{
   
 }
 
+interface OderListItem{
+    Image:string;
+    Name:string;
+    Price:number;
+    ProductID:string;
+    Quantity:number
+}
+interface Oder{
+    ItemList:OderListItem[]
+    Total:number,
+    address:string,
+    dateOder:string,
+    email:string,
+    sdt:string,
+    ship:number,
+    uid:string
+}
 

@@ -4,15 +4,15 @@ import { QuantityComponent } from "../DetailProductComponent";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
-
 import css from "./cartStyle.module.scss";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { useState, useEffect } from "react";
 import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
-import { formatNew, formatOld } from "../../PriceFormat";
+import { checkSale, formatNew, formatOld, sosanh } from "../../PriceFormat";
 import { selectType } from "../CheckOut";
 import { useRouter } from "next/router";
+import { VoucherAPI } from "../../pages/api/voucherAPI";
 import openNotification from "../Notifycation/Notification";
 
 export function CartDetail() {
@@ -32,10 +32,36 @@ export function CartDetail() {
   );
   const router = useRouter();
   const [list, setList] = useState<ProductSlI[]>([]);
-  const [total, setTotal] = useState<number>(0);
+  const [total, setTotal] = useState<string>();
+  const [voucher, setVoucher] = useState<string>();
+  const [code, setCode] = useState<{ name: string; discount: number }>();
+
   const [showChangeAddress, setShowChangeAddress] = useState(false);
   const [activeCheckOut, setActiveCheckOut] = useState(true);
 
+  async function checkVoucher() {
+    if (voucher) {
+      const vc = await VoucherAPI.getVoucher(voucher);
+      if (vc && sosanh(vc.end, vc.begin)) {
+        localStorage.setItem(
+          "voucher",
+          JSON.stringify({ name: vc.content, discount: vc.reduce })
+        );
+        setCode({ name: vc.content, discount: vc.reduce });
+        openNotification("applyVoucherSuccess", vc.discount);
+      } else {
+        openNotification("errorVoucher");
+      }
+    }
+  }
+  console.log("render");
+
+  useEffect(() => {
+    if (localStorage.getItem("voucher")) {
+      const voucherLC = JSON.parse(localStorage.getItem("voucher") || "");
+      setCode({ name: voucherLC.name, discount: voucherLC.discount });
+    }
+  }, []);
   const deleteCartItem = async (item: ProductSlI) => {
     dispactch(
       cartAction.deleteCartItem({
@@ -45,7 +71,15 @@ export function CartDetail() {
       })
     );
   };
-
+  function checkArrays() {
+    return cartList.every((item) => {
+      const found = list.find(
+        (listItem) =>
+          listItem.Pid === item.Pid && listItem.quantity === item.quantity
+      );
+      return found !== undefined;
+    });
+  }
   const updateCart = () => {
     dispactch(cartAction.updateCart(list));
   };
@@ -63,7 +97,25 @@ export function CartDetail() {
     }
   }, [listAddress]);
   useEffect(() => {
-    setTotal(list.reduce((acc, item) => acc + item.price * item.quantity, 0));
+    setTotal(
+      formatOld(
+        list.reduce(
+          (acc, item) => {
+            return (
+              acc +
+              (checkSale(
+                item.price,
+                item.discount,
+                item.endSale,
+                item.beginSale
+              ) || item.price) *
+                item.quantity
+            );
+          },
+          code ? -code?.discount : 0
+        )
+      )
+    );
     let isActive = false;
     list.forEach((item) => {
       if (item.quantity > item.kho) {
@@ -71,7 +123,7 @@ export function CartDetail() {
       }
     });
     setActiveCheckOut(isActive);
-  }, [list]);
+  }, [list, code]);
 
   const setListQuantity = (id: string, quantity: number) => {
     setList((pr) =>
@@ -198,7 +250,7 @@ export function CartDetail() {
             </div>
           </Col>
 
-          <Col md={24} lg={10}>
+          <Col md={24} lg={10} className={css.line}>
             <div className={css.mainItem}>
               <table cellSpacing={0} className={css.lableTable}>
                 <thead>
@@ -212,7 +264,7 @@ export function CartDetail() {
                   <tr className={css.cartItem}>
                     <td>Tổng phụ</td>
                     <td className={css.payRight}>
-                      <span className={css.price}>{formatOld(total)}</span>
+                      <span className={css.price}>{total}</span>
                     </td>
                   </tr>
                   <tr className={css.cartItem}>
@@ -250,19 +302,33 @@ export function CartDetail() {
                       )}
                     </td>
                   </tr>
-
+                  {code && (
+                    <tr className={css.cartItem}>
+                      <td>{code.name}</td>
+                      <td className={css.payRight}>
+                        <span className={css.price}>
+                          -{formatOld(code.discount)}
+                        </span>
+                      </td>
+                    </tr>
+                  )}
                   <tr>
                     <td>Tổng Cộng</td>
                     <td className={css.payRight}>
-                      <span className={css.price}>{formatOld(total)}</span>
+                      <span className={css.price}>{total}</span>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
                       <div
-                        onClick={() =>
-                          activeCheckOut? openNotification("BansCheckOut") : router.push("/checkout")
-                        }
+                        onClick={() => {
+                          checkArrays()
+                            ? console.log(" không cần cập nhật")
+                            : !activeCheckOut && updateCart();
+                          activeCheckOut
+                            ? openNotification("BansCheckOut")
+                            : router.push("/checkout");
+                        }}
                         className={[
                           cssS.button,
                           css.checkOut,
@@ -291,8 +357,10 @@ export function CartDetail() {
                             )}
                             type="text"
                             placeholder="Mã ưu đãi"
+                            onChange={(e) => setVoucher(e.target.value)}
                           />{" "}
                           <input
+                            onClick={() => checkVoucher()}
                             className={css.btnGray}
                             type="submit"
                             value="Áp dụng"

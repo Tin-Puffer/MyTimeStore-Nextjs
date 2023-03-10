@@ -1,8 +1,12 @@
 import { Button, Form, Input, Row, Col } from "antd";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./CreatAcStyle.module.scss";
+import { useAppSelector } from "../../app/Hook";
+import { VoucherAPI } from "../../pages/api/voucherAPI";
+import { sosanh } from "../../PriceFormat";
+import openNotification from "../Notifycation/Notification";
 
 export const validateMessages = {
   required: "${label} is required!",
@@ -19,14 +23,34 @@ export const layout = {
   wrapperCol: { span: 24 },
 };
 
-export function CreateAc() {
+export function CreateAc({ setCode }: { setCode: any }) {
   const [open, setOpen] = useState(false);
   const [openVoucher, setOpenVoucher] = useState(false);
-
+  const auth = useAppSelector((state) => state.auth.isLogin);
   const ref = useRef<HTMLDivElement>(null);
   const refv = useRef<HTMLDivElement>(null);
-
-
+  const [voucher, setVoucher] = useState<string>();
+  async function checkVoucher() {
+    if (voucher) {
+      const vc = await VoucherAPI.getVoucher(voucher);
+      if (vc && sosanh(vc.end, vc.begin)) {
+        localStorage.setItem(
+          "voucher",
+          JSON.stringify({ name: vc.content, discount: vc.reduce })
+        );
+        setCode({ name: vc.content, discount: vc.reduce });
+        openNotification("applyVoucherSuccess", vc.discount);
+      } else {
+        openNotification("errorVoucher");
+      }
+    }
+  }
+  useEffect(() => {
+    if (localStorage.getItem("voucher")) {
+      const voucherLC = JSON.parse(localStorage.getItem("voucher") || "");
+      setCode({ name: voucherLC.name, discount: voucherLC.discount });
+    }
+  }, []);
   const onFinish = (values: any) => {
     console.log(values);
   };
@@ -36,15 +60,17 @@ export function CreateAc() {
       <Row>
         <div className={css.container}>
           <div className={css.LableContent}>
-            <div className={css.lable}>
-              Bạn đã có tài khoản?{" "}
-              <span
-                onClick={() => setOpen((pr) => !pr)}
-                className={css.showLogin}
-              >
-                Ấn vào đây để đăng nhập
-              </span>{" "}
-            </div>
+            {!auth && (
+              <div className={css.lable}>
+                Bạn đã có tài khoản?{" "}
+                <span
+                  onClick={() => setOpen((pr) => !pr)}
+                  className={css.showLogin}
+                >
+                  Ấn vào đây để đăng nhập
+                </span>
+              </div>
+            )}
           </div>
           <div
             className={css.createBox}
@@ -150,6 +176,7 @@ export function CreateAc() {
                     className={[css.inputDiscount, cssD.boxInput].join(" ")}
                     type="text"
                     placeholder="Mã ưu đãi"
+                    onChange={(e) => setVoucher(e.target.value)}
                   />{" "}
                 </Col>
                 <Col xs={24} md={24} lg={3}>
@@ -162,7 +189,12 @@ export function CreateAc() {
                       textAlign: "center",
                     }}
                   >
-                    <p style={{ padding: "11px 10px" }}>Áp dụng</p>
+                    <p
+                      style={{ padding: "11px 10px" }}
+                      onClick={() => checkVoucher()}
+                    >
+                      Áp dụng
+                    </p>
                   </div>
                 </Col>
               </Row>

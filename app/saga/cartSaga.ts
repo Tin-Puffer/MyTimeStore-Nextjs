@@ -3,15 +3,27 @@ import { all, call, put, select, take } from "redux-saga/effects";
 import { product } from "../../common/product/interface";
 import { CartAPI } from "../../pages/api/Cart";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
-import { cartAction, itemCart, ProductSlI } from "../splice/cartSlipe";
+import { cartAction, itemCart, oderNow, ProductSlI } from "../splice/cartSlipe";
+import { LocalAPI } from "../../pages/api/provincesAPI/Local";
+import { UserAPI } from "../../pages/api/userAPI/user";
+import { authAction } from "../splice/authSlipe";
+import { UserF } from "../../common/user";
+
 
 export interface CartInfirebase {
   Cid:string;
   UserID:string;
-  ItemList:{ 
-    Quantity:number
-    ProductID:string
-  }[]
+  ItemList:ItemList[]
+}
+export interface ItemList{
+  Quantity:number
+  ProductID:string
+
+}
+export interface ItemOder  extends ItemList{
+  Price:number
+  Name:string
+  Image:string
 }
 
 const getCartList = async (uid: string) => {
@@ -48,6 +60,7 @@ const getCartList = async (uid: string) => {
 function* handleGetCartList(value: string) {
   try {
     const  resoult: any[]  = yield call(getCartList, value);
+
     // if (resoult) {
       console.log(resoult)
 
@@ -56,6 +69,7 @@ function* handleGetCartList(value: string) {
     //     yield put(cartAction.CartLoadingFailed());
     // }
   } catch (error) {
+
     yield put(cartAction.CartLoadingFailed());
   }
 }
@@ -77,6 +91,47 @@ function* WhenDeleteCart() {
       yield call(CartAPI.removeItem,acction.payload);
       yield put(cartAction.deleteItemSucess(acction.payload.id));
       // yield call (deleteItemLS,acction.payload.id)
+     } catch (error) {
+      console.log(error);
+      
+      yield put(cartAction.deleteItemFail());
+     }
+  }
+}
+function* WhenOdernow() {
+  while (true) {
+      const acction: PayloadAction<oderNow> = yield take(
+        cartAction.oderNow.type
+      );
+     try {
+      const  resoult:string[] =  yield call(LocalAPI.getAddressAll,
+        acction.payload.province,acction.payload.districts,acction.payload.wards)
+        const now = new Date();
+      const address= resoult? acction.payload.adress +" "+ resoult : acction.payload.Address; 
+        yield call(CartAPI.oderNow,acction.payload.ItemList,acction.payload.Total,
+          address,now.toLocaleString(),acction.payload.Email,
+          acction.payload.PhoneNumber,acction.payload.uid
+          ,acction.payload.voucher,acction.payload.discount,acction.payload.note);
+          if(acction.payload.Address=="NewAddress"){
+            console.log("chay add")
+            yield call(UserAPI.updateAddressUser,acction.payload.uid,address)
+            yield put(authAction.updateAdress(address));
+          }
+        const userInfor:UserF = yield select((state)=> state.auth.currentUser)
+        const cartID:string = yield select((state)=> state.cart.Cid)
+
+        if(!userInfor.phone){
+          yield call(UserAPI.updatePhoneNumber,acction.payload.uid,acction.payload.PhoneNumber)
+            yield put(authAction.updateEmail(acction.payload.PhoneNumber));
+        }
+        if(!userInfor.email){
+          yield call(UserAPI.updateEmail,acction.payload.uid,acction.payload.Email)
+            yield put(authAction.updatePhone(acction.payload.Email));
+        }
+
+      yield call(CartAPI.oderSuccess,cartID)
+      yield put(cartAction.oderSuccess)
+
      } catch (error) {
       console.log(error);
       
@@ -169,5 +224,10 @@ function* WhenAddCart() {
   }
 }
 export function* cartSaga() {
-  yield all([call(WhenLoadingCart),call(WhenDeleteCart),call(WhenAddCart),call(WhenUpdateCart)]);
+  yield all([call(WhenLoadingCart),
+    call(WhenDeleteCart),
+    call(WhenAddCart),
+    call(WhenUpdateCart),
+    call(WhenOdernow)
+  ]);
 }
