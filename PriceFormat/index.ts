@@ -4,9 +4,10 @@
 function stringToDate(string:string) {
   return new Date(string);
 }
-export function sosanh(sateE:string,dateB:string){
+export function sosanh(sateE?:string,dateB?:string){
   const now = new Date();
-  return now>stringToDate(sateE) || now<stringToDate(dateB);
+  if(sateE && dateB) return now>stringToDate(sateE) || now<stringToDate(dateB);
+  else return true
 
 }
 
@@ -51,4 +52,7 @@ export  function checkSale(value :number,percent :number|undefined,dateE:string|
     
   }
 }
-
+export function calcPrice(vaule:number,discount?:number){
+  if(discount==undefined){return vaule}
+  else{ return vaule - (vaule * discount / 100) }
+}

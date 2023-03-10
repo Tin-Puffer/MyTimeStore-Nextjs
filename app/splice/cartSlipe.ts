@@ -19,6 +19,7 @@ export interface ProductSlI {
 export interface cartState {
   isLoading: boolean,
   loading: boolean,
+  oder:number
   Cid: string;
   Userid: string;
   ProductSl: ProductSlI[];
@@ -49,6 +50,7 @@ export interface oderNow{
 const initAuthLoad = (): cartState => {
     return {
       isLoading: false,
+      oder:0,
       loading: false,
       Userid: "",
       Cid:'',
@@ -138,12 +140,21 @@ const cartSlice = createSlice({
 
     },
     oderSuccess(state){
+      state.loading=false
       state.ProductSl = [];
       const cart={Cid:state.Cid,
         UserID:state.Userid,
         ItemList:[]}
       localStorage.setItem('cart',JSON.stringify(cart));
+      state.oder=2
 
+    },
+    oderFail(state) {
+      state.loading=false
+      state.oder=3
+    },
+    resetOder(state) {
+      state.oder=0
     },
     updateCartFail(state) {
       state.loading=false
@@ -156,6 +167,7 @@ const cartSlice = createSlice({
     },
     oderNow(state,action: PayloadAction<oderNow>) {
       state.loading=true
+      state.oder=1
     },
     addNewItemSucces(state,action: PayloadAction<ProductSlI>) {
       state.ProductSl.push(action.payload)

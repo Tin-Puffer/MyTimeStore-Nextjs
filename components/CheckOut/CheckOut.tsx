@@ -1,4 +1,4 @@
-import { Form, Input, Row, Col, Select, Checkbox } from "antd";
+import { Form, Input, Row, Col, Select, Checkbox, Result, Button } from "antd";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { CreateAc, layout, validateMessages } from "./CreateAc";
@@ -7,12 +7,16 @@ import css from "./checkOutStyle.module.scss";
 import { useEffect, useState } from "react";
 import { LocalAPI } from "../../pages/api/provincesAPI";
 import { Total } from "./Total";
-import { CartAPI } from "../../pages/api/Cart";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { cartAction, oderNow, ProductSlI } from "../../app/splice/cartSlipe";
-import { ItemList, ItemOder } from "../../app/saga/cartSaga";
-import { checkSale } from "../../PriceFormat";
-
+import { ItemOder } from "../../app/saga/cartSaga";
+import { calcPrice, checkSale, sosanh } from "../../PriceFormat";
+import { useRouter } from "next/router";
+import {
+  LoadingOutlined,
+  CheckCircleFilled,
+  CloseCircleFilled,
+} from "@ant-design/icons";
 export interface selectType {
   value: string;
   label: string;
@@ -30,14 +34,17 @@ export function CheckOut() {
   const [OpenCreate, SetOpenCreate] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [form] = Form.useForm();
-  const dispach= useAppDispatch()
+  const dispach = useAppDispatch();
   const [code, setCode] = useState<{ name: string; discount: number }>();
   const auth = useAppSelector((state) => state.auth.isLogin);
+  const loading = useAppSelector((state) => state.cart.loading);
+  const oder = useAppSelector((state) => state.cart.oder);
+
+  const router = useRouter();
   const user = useAppSelector((state) => state.auth.currentUser);
   const listProduct: ProductSlI[] = useAppSelector(
     (state) => state.cart.ProductSl
   );
-
   useEffect(() => {
     if (user) {
       const tmp = user.address.map((e) => {
@@ -94,39 +101,92 @@ export function CheckOut() {
         setProvince(tmp);
       });
     })();
+    if (listProduct.length === 0) router.push("/");
   }, []);
 
   const onFinish = async (values: oderNow) => {
-    const ItemList: ItemOder[] = listProduct.map((e) => {
-      return {
-        Image: e.image,
-        Name: e.name,
-        Price: e.price,
-        Quantity: e.quantity,
-        ProductID: e.Pid,
-      };
-    });
-    values.Total = listProduct.reduce(
-      (acc, item) => {
-        return (
-          acc +
-          (checkSale(item.price, item.discount, item.endSale, item.beginSale) ||
-            item.price) *
-            item.quantity
-        );
-      },
-      code ? -code?.discount : 0
-    );
-    values.uid = user?.uid || "";
-    values.ItemList = ItemList;
-    values.voucher=code?.name;
-    values.discount=code?.discount;
-    
-    console.log(values);
-    dispach(cartAction.oderNow(values));
+    if (!loading) {
+      const ItemList: ItemOder[] = listProduct.map((e) => {
+        return {
+          Image: e.image,
+          Name: e.name,
+          Price: sosanh(e.endSale, e.beginSale)
+            ? e.price
+            : calcPrice(e.price, e.discount),
+          Quantity: e.quantity,
+          ProductID: e.Pid,
+        };
+      });
+      values.Total = listProduct.reduce(
+        (acc, item) => {
+          return (
+            acc +
+            (checkSale(
+              item.price,
+              item.discount,
+              item.endSale,
+              item.beginSale
+            ) || item.price) *
+              item.quantity
+          );
+        },
+        code ? -code?.discount : 0
+      );
+      values.uid = user?.uid || "";
+      values.ItemList = ItemList;
+      values.voucher = code?.name;
+      values.discount = code?.discount;
+
+      console.log(values);
+      dispach(cartAction.oderNow(values));
+    }
   };
+  function goHome() {
+    localStorage.removeItem("voucher");
+    router.push("/");
+    dispach(cartAction.resetOder());
+
+  }
   return (
     <div className={css.container}>
+      {oder && (
+        <div className={css.overlay}>
+          <div className={css.notify}>
+            <Result
+              icon={
+                (oder === 1 && (
+                  <LoadingOutlined style={{ color: "#1890FF" }} />
+                )) ||
+                (oder === 2 && (
+                  <CheckCircleFilled style={{ color: "#52C41A" }} />
+                )) ||
+                (oder === 3 && (
+                  <CloseCircleFilled style={{ color: "#FF4D4F" }} />
+                ))
+              }
+              title={
+                (oder === 1 && "Order is being processed") ||
+                (oder === 2 && "Ordered successfully") ||
+                (oder === 3 && "Error order failed")
+              }
+              subTitle={
+                (oder === 1 && "Your order is being processed, please wait") ||
+                (oder === 2 &&
+                  "Your order has been placed successfully, it will be delivered to you within 2-3 days") ||
+                (oder === 3 &&
+                  "The system has just encountered an error, your order failed")
+              }
+              extra={
+                oder === 2 && (
+                  <Button type="primary" key="console" onClick={() => goHome()}>
+                    Go HomePage
+                  </Button>
+                )
+              }
+            />
+          </div>
+        </div>
+      )}
       <div className={cssP.gridPoduct} style={{ marginTop: "30px" }}>
         <div className={css.content}>
           <div className={css.content}>

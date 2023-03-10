@@ -113,7 +113,6 @@ function* WhenOdernow() {
           acction.payload.PhoneNumber,acction.payload.uid
           ,acction.payload.voucher,acction.payload.discount,acction.payload.note);
           if(acction.payload.Address=="NewAddress"){
-            console.log("chay add")
             yield call(UserAPI.updateAddressUser,acction.payload.uid,address)
             yield put(authAction.updateAdress(address));
           }
@@ -122,20 +121,20 @@ function* WhenOdernow() {
 
         if(!userInfor.phone){
           yield call(UserAPI.updatePhoneNumber,acction.payload.uid,acction.payload.PhoneNumber)
-            yield put(authAction.updateEmail(acction.payload.PhoneNumber));
+            yield put(authAction.updatePhone(acction.payload.PhoneNumber));
         }
         if(!userInfor.email){
           yield call(UserAPI.updateEmail,acction.payload.uid,acction.payload.Email)
-            yield put(authAction.updatePhone(acction.payload.Email));
+            yield put(authAction.updateEmail(acction.payload.Email));
         }
 
       yield call(CartAPI.oderSuccess,cartID)
-      yield put(cartAction.oderSuccess)
+      yield put(cartAction.oderSuccess())
 
      } catch (error) {
       console.log(error);
       
-      yield put(cartAction.deleteItemFail());
+      yield put(cartAction.oderFail());
      }
   }
 }
@@ -145,7 +144,6 @@ function* WhenUpdateCart() {
         cartAction.updateCart.type
       );
      try {
-      // const cartID:string = yield select((state)=> state.cart.Cid)
       const Cart = JSON.parse(localStorage.getItem("cart")||'') as CartInfirebase;
 
       const list = acction.payload.map(item => { return {

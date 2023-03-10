@@ -285,12 +285,13 @@
 .searchContainer {
   width: 0;
   transition: all 0.5s ease-in-out;
+  position: relative;
   .searchInout {
     width: 100%;
-
     border-color: transparent;
     padding: 8px 0;
   }
+ 
   &.active {
     width: 250px;
     max-width: 250px;
@@ -354,6 +355,10 @@
   padding: 20px 0 20px;
   animation: subAnimation 0.5s ease-in-out;
 
+  &.showBox{
+    left: 0;
+    display: block;
+  }
   .contentView {
     padding: 0 20px 10px;
   }

@@ -56,7 +56,6 @@ export const CartAPI = {
   },
   oderSuccess: async(id:string)=>{
     const washingtonRef =  doc(db, "Cart", id);
-    
     await updateDoc(washingtonRef, {
       ItemList: []
     });

@@ -6,6 +6,7 @@ import { db } from "../../../FireBase/config";
 const Product = collection(db, "Product");
 const docRefPoduct = query(Product, where("kho", ">", 0),orderBy("kho"), limit(6));
 const docRefSlide = query(Product,orderBy("sold"), limit(4));
+
 export const ProductHomeAPI = {
   getDetailProduct: async(id:string)=> {
     const listPRoduct=  await getDocs(query(Product, where("id", "==", id)))
@@ -97,5 +98,19 @@ export const ProductHomeAPI = {
       });
      return resoult;
 
+  },
+  getProductSearch: async (code:string) => {
+    const x = await getDocs(query(
+      Product,
+      where("id", ">=", code),
+      where("id", "<=", code + "\uf8ff"),
+      limit(4)
+    ));
+    const resoult:any = [];
+    x.forEach((doc) => {
+      resoult.push(doc.data());
+      // console.log(doc.data );
+    });
+    return resoult;
   },
 };
