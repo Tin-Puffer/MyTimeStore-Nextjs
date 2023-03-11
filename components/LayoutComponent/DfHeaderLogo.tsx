@@ -18,14 +18,25 @@ import { LogoutUser } from "../../FireBase/authService";
 import { logo, avatar, empty } from "../../public/staticImage";
 import { useAppDispatch, useAppSelector, useDebounce } from "../../app/Hook";
 import { authAction } from "../../app/splice/authSlipe";
-import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
+import {
+  cartAction,
+  covertProductList,
+  ProductSlI,
+} from "../../app/splice/cartSlipe";
 import Image from "next/image";
 import { CartAPI } from "../../pages/api/Cart";
 import openNotification from "../Notifycation/Notification";
 import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
 import { product } from "../../common/product/interface";
-export function CartItem({ item }: { item: ProductSlI }) {
+import { useRouter } from "next/router";
+export function CartItem({
+  item,
+  search = false,
+}: {
+  item: ProductSlI;
+  search?: boolean;
+}) {
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
   const priceSale = formatNew(
@@ -47,15 +58,17 @@ export function CartItem({ item }: { item: ProductSlI }) {
   };
   return (
     <>
-      <span
-        className={css.remove}
-        onClick={(e) => {
-          e.stopPropagation();
-          deleteCartItem(item);
-        }}
-      >
-        x
-      </span>
+      {!search && (
+        <span
+          className={css.remove}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteCartItem(item);
+          }}
+        >
+          x
+        </span>
+      )}
       <Link href={"/product/[id]"} as={`/product/${item.Pid}`}>
         <p className={css.nameProductItem}>
           {item.name}
@@ -66,15 +79,40 @@ export function CartItem({ item }: { item: ProductSlI }) {
             src={item.image}
           ></Image>
         </p>
-        <p className={css.quantity}>
-          {item.quantity} ×{" "}
-          {priceSale ? <span>{priceSale}</span> : <span>{price}</span>}
-        </p>
+        {!search ? (
+          <p className={css.quantity}>
+            {item.quantity} {"x"}
+            {priceSale ? <span>{priceSale}</span> : <span>{price}</span>}
+          </p>
+        ) : (
+          <>{priceSale ? <span>{priceSale}</span> : <span>{price}</span>}</>
+        )}
       </Link>
     </>
   );
 }
-
+export function SearchBox({ listPd }: { listPd: product[] }) {
+  const list = covertProductList(listPd);
+  return (
+    <>
+      {list.length > 0 ? (
+        <div className={css.listItem}>
+          <ul className={css.list}>
+            {list.map((item: any, index: number) => (
+              <li key={index}>
+                <CartItem item={item} search={true}></CartItem>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className={css.listItem} style={{ padding: "0" }}>
+          Không có sản phẩm
+        </div>
+      )}
+    </>
+  );
+}
 export function ListCart({ listPd, total }: { listPd: any[]; total: string }) {
   return (
     <>
@@ -157,9 +195,16 @@ export function DefaultHeaderLogo() {
   const [drop, setDrop] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const dispactch = useAppDispatch();
+  const router = useRouter();
   const [activeSearchReoult, setActiveSearchReoult] = useState(false);
-
   const [listSearch, setListSearch] = useState<product[]>([]);
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      router.push("/category/search");
+      handleSearchChange('')
+      setActiveSearchReoult(false);
+    }
+  };
   const runSearchCallback = useCallback(async (id: string) => {
     if (id) {
       const resoult = await ProductHomeAPI.getProductSearch(id);
@@ -172,6 +217,9 @@ export function DefaultHeaderLogo() {
     runSearchCallback,
     2000
   );
+  useEffect(()=>{
+    if(searchTerm=="") setActiveSearchReoult(false)
+  },[searchTerm])
   const divRef = useRef<HTMLDivElement>(null);
   const listInCart: ProductSlI[] = useAppSelector(
     (state) => state.cart.ProductSl
@@ -179,9 +227,10 @@ export function DefaultHeaderLogo() {
   useEffect(() => {
     // Kiểm tra xem sự kiện click có nằm ngoài khối div không
     function handleClickOutside(event: any) {
-      if (divRef.current && !divRef.current.contains(event.target)) {
+      // if (divRef.current && !divRef.current.contains(event.target)) {
         setActiveSearchReoult(false);
-      }
+        handleSearchChange('')
+      // }
     }
 
     // Gắn sự kiện click vào toàn bộ trang
@@ -270,6 +319,7 @@ export function DefaultHeaderLogo() {
                     ref={searchInput}
                     value={searchTerm}
                     onChange={handleSearchChange}
+                    onKeyDown={handleKeyPress}
                     className={[css.searchInout, cssD.boxInput].join(" ")}
                   ></input>
                   <div
@@ -280,7 +330,7 @@ export function DefaultHeaderLogo() {
                     ].join(" ")}
                   >
                     <div className={css.contentView} ref={divRef}>
-                      <ListCart listPd={listInCart} total={total}></ListCart>
+                      <SearchBox listPd={listSearch}></SearchBox>
                     </div>
                   </div>
                 </div>

@@ -7,7 +7,6 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export function useDebounce(callback: (id: string) => Promise<void>, delay: number) {
     const [searchTerm, setSearchTerm] = useState<string>("");
-    const [before, setBefore] = useState('');
     useEffect(() => {
         
         const timer = setTimeout(() => {
@@ -17,8 +16,8 @@ export function useDebounce(callback: (id: string) => Promise<void>, delay: numb
       
     }, [searchTerm, delay]);
   
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchTerm(event.target.value);
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>|string) => {
+      setSearchTerm( typeof(event)=='string'? "": event.target.value);
     };
   
     return { searchTerm, handleSearchChange };

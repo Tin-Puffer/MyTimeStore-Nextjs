@@ -107,7 +107,7 @@ function* WhenOdernow() {
       const  resoult:string[] =  yield call(LocalAPI.getAddressAll,
         acction.payload.province,acction.payload.districts,acction.payload.wards)
         const now = new Date();
-      const address= resoult? acction.payload.adress +" "+ resoult : acction.payload.Address; 
+      const address= resoult? acction.payload.adress +", "+ resoult : acction.payload.Address; 
         yield call(CartAPI.oderNow,acction.payload.ItemList,acction.payload.Total,
           address,now.toLocaleString(),acction.payload.Email,
           acction.payload.PhoneNumber,acction.payload.uid
@@ -129,7 +129,10 @@ function* WhenOdernow() {
         }
 
       yield call(CartAPI.oderSuccess,cartID)
+      yield call(CartAPI.EmailConfirm,acction.payload.name,acction.payload.Email,acction.payload.ItemList,acction.payload.Total)
+
       yield put(cartAction.oderSuccess())
+      
 
      } catch (error) {
       console.log(error);

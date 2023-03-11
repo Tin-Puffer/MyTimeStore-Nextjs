@@ -57,7 +57,7 @@ const initAuthLoad = (): cartState => {
       ProductSl:[]
     };
 };
-function covertProductList (pr:any[]){
+export function covertProductList (pr:any[]){
   const list:any=[]
   pr.forEach(p=>{
     const xxx:ProductSlI= {
@@ -67,7 +67,7 @@ function covertProductList (pr:any[]){
       price: p.price,
       discount: p.sale?.discount|| undefined,
        endSale:p.sale?.end ||undefined,
-       quantity:p.Quantity,
+       quantity:p.Quantity||1,
        beginSale: p.sale?.begin||undefined,
        kho: p.kho
      }
