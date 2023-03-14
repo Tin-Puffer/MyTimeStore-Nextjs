@@ -25,7 +25,7 @@ export function HomeSelect() {
                   </span>
                 </p>
 
-                <Link href={"/category/all"}>
+                <Link href={"category/brand?value=LOBINNI"}>
                   <div className={cssCarousel.bntBoder}>
                     <span>XEM THÊM</span>
                   </div>
@@ -45,7 +45,7 @@ export function HomeSelect() {
                     <h1>
                       <strong>BỘ SƯU TẬP NĂM 2023</strong>
                     </h1>
-                    <Link href={"/category/all"}>
+                    <Link href={"/category/gender?value=man"}>
                       <div className={cssCarousel.bntBoder}>
                         <span>XEM THÊM</span>
                       </div>
@@ -76,7 +76,7 @@ export function HomeSelect() {
                     Kết hợp hoàn hảo tính năng ưu việt và phong cách đẳng cấp
                   </span>
                 </p>
-                <Link href={"/category/all"}>
+                <Link href={"category/brand?value=KASSAW"}>
                   <div className={cssCarousel.bntBoder}>
                     <span>XEM THÊM</span>
                   </div>

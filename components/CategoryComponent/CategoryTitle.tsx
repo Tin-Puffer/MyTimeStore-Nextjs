@@ -4,10 +4,19 @@ import cssDF from "../LayoutComponent/DfHeaderLogo.module.scss";
 
 import { FiMenu } from "react-icons/fi";
 import { useEffect, useState } from "react";
-import { CategoryContainer, CategoryLeft } from "./CategoryContainer";
+import { CategoryLeft } from "./CategoryContainer";
+import { useRouter } from "next/router";
+import { useAppDispatch } from "../../app/Hook";
+import { filterAction } from "../../app/splice/categoryFilterSlipe";
+import { product } from "../../common/product/interface";
 
-export function CategoryTitle() {
+export function CategoryTitle({ interest }: { interest: product[] }) {
   const [filter, setFilter] = useState(false);
+  const router = useRouter();
+  const dispach = useAppDispatch();
+  const handleSelectOder = (value: any) => {
+    dispach(filterAction.setSort(Number(value.target.value)));
+  };
   useEffect(() => {
     filter
       ? document.querySelector(".deflultLayout")?.classList.add("hide")
@@ -18,7 +27,12 @@ export function CategoryTitle() {
       <Row className={css.container}>
         <Col style={{ alignItems: "center" }}>
           <div className={css.BreadCrumb}>
-            TRANG CHU / <span className={css.Crpage}>SAN PHAM HOT</span>
+            <span onClick={() => router.push("/")}>TRANG CHU /</span>
+            <span className={css.Crpage}>
+              {router.query.value
+                ? router.query.Type + " : " + router.query.value
+                : router.query.Type}
+            </span>
           </div>
         </Col>
         <Col xs={24} md={24} lg={0}>
@@ -33,15 +47,15 @@ export function CategoryTitle() {
           <div className={css.rightIiem}>
             <p className={css.titleSort}>Hiển thị một kết quả duy nhất</p>
 
-            <select name="orderby" className={css.selectBox}>
-              <option value="menu_order">Thứ tự mặc định</option>
-              <option value="popularity">Thứ tự theo mức độ phổ biến</option>
-              <option value="rating">Thứ tự theo điểm đánh giá</option>
-              <option value="date">Mới nhất</option>
-              <option value="price">Thứ tự theo giá: thấp đến cao</option>
-              <option value="price-desc">
-                Thứ tự theo giá: cao xuống thấp
-              </option>
+            <select
+              name="orderby"
+              className={css.selectBox}
+              onChange={handleSelectOder}
+            >
+              <option value={1}>Thứ tự mặc định</option>
+              <option value={2}>Thứ tự theo mức độ phổ biến</option>
+              <option value={3}>Thứ tự theo giá: thấp đến cao</option>
+              <option value={4}>Thứ tự theo giá: cao xuống thấp</option>
             </select>
           </div>
         </Col>
@@ -56,9 +70,9 @@ export function CategoryTitle() {
           " "
         )}
       >
-        <div className={cssDF.cartContainer} style={{padding:"0px"}}>
+        <div className={cssDF.cartContainer} style={{ padding: "0px" }}>
           <div className={css.menuSelect}>
-            <CategoryLeft></CategoryLeft>
+            <CategoryLeft interest={interest}></CategoryLeft>
           </div>
         </div>
       </div>

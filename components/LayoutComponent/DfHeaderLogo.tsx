@@ -199,10 +199,11 @@ export function DefaultHeaderLogo() {
   const [activeSearchReoult, setActiveSearchReoult] = useState(false);
   const [listSearch, setListSearch] = useState<product[]>([]);
   const handleKeyPress = (event: any) => {
-    if (event.key === "Enter") {
-      router.push("/category/search");
-      handleSearchChange('')
+    if (event.key === "Enter" && searchTerm.length) {
+      router.push("/category/search?value=" + searchTerm);
+      handleSearchChange("");
       setActiveSearchReoult(false);
+      setSearch(false);
     }
   };
   const runSearchCallback = useCallback(async (id: string) => {
@@ -217,9 +218,9 @@ export function DefaultHeaderLogo() {
     runSearchCallback,
     2000
   );
-  useEffect(()=>{
-    if(searchTerm=="") setActiveSearchReoult(false)
-  },[searchTerm])
+  useEffect(() => {
+    if (searchTerm == "") setActiveSearchReoult(false);
+  }, [searchTerm]);
   const divRef = useRef<HTMLDivElement>(null);
   const listInCart: ProductSlI[] = useAppSelector(
     (state) => state.cart.ProductSl
@@ -228,8 +229,8 @@ export function DefaultHeaderLogo() {
     // Kiểm tra xem sự kiện click có nằm ngoài khối div không
     function handleClickOutside(event: any) {
       // if (divRef.current && !divRef.current.contains(event.target)) {
-        setActiveSearchReoult(false);
-        handleSearchChange('')
+      setActiveSearchReoult(false);
+      handleSearchChange("");
       // }
     }
 

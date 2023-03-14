@@ -49,7 +49,7 @@ export function HomeCarousel() {
                     triển, và sản xuất với tiêu chuẩn chính xác nhất.
                   </span>
                 </blockquote>
-                <Link href={"/category/all"}>
+                <Link href={"/category/hot"}>
                   <div className={css.btnBox}>
                     <div className={[css.bntBoder, css.reponsive].join(" ")}>
                       <span>MUA NGAY</span>

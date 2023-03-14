@@ -5,3 +5,6 @@ export const productDecription = [
 ]
 export const shipList= [ ship1, ship2, ship3, ship4, ship5, ship6]
 export const payList= [ pay1, pay2, pay3, pay4, pay5, pay6]
+export const BranList= ["KASSAW", "IW CARNIVAL", "LOBINNI", "Mini Focus"];
+
+

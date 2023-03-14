@@ -8,7 +8,8 @@ import { formatOld } from "../../PriceFormat/index";
 
 import emailjs from "emailjs-com";
 
-function sendEmail(name:string,email: string, table:string,total:number) {
+function sendEmail(name:string,email: string, table:string,
+  total:number,adress:string,date:string) {
   const emailService = "service_8tab78v";
   const emailTemplate = "template_2uu849s";
   const userID = "aWKt2LkPTmrBW-2Ow";
@@ -17,7 +18,9 @@ function sendEmail(name:string,email: string, table:string,total:number) {
     to_name: name,
     to_email: email,
     render:table,
-    total:formatOld(total)
+    total:formatOld(total),
+    adress:adress,
+    date:date
   };
 
   emailjs.send(emailService, emailTemplate, templateParams, userID).then(
@@ -80,14 +83,17 @@ export const CartAPI = {
       
     })
   },
-  EmailConfirm: async(name:string,adressMail:string,listProduct:ItemOder[],total:number)=>{
-    console.log(name,adressMail,listProduct,total)
+  EmailConfirm: async(name:string,adressMail:string,listProduct:ItemOder[]
+    ,total:number,adress:string,time:Date)=>{
+
+      const date = new Date(time.getTime() + (168  * 60 * 60 * 1000));
    let HeadTable=` 
    <table border="0" width="100%" cellspacing="0" cellpadding="0">
    <tbody>
    <tr>
    <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;" align="left" bgcolor="#eeeeee" width="75%">Order Confirmation #</td>
-   <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;" align="left" bgcolor="#eeeeee" width="25%">2345678</td>
+   <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;" align="left" bgcolor="#eeeeee" width="75%">#1233455</td>
+
    </tr>
    `
   let BootomTable=`
@@ -95,12 +101,14 @@ export const CartAPI = {
    </table>`
    const ListTable= listProduct.map((item) => {
     return `<tr>
-    <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;" align="left" width="75%">${item.Name}</td>
-    <td style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;" align="left" width="25%">${formatOld(item.Price)}</td>
+    <td style="padding: 0px 10px;,font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;" align="left" width="75%">
+    ${item.Name}</td>
+    <td style="padding: 0px 10px;font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding: 5px 10px;" align="left" width="25%">
+    ${item.Quantity} x ${formatOld(item.Price)}</td>
     </tr>`
    })
    const tableHTML= HeadTable+ ListTable + BootomTable
-   sendEmail(name,adressMail,tableHTML,total)
+   sendEmail(name,adressMail,tableHTML,total,adress,date.toLocaleString())
   },
 
   oderSuccess: async(id:string)=>{

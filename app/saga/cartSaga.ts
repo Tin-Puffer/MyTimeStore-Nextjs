@@ -129,7 +129,8 @@ function* WhenOdernow() {
         }
 
       yield call(CartAPI.oderSuccess,cartID)
-      yield call(CartAPI.EmailConfirm,acction.payload.name,acction.payload.Email,acction.payload.ItemList,acction.payload.Total)
+      yield call(CartAPI.EmailConfirm,acction.payload.name,acction.payload.Email,
+        acction.payload.ItemList,acction.payload.Total,address,now)
 
       yield put(cartAction.oderSuccess())
       

@@ -1,10 +1,11 @@
 import css from "./DfHeaderNav.module.scss";
 
 import { Col } from "antd";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Link from "next/link";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { BranList } from "../../common/constag";
 
 export function DfHeaderNav() {
   useEffect(() => {
@@ -17,7 +18,7 @@ export function DfHeaderNav() {
     return window.removeEventListener("scroll", () => {});
   }, []);
   const router = useRouter();
-  const { Type } = router.query;
+  const { Type, value } = router.query;
 
   return (
     <>
@@ -35,22 +36,22 @@ export function DfHeaderNav() {
                   <p>sản phẩm hot</p>
                 </Link>
               </li>
-              <li className={Type == "sale" ? css.active : ""}>
-                <Link href={"/category/sale"}>
-                  <p>sale</p>
-                </Link>
-              </li>
-              <li className={Type == "woman" ? css.active : ""}>
-                <Link href={"/category/woman"}>
+              <li className={value == "woman" ? css.active : ""}>
+                <Link href={"/category/gender?value=woman"}>
                   <p>đồng hồ nữ</p>
                 </Link>
               </li>
-              <li className={Type == "man" ? css.active : ""}>
-                <Link href={"/category/man"}>
+              <li className={value == "man" ? css.active : ""}>
+                <Link href={"/category/gender?value=man"}>
                   <p>đồng hồ nam</p>
                 </Link>
               </li>
-              <li>
+              <li className={value == "couple" ? css.active : ""}>
+                <Link href={"/category/gender?value=couple"}>
+                  <p>couple</p>
+                </Link>
+              </li>
+              <li className={Type == "brand" ? css.active : ""}>
                 <div className={css.dropDown}>
                   <div>
                     <p>brands </p>
@@ -60,15 +61,14 @@ export function DfHeaderNav() {
                   </div>
                   <div className={css.DownItem}>
                     <ul>
-                      <Link href={"/category/citizen"}>
-                        <li>CITIZEN</li>
-                      </Link>
-                      <li>
-                        <Link href={"/category/rolex"}>ROLEX</Link>
-                      </li>
-                      <li>
-                        <Link href={"/category/casio"}>CASIO</Link>
-                      </li>
+                      {BranList.map((item, index) => (
+                        <Link
+                          key={index}
+                          href={"/category/brand?value=" + item}
+                        >
+                          <li>{item}</li>
+                        </Link>
+                      ))}
                     </ul>
                   </div>
                 </div>

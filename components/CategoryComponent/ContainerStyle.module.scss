@@ -69,16 +69,15 @@
 .productItem {
   display: flex;
   p {
-    max-height: 30px;
+    max-height: 40px;
+    line-height: 20px;
     overflow: hidden;
   }
 }
 .price {
 
   font-weight: bold;
-  &.Item {
-    margin-top: 10px;
-  }
+
   .old {
     display: inline-block;
 
@@ -88,6 +87,7 @@
   .new {
     text-decoration-line: none;
     font-size: 16px;
+    margin-top: 0;
   }
 }
 .itemContainer {

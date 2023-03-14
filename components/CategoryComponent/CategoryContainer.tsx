@@ -1,58 +1,89 @@
 import { Col, Row, Slider } from "antd";
-import { useCallback, useState } from "react";
+import {  useState, useEffect } from "react";
 import cssT from "./TitleStyle.module.scss";
 import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
 import css from "./ContainerStyle.module.scss";
 import { product } from "../../common/product/interface";
-import { formatNew, formatOld } from "../../PriceFormat";
+import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { cartAction } from "../../app/splice/cartSlipe";
+import { BranList } from "../../common/constag";
+import Link from "next/link";
+import { filterAction } from "../../app/splice/categoryFilterSlipe";
+import { PaginationCustom } from "./Pagination";
+import Image from "next/image";
 
 export function SliderInput() {
-  const [a, sa] = useState([1, 700]);
-  const handleChange = useCallback((value: any) => {
-    sa(value);
-  }, []);
+  const dispatch = useAppDispatch();
+  const rage = useAppSelector((state) => state.filter.range);
+  const [value, setValue] = useState([0, 0]);
+  const setRangeFilter = () => {
+    dispatch(
+      filterAction.setRangeFilter({ maxPrice: value[1], minPrice: value[0] })
+    );
+  };
+  console.log(value);
+  useEffect(() => {
+    console.log("set lai value");
+    setValue([rage.minPrice, rage.maxPrice]);
+  }, [rage]);
   return (
     <>
       <Slider
-        range={{ draggableTrack: true }}
-        max={700}
         tooltip={{ formatter: null }}
-        min={1}
-        defaultValue={[1, 700]}
+        range={{ draggableTrack: true }}
+        max={rage.maxPrice}
+        min={rage.minPrice}
+        step={100000}
+        // defaultValue={[rage.minPrice, rage.maxPrice]}
         className={css.slider_input}
-        onChange={(e: any) => {
-          handleChange(e);
-        }}
-        onAfterChange={(e: any) => console.log(e)}
+        onAfterChange={(e: any) => setValue([e[0], e[1]])}
         dots={false}
       />
-      <button className={css.filterBtn}>Lọc</button>
+      <button className={css.filterBtn} onClick={setRangeFilter}>
+        Lọc
+      </button>
       <div className={css.priceLable}>
-        Giá <span className="from">{a[0]},000,000&nbsp;₫</span> —{" "}
-        <span className="to">{a[1]},000,000&nbsp;₫</span>
+        Giá <span className="from">{formatOld(value[0])}</span>-{" "}
+        <span className="to">{formatOld(value[1])}</span>
       </div>
     </>
   );
 }
 
-export function CategoryLeft() {
+export function CategoryLeft({ interest }: { interest: product[] }) {
   return (
     <>
       <aside className={css.wide}>
         <span className={css.title}>Danh mục sản phẩm</span>
         <ul className={css.product_categories}>
-          <li>Casio</li>
-          <li>Citizen</li>
-          <li>Đồng hồ cặp đôi</li>
-          <li>Đồng hồ nam</li>
-          <li>Đồng hồ nữ</li>
-          <li>ROLEX</li>
-          <li>Sale</li>
-          <li>Sản phẩm Hot</li>
+          <li>
+            <Link href={"/category/hot"}>
+              <p>sản phẩm hot</p>
+            </Link>
+          </li>
+          <li>
+            <Link href={"/category/gender?value=woman"}>
+              <p>đồng hồ nữ</p>
+            </Link>
+          </li>
+          <li>
+            <Link href={"/category/gender?value=man"}>
+              <p>đồng hồ nam</p>
+            </Link>
+          </li>
+          <li>
+            <Link href={"/category/gender?value=couple"}>
+              <p>couple</p>
+            </Link>
+          </li>
+          {BranList.map((item, index) => (
+            <Link key={index} href={"/category/brand?value=" + item}>
+              <li>{item}</li>
+            </Link>
+          ))}
         </ul>
       </aside>
       <aside className={css.wide}>
@@ -62,126 +93,47 @@ export function CategoryLeft() {
       <aside className={css.wide}>
         <span className={css.title}>Quan tâm</span>
         <ul className={css.product_categories}>
-          <li>
-            <div className={css.productItem}>
-              <img
-                width="60"
-                height="60"
-                src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
-              />{" "}
-              <div style={{ padding: "0 5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
-                <div className={css.price}>
-                  <del className={css.old}>
-                    <div className="woocommerce-Price-amount amount">
-                      15,400,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
+          {interest.map((item, index) => {
+            const sale = checkSale(
+              item.price,
+              item.sale?.discount,
+              item.sale?.end,
+              item.sale?.begin
+            );
+            return (
+              <li key={index}>
+                <Link href={"/product/" + item.id}>
+                  <div className={css.productItem}>
+                    <Image
+                      alt="error"
+                      width="60"
+                      height="60"
+                      src={item.image[0]}
+                    />
+                    <div style={{ padding: "0 5px" }}>
+                      <p>{item.name}</p>
+                      <div className={css.price}>
+                        {sale ? (
+                          <>
+                            <del className={css.old}>
+                              <div>{formatOld(item.price)}</div>
+                            </del>
+                            <ins className={css.new}>
+                              <span>{formatOld(sale)}</span>
+                            </ins>
+                          </>
+                        ) : (
+                          <ins className={css.new}>
+                            <span>{formatOld(item.price)}</span>
+                          </ins>
+                        )}
+                      </div>
                     </div>
-                  </del>
-                  <ins className={css.new}>
-                    <span className="woocommerce-Price-amount amount">
-                      14,000,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </ins>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className={css.productItem}>
-              <img
-                width="60"
-                height="60"
-                src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
-              />{" "}
-              <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
-                <div className={css.price}>
-                  <del className={css.old}>
-                    <div className="woocommerce-Price-amount amount">
-                      15,400,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </div>
-                  </del>
-                  <ins className={css.new}>
-                    <span className="woocommerce-Price-amount amount">
-                      14,000,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </ins>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className={css.productItem}>
-              <img
-                width="60"
-                height="60"
-                src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
-              />{" "}
-              <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
-                <div className={css.price}>
-                  <del className={css.old}>
-                    <div className="woocommerce-Price-amount amount">
-                      15,400,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </div>
-                  </del>
-                  <ins className={css.new}>
-                    <span className="woocommerce-Price-amount amount">
-                      14,000,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </ins>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className={css.productItem}>
-              <img
-                width="60"
-                height="60"
-                src="https://mauweb.monamedia.net/rolex/wp-content/uploads/2018/11/product-11_large-100x100.jpg"
-              />{" "}
-              <div style={{ padding: "5px" }}>
-                <p>BULOVA CORPORATION AUTOMATIC MENS WATCH 49MM</p>
-                <div className={css.price}>
-                  <del className={css.old}>
-                    <div className="woocommerce-Price-amount amount">
-                      15,400,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </div>
-                  </del>
-                  <ins className={css.new}>
-                    <span className="woocommerce-Price-amount amount">
-                      14,000,000&nbsp;
-                      <span className="woocommerce-Price-currencySymbol">
-                        ₫
-                      </span>
-                    </span>
-                  </ins>
-                </div>
-              </div>
-            </div>
-          </li>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </aside>
     </>
@@ -244,15 +196,14 @@ export function ProductItem({ product }: { product: product }) {
           className={[css.price, css.Item].join(" ")}
           style={{ textAlign: "center" }}
         >
-          {/* {priceNow &&(
-
+          {priceNow && (
             <del className={css.old}>
               <span>
                 <span>{priceFormat}</span>
                 <span> &nbsp;</span>
               </span>
             </del>
-            )} */}
+          )}
           <ins className={css.new}>
             <span>
               <span>{priceNow || priceFormat}</span>
@@ -263,31 +214,90 @@ export function ProductItem({ product }: { product: product }) {
     </div>
   );
 }
-export function CategoryContainer() {
+export function CategoryContainer({
+  list,
+  interest,
+}: {
+  list: product[];
+  interest: product[];
+}) {
+  const [listShow, setListShow] = useState<product[]>(list);
+  const sort = useAppSelector((state) => state.filter.sort);
+  const [page, setPage] = useState(0);
+  console.log(listShow);
+  const rangeFilter = useAppSelector((state) => state.filter.rangeFilter);
+  const currenPrice = (cur: product) => {
+    return (
+      checkSale(
+        cur.price,
+        cur.sale?.discount,
+        cur.sale?.end,
+        cur.sale?.begin
+      ) || cur.price
+    );
+  };
+  const handleSort = () => {
+    let curentlist = [...listShow];
+    if (sort == 2) curentlist.sort((a, b) => a.figures.sold - b.figures.sold);
+    else if (sort == 3)
+      curentlist.sort((a, b) => currenPrice(a) - currenPrice(b));
+    else if (sort == 4)
+      curentlist.sort((a, b) => currenPrice(b) - currenPrice(a));
+    else curentlist.sort((a, b) => a.kho - b.kho);
+    return curentlist;
+  };
+  const handleFilter = () => {
+    setListShow(
+      list.filter(
+        (item) =>
+          currenPrice(item) >= rangeFilter.minPrice &&
+          currenPrice(item) <= rangeFilter.maxPrice
+      )
+    );
+    setPage(0);
+  };
+
+  useEffect(() => {
+    if (listShow.length > 1) setListShow(handleSort());
+  }, [sort]);
+  useEffect(() => {
+    if (rangeFilter.minPrice !== 0) handleFilter();
+  }, [rangeFilter]);
+  useEffect(() => {
+    setListShow(list);
+    setPage(0);
+  }, [list]);
   return (
     <div className={cssT.container}>
       <Row gutter={[20, 16]}>
         <Col xs={0} md={0} lg={6}>
-          <CategoryLeft></CategoryLeft>
+          <CategoryLeft interest={interest}></CategoryLeft>
         </Col>
         <Col xs={24} md={24} lg={18} style={{ margin: "30px 0" }}>
           <Row gutter={[20, 30]}>
-            {/* <Col xs={12} sm={12} md={8}>
-              <ProductItem></ProductItem>
-            </Col>
-            <Col xs={12} sm={12} md={8}>
-              <ProductItem></ProductItem>
-            </Col>
-            <Col xs={12} sm={12} md={8}>
-              <ProductItem></ProductItem>
-            </Col>
-            <Col xs={12} sm={12} md={8}>
-              <ProductItem></ProductItem>
-            </Col>
-            <Col xs={12} sm={12} md={8}>
-              <ProductItem></ProductItem>
-            </Col> */}
+            {listShow.map((item, index) => {
+              if (index >= page * 12 && index < (page + 1) * 12) {
+                return (
+                  <Col key={index} xs={12} sm={12} md={8}>
+                    <ProductItem product={item}></ProductItem>
+                  </Col>
+                );
+              }
+            })}
           </Row>
+          <div
+            style={{
+              margin: "20px 0",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <PaginationCustom
+              handleChange={(pageChange: number) => setPage(pageChange)}
+              total={Math.ceil(listShow.length / 12)}
+              pagenow={page}
+            ></PaginationCustom>
+          </div>
         </Col>
       </Row>
     </div>

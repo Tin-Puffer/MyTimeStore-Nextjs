@@ -145,7 +145,6 @@ export function CheckOut() {
     localStorage.removeItem("voucher");
     router.push("/");
     dispach(cartAction.resetOder());
-
   }
   return (
     <div className={css.container}>

@@ -1,10 +1,6 @@
 import { CheckOut } from "../components/CheckOut";
 
 const checkoutPage = () => {
-  return (
-    <div className="">
-      <CheckOut></CheckOut>
-    </div>
-  );
+  return <CheckOut></CheckOut>;
 };
 export default checkoutPage;

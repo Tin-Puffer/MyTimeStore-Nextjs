@@ -8,11 +8,14 @@ export interface figures {
     brandMaterial: string
     code: string
     caseMaterial: string
-    sex:  0|1|2,
     lenght: string,
-    trademark: string,
     insurance: number,
-    glasessMaterial: string
+    glasessMaterial: string,
+    
+    trademark: string,
+    sex:  0|1|2,
+    sold:number
+
 }
 export interface review{
     avatar: string
@@ -34,7 +37,6 @@ export interface product{
     name:string;
     price:number;
     kho:number;
-    sold:number
     sale?:sale,
     image:string[];
     category:string[];

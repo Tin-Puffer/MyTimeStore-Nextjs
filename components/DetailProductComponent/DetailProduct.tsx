@@ -301,7 +301,7 @@ export function DetailProduct({ product }: { product: product }) {
                   <span className={cssS.posted_in}>
                     Danh mục:{" "}
                     {product.category.map((e, i) => (
-                      <p key={i}>{e} &nbsp;</p>
+                      <p key={i} >{e} &nbsp;</p>
                     ))}
                   </span>
                   <span className={cssS.tagged_as}>
