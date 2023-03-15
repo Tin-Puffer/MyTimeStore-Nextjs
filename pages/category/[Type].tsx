@@ -64,12 +64,12 @@ export default function Category({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const list = Fproduct;
-  const interest = Fproduct;
+  // const list = Fproduct;
+  // const interest = Fproduct;
 
-  // const qry = context.query;
-  // const list = await ProductHomeAPI.getFilterProduct(qry.Type, qry.value);
-  // const interest = await ProductHomeAPI.getProductInterest();
+  const qry = context.query;
+  const list = await ProductHomeAPI.getFilterProduct(qry.Type, qry.value);
+  const interest = await ProductHomeAPI.getProductInterest();
 
   console.log("render sv");
   return {

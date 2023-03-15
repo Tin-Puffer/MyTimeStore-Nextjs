@@ -1,12 +1,22 @@
 
 
-import { collection, getDocs, limit,orderBy,query, where } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDocs, limit,orderBy,query, updateDoc, where } from "firebase/firestore";
+import { review } from "../../../common/product/interface";
 
-import { db } from "../../../FireBase/config";
+import { db, dbBlog } from "../../../FireBase/config";
 export const Product = collection(db, "Product");
 const docRefPoduct = query(Product, where("kho", ">", 0),orderBy("kho"), limit(6));
 const docRefSlide = query(Product,orderBy("sold"), limit(4));
-
+export function getCurrentDateTime() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hour = String(now.getHours()).padStart(2, "0");
+  const minute = String(now.getMinutes()).padStart(2, "0");
+  const second = String(now.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
 export const ProductHomeAPI = {
   getDetailProduct: async(id:string)=> {
     const listPRoduct=  await getDocs(query(Product, where("id", "==", id)))
@@ -173,4 +183,57 @@ export const ProductHomeAPI = {
     });
     return resoult;
   },
+  alowComment: async(Pid:string,Uid:string)=> {
+    const q = query(collection(dbBlog, 'Alowcomment'),
+     where('list', 'array-contains-any', [Pid,Uid]));
+    const listPRoduct=  await getDocs(q)
+    const resoult:any=[]
+    listPRoduct.forEach((doc) => {
+      
+        resoult.push(doc.data())
+      });
+      console.log("ré",resoult)
+    if(resoult.length>0){
+      return true
+    }else return false
+
+  },
+  addComment: async(Pid:string,newReview:review,oldComment?:review|boolean)=> {
+      
+      let docID
+      const q = query(Product,
+       where('id', '==', Pid));
+       try {
+        
+         await getDocs(q).then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            docID = doc.id;
+          });
+        })
+         const washingtonRef =  doc(db, "Product", docID|| '');
+
+        if(oldComment){
+          if(washingtonRef){
+            await updateDoc(washingtonRef, {
+              review: arrayRemove(oldComment)
+            });
+          } 
+        }
+
+  
+          if(washingtonRef){
+          
+            await updateDoc(washingtonRef, {
+              review: arrayUnion(newReview)
+            });
+          }
+          return true
+       } catch (error) {
+        console.log(error)
+        return false
+       }
+      
+    
+  },
+
 };

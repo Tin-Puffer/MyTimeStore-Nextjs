@@ -18,11 +18,10 @@ export interface figures {
 
 }
 export interface review{
+    uid: string
     avatar: string
     name: string
     message: string
-    like: number
-    disLike: number
     rating: number
     Time: string
 }
@@ -42,7 +41,7 @@ export interface product{
     category:string[];
     decription?:string[];
     keyWord:string[],
-    review:review[]|null
+    review:review[]
     figures:figures,
   
 }

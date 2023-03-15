@@ -99,18 +99,7 @@
 }
 .feedBack {
   color: rgba(51, 51, 51, 0.521);
-
-  cursor: pointer;
-  .like,
-  .disLike {
-    display: inline-block;
-    font-size: 12px;
-    margin-right: 20px;
-    transition: all 0.3s ease-in-out;
-    &:hover {
-      color: #333;
-    }
-  }
+  
 }
 .commentUser {
   display: flex;

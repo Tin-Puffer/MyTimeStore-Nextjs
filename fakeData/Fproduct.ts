@@ -17,7 +17,8 @@ export const Fproduct:product[]=[
       code: 'L5016-3',
       diameter: '34 mm',
       caseMaterial: 'Thép không gỉ 316L',
-      productLine: 'LOBINNI'
+      productLine: 'LOBINNI',
+      sold:100
     },
    
     sale:{
@@ -38,12 +39,12 @@ export const Fproduct:product[]=[
       'Lobinni cam kết chất lượng của sản phẩm luôn là tiêu chí hàng đầu. Mỗi sản phẩm được tạo ra đều xuất phát từ cảm xúc của nghệ nhân sáng tác. Với mỗi chiếc đồng hồ tạo ra chúng đánh dấu khoảng khắc quý giá của của các nghệ nhân và là một phần lịch sử thương hiệu trong chặng đường chinh phục trái tim người yêu đồng hồ',
       'Trải qua nhiều thập kỷ, Lobinni đã không ngừng phát triển và đã có những bước tiến vô cùng vuợt bậc. Trong đó có việc chế tạo thành công những chiếc đồng hồ Tourbillon đẳng cấp và sang trọng. Không ngừng học hỏi và ứng dụng nhiều công nghệ mới vào việc chế tác đồng hồ, do đó Đồng hồ Lobinni luôn được đánh giá cao và được nhiều người tiêu dùng ưa thích, lựa chọn.'
     ],
-    sold: 10,
+    
     price: 6750000,
     category: [ 'Đồng hồ nữ', 'Automatic', 'Sale' ],
     name: 'Đồng hồ nữ chính hãng LOBINNI L5016-3',
     id: 'L5016-3',
-    review: null,
+    review: [],
     kho: 2
   },
   {
@@ -61,9 +62,10 @@ export const Fproduct:product[]=[
       diameter: '42 mm',
       glasessMaterial: 'Sapphire',
       brandMaterial: 'Thép không gỉ 316L',
-      ATm: '5 ATM'
+      ATm: '5 ATM',
+      sold:100,
     },
-    sold: 100,
+    
     price: 38000000,
     image: [
       'https://thegioidongho.vip/uploads/lobinni_tourbillon_l8886(12).jpg',
@@ -83,16 +85,14 @@ export const Fproduct:product[]=[
       avatar: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg",
       name: "Nguyễn văn tèo",
       message: "ssản phẩm như cặc",
-      like: 10,
-      disLike: 0,
+      uid:"123",
       rating: 4,
       Time:'2020-11-11'
     },{
       avatar: "https://kynguyenlamdep.com/wp-content/uploads/2022/06/avatar-cute-meo-con-than-chet.jpg",
       name: "Nguyễn văn A",
       message: "ssản phẩm Tốt vcl",
-      like: 10,
-      disLike: 0,
+      uid:"2123",
       rating: 5,
       Time:'2020-11-11'
 
@@ -107,7 +107,7 @@ export const Fproduct:product[]=[
       end:'2020-10-10',
       discount:20
     },
-    review: null,
+    review: [],
     price: 5000000,
     image: [
       'https://thegioidongho.vip/uploads/MF0226-1_(7).jpg',
@@ -119,7 +119,7 @@ export const Fproduct:product[]=[
 
     ],
     category: [ 'Nomal', 'Đồng hồ nữ', 'Hot' ],
-    sold: 120,
+    
     figures: {
       lenght: '8 mm',
       diameter: '32 mm',
@@ -131,7 +131,8 @@ export const Fproduct:product[]=[
       insurance: 12,
       productLine: 'Đồng hồ điện tử (Pin)',
       code: 'MF0226-1',
-      trademark: 'Mini Focus'
+      trademark: 'Mini Focus',
+      sold:100
     },
     kho: 1,
     name: 'Đồng hồ nữ chính hãng Mini Focus MF02261',
@@ -146,7 +147,7 @@ export const Fproduct:product[]=[
       'Lobinni cam kết chất lượng của sản phẩm luôn là tiêu chí hàng đầu. Mỗi sản phẩm được tạo ra đều xuất phát từ cảm xúc của nghệ nhân sáng tác. Với mỗi chiếc đồng hồ tạo ra chúng đánh dấu khoảng khắc quý giá của của các nghệ nhân và là một phần lịch sử thương hiệu trong chặng đường chinh phục trái tim người yêu đồng hồ',
       'Trải qua nhiều thập kỷ, Lobinni đã không ngừng phát triển và đã có những bước tiến vô cùng vuợt bậc. Trong đó có việc chế tạo thành công những chiếc đồng hồ Tourbillon đẳng cấp và sang trọng. Không ngừng học hỏi và ứng dụng nhiều công nghệ mới vào việc chế tác đồng hồ, do đó Đồng hồ Lobinni luôn được đánh giá cao và được nhiều người tiêu dùng ưa thích, lựa chọn.'
     ],
-    sold: 1,
+   
     kho: 30,
     category: [ 'Automatic', 'Đồng hồ cặp đôi', 'Hot', 'Sale' ],
     price: 8600000,
@@ -161,7 +162,8 @@ export const Fproduct:product[]=[
       lenght: '9.5 mm',
       sex: 2,
       glasessMaterial: 'Sapphire',
-      trademark: 'LOBINNI'
+      trademark: 'LOBINNI',
+      sold:10
     },
     name: 'Đồng hồ đôi chính hãng LOBINNI L3033-17',
     
@@ -172,7 +174,7 @@ export const Fproduct:product[]=[
       'https://thegioidongho.vip/uploads/dong-ho-lobinni-no-3033-l-1.jpg',
       'https://thegioidongho.vip/uploads/lobinni_L3033_(6).jpg'
     ],
-    review: null,
+    review: [],
     id: 'L3033-17',
     keyWord: [ 'LOBINNI', 'L3033-17' ],
     sale:{
@@ -189,6 +191,7 @@ export const Fproduct:product[]=[
       insurance: 24,
       caseMaterial: 'Thép không gỉ 316L',
       sex: 2,
+      sold:10,
       brandMaterial: 'Dây da cao cấp',
       productLine: 'Đồng hồ cơ (Automatic)',
       code: 'K863-8',
@@ -201,14 +204,14 @@ export const Fproduct:product[]=[
       'https://thegioidongho.vip/uploads/%C4%91%E1%BB%93ng_h%E1%BB%93_kassaw_k863_(10).jpg',
       'https://thegioidongho.vip/uploads/%C4%91%E1%BB%93ng_h%E1%BB%93_kassaw_k863_(9).jpg'
     ],
-    review: null,
+    review: [],
     name: 'Đồng hồ đôi chính hãng KASSAW K863-7',
     id: 'K863-7',
     keyWord: [ 'Nam&Nữ', 'KASSAW', 'K863-8' ],
     category: [ 'Đồng hồ cặp đôi', 'Hot', 'Automatic' ],
     price: 16150000,
     kho: 300,
-    sold: 20
+  
   },
   {
     category: [ 'Hot', 'Sale', 'Automatic' ],
@@ -230,17 +233,18 @@ export const Fproduct:product[]=[
       glasessMaterial: 'Sapphire',
       insurance:24,
       code: 'L8886-6'
+      ,sold:1000,
     },
     kho:12,
     name: 'Đồng hồ nam chính hãng LOBINNI Tourbillon L8886-6',
-    review: null,
+    review: [],
     sale:{
       discount:29,
       end:'2030-01-01',
       begin:'2016-01-01'
 
     },
-    sold: 24,
+    
     keyWord: [ 'LOBINNI', ' L8886-6', 'Tourbillon' ],
     price: 38600000,
     image: [

@@ -3,6 +3,15 @@ import { FrownOutlined } from "@ant-design/icons";
 
 const openNotification = (type: string, quantity?: number) => {
   switch (type) {
+    case "ReviewSuccess": {
+      notification.success({
+        message: `Your review has been recorded `,
+        duration: 1,
+        className: "SUCSESS-notyfication",
+        placement: "top",
+      });
+      break;
+    }
     case "UdateCartSuccess": {
       notification.success({
         message: `Update Cart Success `,

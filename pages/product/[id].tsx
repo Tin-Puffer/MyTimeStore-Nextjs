@@ -19,22 +19,23 @@ export default function Detail(detailProduct: product) {
 }
 export async function getServerSideProps(context: any) {
   
-  // const detailProduct = await ProductHomeAPI.getDetailProduct(
-  //   context.params.id
-  //   );
+  const detailProduct = await ProductHomeAPI.getDetailProduct(
+    context.params.id
+    );
     
-  //   if (detailProduct.length == 0) {
-  //     return {
-  //       notFound: true,
-  //     };
-  //   } else {
-  //     return {
-  //       props: detailProduct,
-  //     };
-  //   }
+    if (detailProduct.length == 0) {
+      return {
+        notFound: true,
+      };
+    } else {
+      return {
+        props: detailProduct,
+      };
+    }
     
-  const detailProduct = Fproduct[1];
-  return {
-    props: detailProduct,
-  };
+  // const detailProduct = Fproduct[1];
+  
+  // return {
+  //   props: detailProduct,
+  // };
 }
