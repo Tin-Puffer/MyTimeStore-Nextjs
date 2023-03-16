@@ -21,14 +21,13 @@ export default function DetailNewPage({
 export const getStaticPaths = async () => {
   const pa = ["1"];
   const ways = pa.map((pa) => ({
-    params: { id: pa.toString() },
+    params: { id: pa },
   }));
 
   return {
     paths: ways,
-    // fallback: false // bat ki path nao k returned boi getStaticPaths se toi trang 404
-    fallback: true, // path nao k returned ngay lap tuc se show trang "tam thoi" => doi getStaticProps chay
-    // => getStaticProps chay xong => return trang hoan chinh
+
+    fallback: "blocking",
   };
 };
 
