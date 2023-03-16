@@ -17,6 +17,16 @@ const firebaseConfigBlog = {
 };
 const appBlog = initializeApp(firebaseConfigBlog,"blog");
 const dbBlog = getFirestore(appBlog);
+const firebaseConfigBlogDetail = {
+  apiKey: "AIzaSyDZYGAvKuhfG6_y12JfbIomzkpG1QDUax0",
+  authDomain: "blogmytime.firebaseapp.com",
+  projectId: "blogmytime",
+  storageBucket: "blogmytime.appspot.com",
+  messagingSenderId: "326435536928",
+  appId: "1:326435536928:web:774e70e2b6c4f4d7393c45"
+};
+const appBlogDetail = initializeApp(firebaseConfigBlogDetail,"blogDetail");
+const dbBlogDetail = getFirestore(appBlogDetail);
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -36,4 +46,4 @@ const auth = getAuth(app);
 auth.languageCode = "vi";
 
 
-export { auth, db ,dbBlog};
+export { auth, db ,dbBlog,dbBlogDetail};

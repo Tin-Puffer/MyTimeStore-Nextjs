@@ -1,21 +1,33 @@
 import css from "./DfHeaderNav.module.scss";
 
 import { Col } from "antd";
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BranList } from "../../common/constag";
-
+import { UpOutlined, CaretUpOutlined } from "@ant-design/icons";
 export function DfHeaderNav() {
+  const [showButton, setShowButton] = useState(false);
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       if (typeof window !== "undefined") {
         let hes = document.querySelector(".navContent");
         hes?.classList.toggle("sticky", window.scrollY > 100);
       }
-    });
-    return window.removeEventListener("scroll", () => {});
+      if (window.scrollY > 1500) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
   const router = useRouter();
   const { Type, value } = router.query;
@@ -23,6 +35,13 @@ export function DfHeaderNav() {
   return (
     <>
       <div className={[css.container, "navContent"].join(" ")}>
+        <div
+          className={[showButton && css.Active, css.scrollTop].join(" ")}
+          onClick={handleScrollToTop}
+        >
+          <CaretUpOutlined style={{ fontSize: "25px", color: "white" }} />
+        </div>
+
         <Col xs={0} md={24}>
           <div className={css.content}>
             <ul className={css.category}>

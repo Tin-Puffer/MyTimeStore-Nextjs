@@ -21,8 +21,6 @@ import {
 } from "../FireBase/authService";
 import { loginWithAccountFacebook } from "../FireBase/authService";
 import { slider1, slider2 } from "../public/staticImage";
-import { useAppDispatch } from "../app/Hook";
-import { authAction } from "../app/splice/authSlipe";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
@@ -46,7 +44,6 @@ export default function Login() {
       if (user) {
         if (user.emailVerified) {
           router.push("/");
-    
         }
       }
     });

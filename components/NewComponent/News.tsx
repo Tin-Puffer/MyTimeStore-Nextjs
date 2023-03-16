@@ -6,35 +6,48 @@ import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import css from "./newsStyle.module.scss";
 import { SearchNews } from "./Search";
 import Link from "next/link";
-export function NewsItem() {
+import { Blog } from "../../common/product/interface";
+import { timeAgo } from "../DetailProductComponent";
+export function NewsItem({ item }: { item: Blog }) {
+  const dateObj = new Date(item.time);
+  const day = dateObj.getDate();
+  const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
   return (
-    <Link href={"/news/detail"}>
+    <Link href={"/news/" + item.id}>
       <div className={cssC.itemContainer}>
         <div className={css.item}>
           <div style={{ position: "relative" }}></div>
           <div className={css.BgcContaniner}>
-            <div className={css.bgcNEw}></div>
+            <div
+              className={css.bgcNEw}
+              style={{ backgroundImage: `url("${item.thumnail}")` }}
+            ></div>
           </div>
           <div className={css.datePost}>
             <div className={css.contenPost}>
-              <p>03</p>
-              <p>Th12</p>
+              <p>{day}</p>
+              <p>{month}</p>
             </div>
           </div>
           <div className={css.decContainer}>
-            <h5>Aerolithe Performance Titanium Watch</h5>
+            <h5>{item.name}</h5>
             <div className={cssS.driver}></div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore ...{" "}
-            </p>
+            <p>{item.decription}</p>
+            <p className={css.time}>{timeAgo(item.time)}</p>
           </div>
         </div>
       </div>
     </Link>
   );
 }
-export function News() {
+export function News({
+  listBlog,
+  listnew,
+}: {
+  listBlog: Blog[];
+  listnew: Blog[];
+}) {
+  console.log(listBlog);
   return (
     <div className={css.container}>
       <div className={cssP.gridPoduct} style={{ marginTop: "30px" }}>
@@ -45,7 +58,7 @@ export function News() {
           <Row>
             <Col xs={24} sm={24} md={6} className={css.changeOder}>
               <div className={css.itemContainer}>
-                <SearchNews></SearchNews>
+                <SearchNews listnew={listnew}></SearchNews>
               </div>
             </Col>
             <Col
@@ -56,18 +69,12 @@ export function News() {
             >
               <div className={css.itemContainer}>
                 <Row gutter={[30, 20]}>
-                  <Col xs={24} sm={24} md={8}>
-                    <NewsItem />
-                  </Col>
-                  <Col xs={24} sm={24} md={8}>
-                    <NewsItem />
-                  </Col>
-                  <Col xs={24} sm={24} md={8}>
-                    <NewsItem />
-                  </Col>
-                  <Col xs={24} sm={24} md={8}>
-                    <NewsItem />
-                  </Col>
+                  {listBlog &&
+                    listBlog.map((item, index) => (
+                      <Col key={index} xs={24} sm={24} md={8}>
+                        <NewsItem item={item} />
+                      </Col>
+                    ))}
                 </Row>
               </div>
             </Col>

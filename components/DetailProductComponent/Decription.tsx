@@ -13,7 +13,7 @@ import {
 } from "../../pages/api/productAPI/Home";
 import openNotification from "../Notifycation/Notification";
 
-function timeAgo(dateStr: string) {
+export function timeAgo(dateStr: string) {
   const date = new Date(dateStr);
   const now = new Date();
 

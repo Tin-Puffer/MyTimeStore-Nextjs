@@ -7,7 +7,8 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { DefaultLayout } from "../components/layout/DefaultLayout";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-
+// @ts-ignore
+import FacebookProvider from "react-facebook-sdk";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -63,19 +64,20 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <>
-  
-      <div>
-        <Provider store={store}>
-          <Loading />
-          {Component.getLayout ? (
-            getLayout(<Component {...pageProps} />)
-          ) : (
-            <DefaultLayout>
-              <Component {...pageProps} />
-            </DefaultLayout>
-          )}
-        </Provider>
-      </div>
+      <FacebookProvider appId="483581390556812">
+        <div>
+          <Provider store={store}>
+            <Loading />
+            {Component.getLayout ? (
+              getLayout(<Component {...pageProps} />)
+            ) : (
+              <DefaultLayout>
+                <Component {...pageProps} />
+              </DefaultLayout>
+            )}
+          </Provider>
+        </div>
+      </FacebookProvider>
     </>
   );
 }

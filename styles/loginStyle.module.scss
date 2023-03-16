@@ -195,3 +195,9 @@
   font-size: 15px !important;
   text-align: center !important;
 }
+@media only screen and (max-width: 576px ) {
+  .loginContent{
+    width: 100%;
+
+  }
+}

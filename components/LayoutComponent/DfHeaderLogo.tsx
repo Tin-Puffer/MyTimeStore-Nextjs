@@ -24,12 +24,12 @@ import {
   ProductSlI,
 } from "../../app/splice/cartSlipe";
 import Image from "next/image";
-import { CartAPI } from "../../pages/api/Cart";
 import openNotification from "../Notifycation/Notification";
 import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
 import { product } from "../../common/product/interface";
 import { useRouter } from "next/router";
+import { BranList } from "../../common/constag";
 export function CartItem({
   item,
   search = false,
@@ -477,6 +477,10 @@ export function DefaultHeaderLogo() {
             ></input>
             <div
               className={cssF.icon}
+              onClick={() => {
+                router.push("/category/search?value=" + searchTerm);
+                setOpenNav(false);
+              }}
               style={{
                 width: "35px",
                 backgroundColor: "#cbba9c",
@@ -523,6 +527,7 @@ export function DefaultHeaderLogo() {
               className={css.iconDropDown}
               onClick={(e: any) => {
                 e.stopPropagation();
+
                 setDrop((pr) => !pr);
               }}
             >
@@ -536,15 +541,13 @@ export function DefaultHeaderLogo() {
 
           {drop && (
             <div className={css.subMenu}>
-              <Link href={"/category/citizen"}>
-                <div>citizen</div>
-              </Link>
-              <Link href={"/category/rolex"}>
-                <div>rolex</div>
-              </Link>
-              <Link href={"/category/casio"}>
-                <div>casio</div>
-              </Link>
+              <ul onClick={() => setDrop(false)}>
+                {BranList.map((item, index) => (
+                  <Link key={index} href={"/category/brand?value=" + item}>
+                    <li>{item}</li>
+                  </Link>
+                ))}
+              </ul>
             </div>
           )}
           <Link href={"/contact"}>
@@ -553,9 +556,30 @@ export function DefaultHeaderLogo() {
           <Link href={"/introduce"}>
             <li>Giới thiệu</li>
           </Link>
-          <Link href={"/login"}>
-            <li>Đăng nhập</li>
-          </Link>
+          {!user ? (
+            <Link href={"/login"}>
+              <li>Đăng nhập</li>
+            </Link>
+          ) : (
+            <li
+              onClick={() => {
+                LogoutUser(auth);
+                setUser(null);
+                setOpenNav(false);
+                dispactch(authAction.clearUser());
+                dispactch(cartAction.clearCart());
+              }}
+            >
+              <GoSignOut
+                size={20}
+                style={{
+                  marginBottom: "-4px",
+                  marginRight: "5px",
+                }}
+              ></GoSignOut>
+              đăng xuất{" "}
+            </li>
+          )}
           <a href="tel:+4733378901">
             <li className={css.Telme}>
               <p>HOTLINE: 076 922 0162</p>

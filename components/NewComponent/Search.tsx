@@ -2,7 +2,9 @@ import { FaSearch } from "react-icons/fa";
 import cssF from "../LayoutComponent/DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./searchStyle.module.scss";
-export function SearchNews() {
+import { Blog } from "../../common/product/interface";
+import Link from "next/link";
+export function SearchNews({ listnew }: { listnew: Blog[] }) {
   return (
     <div className={css.container}>
       <div className={css.searchBox}>
@@ -34,48 +36,26 @@ export function SearchNews() {
       <div className={css.SameContainer}>
         <h1 className={css.title}>Bài viết mới</h1>
         <ul>
-          <li>
-            <div className={css.post}>
-              <div style={{ marginRight: "15px" }}>
-                <div className={css.badgeInner}></div>
-              </div>
+          {listnew &&
+            listnew.map((item, index) => (
+              <li key={index}>
+                <Link href={"/news/" + item.id}>
+                  <div className={css.post}>
+                    <div style={{ marginRight: "15px" }}>
+                      <div
+                        className={css.badgeInner}
+                        style={{ backgroundImage: `url("${item.thumnail}")` }}
+                      ></div>
+                    </div>
 
-              <div className={css.namepost}>
-                Aerolithe Performance Titanium Watch
-                <span className="post_comments op-7 block is-xsmall">
-                  <a href="https://mauweb.monamedia.net/rolex/aerolithe-performance-titanium-watch/#respond"></a>
-                </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className={css.post}>
-              <div style={{ marginRight: "15px" }}>
-                <div className={css.badgeInner}></div>
-              </div>
-
-              <div className={css.namepost}>
-                Aerolithe Performance Titanium Watch
-                <span className="post_comments op-7 block is-xsmall">
-                  <a href="https://mauweb.monamedia.net/rolex/aerolithe-performance-titanium-watch/#respond"></a>
-                </span>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className={css.post}>
-              <div style={{ marginRight: "15px" }}>
-                <div className={css.badgeInner}></div>
-              </div>
-
-              <div className={css.namepost}>
-                Aerolithe Performance Titanium Watch
-                <span className="post_comments op-7 block is-xsmall">
-                  <a href="https://mauweb.monamedia.net/rolex/aerolithe-performance-titanium-watch/#respond"></a>
-                </span>
-              </div>
-            </div>
-          </li>
+                    <div className={css.namepost}>
+                      {item.name}
+                      <span className="post_comments op-7 block is-xsmall"></span>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
