@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const list = await ProductHomeAPI.getFilterProduct(qry.Type, qry.value);
   const interest = await ProductHomeAPI.getProductInterest();
 
-  console.log("render sv");
+  
   return {
     props: {
       listPRoduct: list,

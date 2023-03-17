@@ -42,7 +42,7 @@ export const ProductHomeAPI = {
   },
   getCartlist: async(list:any[])=> {
     
-    console.log("ham nay chay 1",list);
+   
     let flag=false
 
     const promise= new Promise((resolve) => {
@@ -51,10 +51,10 @@ export const ProductHomeAPI = {
     if(list.length > 0){
 
       list.forEach(async (item:any,index) =>{
-        console.log("chay vong lap",index)
+   
 
       await getDocs(query(Product, where("id", "==", item.ProductID))).then(result =>{
-        console.log("chay id ",item.ProductID)
+
         
         result.forEach((doc) => {
 
@@ -130,7 +130,7 @@ export const ProductHomeAPI = {
     const resoult:any = [];
     x.forEach((doc) => {
       resoult.push(doc.data());
-      // console.log(doc.data );
+
     });
     return resoult;
   },
@@ -179,7 +179,7 @@ export const ProductHomeAPI = {
     const resoult:any = [];
     getList.forEach((doc) => {
       resoult.push(doc.data());
-      // console.log(doc.data );
+
     });
     return resoult;
   },
@@ -192,7 +192,7 @@ export const ProductHomeAPI = {
       
         resoult.push(doc.data())
       });
-      console.log("ré",resoult)
+   
     if(resoult.length>0){
       return true
     }else return false

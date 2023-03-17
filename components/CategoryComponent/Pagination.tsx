@@ -12,7 +12,7 @@ export function PaginationCustom({
   const onChange = (page: number) => {
     handleChange(page - 1);
   };
-  console.log("total", total);
+
   if (total <= 1) return <></>;
   else {
     return (

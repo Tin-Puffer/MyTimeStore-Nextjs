@@ -10,11 +10,9 @@ export default function DetailNewPage({
   detailNew: DetailNewType;
   blog: Blog;
 }) {
- 
   return (
     <div className="">
       <DetailNew detailNew={detailNew} blog={blog}></DetailNew>
-   
     </div>
   );
 }
@@ -31,7 +29,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }: { params: any }) => {
-  console.log("run fetch data :", params.id);
+ 
   const detailNew = await BlogAPI.getDeltailBlog(params.id);
   const blog = await BlogAPI.getBlog(params.id);
   if (!detailNew) {

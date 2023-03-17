@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import { SearchNews } from "../NewComponent/Search";
 import css from "./detailStyle.module.scss";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -25,6 +26,7 @@ import { useRouter } from "next/router";
 import MyFacebookComments from "../FbComment";
 import Link from "next/link";
 import { timeAgo } from "../DetailProductComponent";
+import { useAppSelector } from "../../app/Hook";
 export function DetailNew({
   detailNew,
   blog,
@@ -32,17 +34,21 @@ export function DetailNew({
   detailNew: DetailNewType;
   blog: Blog;
 }) {
+  const [countLike, setCountLike] = useState<number>(0);
   const dateObj = new Date(blog.time);
   const day = dateObj.getDate();
   const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
   const [url, setUrl] = useState<string>(
     `https://mytimestore.vercel.app/news/${blog.id}`
   );
-
-  const [next, setNext] = useState<Blog>();
-  const [prev, setPrev] = useState<Blog>();
+  console.log("rennderxx");
+  const [next, setNext] = useState<Blog | undefined>();
+  const [prev, setPrev] = useState<Blog | undefined>();
   const [sameBlog, setSameBlog] = useState<Blog[]>();
+  const [loadLike, setLoadLike] = useState<boolean>(false);
 
+  const [like, setLike] = useState<boolean>(false);
+  const userId = useAppSelector((state) => state.auth.currentUser?.uid);
   const router = useRouter();
   const loadDataNew = async () => {
     const nw: Blog[] = await BlogAPI.getNewBlog();
@@ -51,20 +57,40 @@ export function DetailNew({
 
   const loadData = async () => {
     const nx: Blog = await BlogAPI.getBlogNext(blog.id);
-    nx && setNext(nx);
-
     const pr: Blog = await BlogAPI.getBloPrev(blog.id);
-
-    pr && setPrev(pr);
+    setNext(nx ? nx : undefined);
+    setPrev(pr ? pr : undefined);
+    console.log("load new");
+  };
+  const handleUpdateBlog = () => {
+    if (like) setCountLike((pr) => pr - 1);
+    else setCountLike((pr) => pr + 1);
+  };
+  const Like = () => {
+    return blog.like.find((element) => element == userId);
   };
 
+  const handleLike = async () => {
+    if (userId && !loadLike) {
+      setLoadLike(true);
+      const resoult = await BlogAPI.handleLikeBlog(blog.id, like, userId);
+      if (resoult) {
+        handleUpdateBlog();
+        setLike((pr) => !pr);
+      }
+      setLoadLike(false);
+    }
+  };
   useEffect(() => {
     loadDataNew();
   }, []);
   useEffect(() => {
-    loadData();
-    setUrl("https://mytimestore.vercel.app/news/" + blog.id);
+    blog.id && loadData();
+    setCountLike(blog.Clike);
   }, [blog]);
+  useEffect(() => {
+    setLike(Like() ? true : false);
+  }, [userId, blog]);
   return (
     <div className={css.container}>
       <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
@@ -142,6 +168,20 @@ export function DetailNew({
                           <LinkedinIcon size={45} round={true} />
                         </LinkedinShareButton>
                       </li>
+                      <div className={css.heart}>
+                        {!like ? (
+                          <HeartOutlined
+                            onClick={handleLike}
+                            style={{ fontSize: "30px", color: "#ff8888" }}
+                          />
+                        ) : (
+                          <HeartFilled
+                            onClick={handleLike}
+                            style={{ fontSize: "30px", color: "#ff6262" }}
+                          />
+                        )}
+                        <span>{countLike}</span>
+                      </div>
                     </ul>
                   </div>
                   <footer className={css.footerPost}>

@@ -1,7 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { FacebookProvider, Comments } from "react-facebook";
-
+import { useRouter } from "next/router";
+declare global {
+  interface Window {
+    FB: any;
+  }
+}
 function loadFacebookSDK() {
   window.fbAsyncInit = function () {
     window.FB.init({
@@ -23,15 +28,26 @@ function loadFacebookSDK() {
   })(document, "script", "facebook-jssdk");
 }
 
-function MyFacebookComments({ url = "" }: { url: string }) {
+export default function MyFacebookComments({ url = "" }: { url: string }) {
+  const router = useRouter();
+  const [id, setId] = useState<any>();
+
+  useEffect(() => {
+    setId(router.query.id);
+  }, [router.query.id]);
   useEffect(() => {
     loadFacebookSDK();
-  }, [url]);
-  console.log("my:", url);
+    console.log("mypath:", router.query.id);
+  }, []);
+  useEffect(() => {
+    if (window.FB) window.FB.XFBML.parse();
+  }, [id]);
   return (
     <FacebookProvider appId={"483581390556812"}>
-      <Comments href={url} width={"100%"} />
+      <Comments
+        href={"https://mytimestore.vercel.app/news/" + id}
+        width={"100%"}
+      />
     </FacebookProvider>
   );
 }
-export default React.memo(MyFacebookComments);

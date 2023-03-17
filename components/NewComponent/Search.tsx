@@ -4,7 +4,27 @@ import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./searchStyle.module.scss";
 import { Blog } from "../../common/product/interface";
 import Link from "next/link";
-export function SearchNews({ listnew }: { listnew: Blog[] }) {
+import { useRouter } from "next/router";
+import { useState } from "react";
+
+export function SearchNews({
+  setPage,
+  listnew,
+}: {
+  setPage: any;
+  listnew: Blog[];
+}) {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = () => {
+    if (setPage) setPage(0);
+    setSearchValue("");
+    router.push({
+      pathname: "/news",
+      query: { search: searchValue },
+    });
+  };
   return (
     <div className={css.container}>
       <div className={css.searchBox}>
@@ -14,9 +34,12 @@ export function SearchNews({ listnew }: { listnew: Blog[] }) {
         >
           <input
             placeholder="Tìm kiếm ..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             className={[cssD.boxInput, css.inputDiscount].join(" ")}
           ></input>
           <div
+            onClick={handleSearch}
             className={cssF.icon}
             style={{
               width: "40px",

@@ -24,9 +24,11 @@ export function SliderInput() {
       filterAction.setRangeFilter({ maxPrice: value[1], minPrice: value[0] })
     );
   };
-  console.log(value);
+
+  
   useEffect(() => {
-    console.log("set lai value");
+
+    
     setValue([rage.minPrice, rage.maxPrice]);
   }, [rage]);
   return (
@@ -224,7 +226,8 @@ export function CategoryContainer({
   const [listShow, setListShow] = useState<product[]>(list);
   const sort = useAppSelector((state) => state.filter.sort);
   const [page, setPage] = useState(0);
-  console.log(listShow);
+
+  
   const rangeFilter = useAppSelector((state) => state.filter.rangeFilter);
   const currenPrice = (cur: product) => {
     return (
@@ -292,6 +295,7 @@ export function CategoryContainer({
               display: "flex",
             }}
           >
+
             <PaginationCustom
               handleChange={(pageChange: number) => setPage(pageChange)}
               total={Math.ceil(listShow.length / 12)}
