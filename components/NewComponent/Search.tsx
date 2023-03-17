@@ -11,7 +11,7 @@ export function SearchNews({
   setPage,
   listnew,
 }: {
-  setPage: any;
+  setPage?: any;
   listnew: Blog[];
 }) {
   const router = useRouter();
