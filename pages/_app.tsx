@@ -7,8 +7,8 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { DefaultLayout } from "../components/layout/DefaultLayout";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-// @ts-ignore
-import FacebookProvider from "react-facebook-sdk";
+
+
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -33,8 +33,8 @@ function Loading() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleStart = (url: any) => setLoading(true);
-    const handleComplete = (url: any) => setLoading(false);
+    const handleStart = () => setLoading(true);
+    const handleComplete = () => setLoading(false);
     // setTimeout(() => {
 
     // }, 5000);
@@ -62,9 +62,10 @@ function Loading() {
 }
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
-      <FacebookProvider appId="483581390556812">
+     
         <div>
           <Provider store={store}>
             <Loading />
@@ -77,7 +78,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
             )}
           </Provider>
         </div>
-      </FacebookProvider>
+  
     </>
   );
 }

@@ -1,6 +1,6 @@
 
 
-import { collection, doc, getDocs,limit,orderBy,query, updateDoc, where } from "firebase/firestore";
+import { collection, startAt, getCountFromServer, getDocs,limit,orderBy,query, updateDoc, where } from "firebase/firestore";
 import { dbBlog,dbBlogDetail} from "../../FireBase/config";
 const Blog = collection(dbBlog, "News");
 const BlogDetail = collection(dbBlogDetail, "DetailNew");
@@ -18,8 +18,9 @@ export const BlogAPI = {
      return  resoult
   },
   getNewBlog: async () => {
-
-    const listPRoduct=  await getDocs(query(Blog, limit(3), orderBy("time")))
+   
+   
+    const listPRoduct=  await getDocs(query(Blog,orderBy("Clike", 'desc'),limit(3)))
     const resoult:any=[]
     listPRoduct.forEach((doc) => {
         resoult.push(doc.data())

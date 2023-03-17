@@ -44,6 +44,7 @@ body {
   animation: roll 2s linear infinite;
 }
 
+
 @keyframes roll {
   0% {
     transform: rotate(0deg);
@@ -199,7 +200,7 @@ cite,
 code,
 del,
 dfn,
-em,
+
 img,
 ins,
 kbd,
@@ -258,7 +259,7 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
+
 
   vertical-align: baseline;
 }

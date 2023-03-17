@@ -78,6 +78,9 @@ export interface DetailNewType{
 }
  export interface Blog{
     id:string,
+    Uid:string,
+    acName:string,
+    Clike:number,
     like:string[],
     name:string,
     thumnail:string,

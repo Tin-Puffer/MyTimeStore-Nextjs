@@ -3,7 +3,6 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssN from "../NewComponent/newsStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import { useEffect, useState } from "react";
 import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import { SearchNews } from "../NewComponent/Search";
@@ -23,6 +22,9 @@ import {
 import { Blog, DetailNewType } from "../../common/product/interface";
 import { BlogAPI } from "../../pages/api/Blog";
 import { useRouter } from "next/router";
+import MyFacebookComments from "../FbComment";
+import Link from "next/link";
+import { timeAgo } from "../DetailProductComponent";
 export function DetailNew({
   detailNew,
   blog,
@@ -30,21 +32,39 @@ export function DetailNew({
   detailNew: DetailNewType;
   blog: Blog;
 }) {
+  const dateObj = new Date(blog.time);
+  const day = dateObj.getDate();
+  const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
+  const [url, setUrl] = useState<string>(
+    `https://mytimestore.vercel.app/news/${blog.id}`
+  );
+
   const [next, setNext] = useState<Blog>();
   const [prev, setPrev] = useState<Blog>();
+  const [sameBlog, setSameBlog] = useState<Blog[]>();
+
   const router = useRouter();
+  const loadDataNew = async () => {
+    const nw: Blog[] = await BlogAPI.getNewBlog();
+    nw && setSameBlog(nw);
+  };
+
   const loadData = async () => {
     const nx: Blog = await BlogAPI.getBlogNext(blog.id);
     nx && setNext(nx);
-    console.log("nx", nx);
+
     const pr: Blog = await BlogAPI.getBloPrev(blog.id);
-    console.log("pr", pr);
-    pr && setPrev(nx);
+
+    pr && setPrev(pr);
   };
 
   useEffect(() => {
-    loadData();
+    loadDataNew();
   }, []);
+  useEffect(() => {
+    loadData();
+    setUrl("https://mytimestore.vercel.app/news/" + blog.id);
+  }, [blog]);
   return (
     <div className={css.container}>
       <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
@@ -58,9 +78,14 @@ export function DetailNew({
                 >
                   <div className={css.newTitel}>
                     <div>
-                      <p>Tin tức</p>
+                      <Link href={"/news"}>
+                        <p style={{ textDecoration: "underline" }}>Tin tức</p>
+                      </Link>
                       <h1>{blog.name}</h1>
                       <div className={cssS.driver}></div>
+                      <p>
+                        Post by {blog.acName} | {timeAgo(blog.time)}
+                      </p>
                     </div>
                   </div>
                   <div className={css.imgContainer}>
@@ -72,8 +97,8 @@ export function DetailNew({
                     ></img>
                     <div className={cssN.datePost} style={{ left: "-10px" }}>
                       <div className={cssN.contenPost}>
-                        <p>03</p>
-                        <p>Th12</p>
+                        <p>{day}</p>
+                        <p>{month}</p>
                       </div>
                     </div>
                   </div>
@@ -81,6 +106,7 @@ export function DetailNew({
                     {
                       <>
                         <div
+                          className={css.FomatBlog}
                           dangerouslySetInnerHTML={{
                             __html: detailNew.content,
                           }}
@@ -168,52 +194,10 @@ export function DetailNew({
                     </Col>
                   </Row>
                 </div>
-                <div className={css.reply}>
-                  <h3>Trả lời</h3>
-                  <div className={css.noitify}>
-                    <span>Email của bạn sẽ không được hiển thị công khai.</span>
-                    Các trường bắt buộc được đánh dấu <span>*</span>
-                  </div>
-                  <div>
-                    <p className={css.title}>Bình luận</p>
-                    <div className={css.inputContent}>
-                      <textarea
-                        className={cssD.boxInput}
-                        cols={40}
-                        rows={5}
-                        style={{ lineHeight: "20px" }}
-                      ></textarea>
-                    </div>
-                  </div>
-                  <Row gutter={30}>
-                    <Col xs={24} sm={12}>
-                      <div>
-                        <p className={css.title}>
-                          Tên <span>*</span>
-                        </p>
-                        <input
-                          className={[cssD.boxInput, css.Input].join(" ")}
-                          type="text"
-                        ></input>
-                      </div>
-                    </Col>
-                    <Col xs={24} sm={12}>
-                      <div>
-                        <p className={css.title}>
-                          Email <span>*</span>
-                        </p>
-                        <input
-                          className={[cssD.boxInput, css.Input].join(" ")}
-                          type="text"
-                        ></input>
-                      </div>
-                    </Col>
-                  </Row>
-                  <div
-                    className={[cssS.button, css.SubmitContac].join(" ")}
-                    style={{ fontSize: "18px" }}
-                  >
-                    <p style={{ padding: "10px 18px" }}>PHẢN HỒI</p>
+                <div className="fb-comments">
+                  <h3>Bình luận</h3>
+                  <div className={css.CommentFacebook}>
+                    <MyFacebookComments url={url} />
                   </div>
                 </div>
               </div>
@@ -225,7 +209,7 @@ export function DetailNew({
               style={{ borderLeft: " 1px solid #ececec" }}
             >
               <div className={cssN.itemContainer}>
-                {/* <SearchNews ></SearchNews> */}
+                {sameBlog && <SearchNews listnew={sameBlog}></SearchNews>}
               </div>
             </Col>
           </Row>

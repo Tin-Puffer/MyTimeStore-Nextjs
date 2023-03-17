@@ -1,5 +1,5 @@
 import { Blog, DetailNewType } from "../../common/product/interface";
-import FacebookComment from "../../components/CommentFB";
+
 import { DetailNew } from "../../components/DetailNewComponent";
 import { BlogAPI } from "../api/Blog";
 
@@ -10,11 +10,11 @@ export default function DetailNewPage({
   detailNew: DetailNewType;
   blog: Blog;
 }) {
-  const url = `https://mytimestore.vercel.app/news/${blog.id}`;
+ 
   return (
     <div className="">
       <DetailNew detailNew={detailNew} blog={blog}></DetailNew>
-      <FacebookComment url={url} />
+   
     </div>
   );
 }
@@ -26,7 +26,6 @@ export const getStaticPaths = async () => {
 
   return {
     paths: ways,
-
     fallback: "blocking",
   };
 };
