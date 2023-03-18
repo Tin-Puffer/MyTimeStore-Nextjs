@@ -1,5 +1,5 @@
 import { Col, Row, Slider } from "antd";
-import {  useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import cssT from "./TitleStyle.module.scss";
 import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
@@ -14,6 +14,7 @@ import Link from "next/link";
 import { filterAction } from "../../app/splice/categoryFilterSlipe";
 import { PaginationCustom } from "./Pagination";
 import Image from "next/image";
+import openNotification from "../Notifycation/Notification";
 
 export function SliderInput() {
   const dispatch = useAppDispatch();
@@ -25,10 +26,7 @@ export function SliderInput() {
     );
   };
 
-  
   useEffect(() => {
-
-    
     setValue([rage.minPrice, rage.maxPrice]);
   }, [rage]);
   return (
@@ -145,6 +143,8 @@ export function ProductItem({ product }: { product: product }) {
   const priceFormat = formatOld(product.price);
   const loading = useAppSelector((state) => state.cart.loading);
   const cart = useAppSelector((state) => state.cart.Cid);
+  const islogin = useAppSelector((state) => state.auth.isLogin);
+
   const dispactch = useAppDispatch();
   const router = useRouter();
   const priceNow = formatNew(
@@ -154,15 +154,22 @@ export function ProductItem({ product }: { product: product }) {
     product.sale?.begin
   );
   function addItemCart(productID: string) {
-    if (!loading) {
-      dispactch(
-        cartAction.addCartItem({
-          id: productID,
-          quantity: 1,
-          cartId: cart,
-        })
+    if (islogin) {
+      if (!loading) {
+        dispactch(
+          cartAction.addCartItem({
+            id: productID,
+            quantity: 1,
+            cartId: cart,
+          })
+        );
+      } else
+        openNotification("notiifyWanning", "an operation is being processed");
+    } else
+      openNotification(
+        "notiifyError",
+        "Login is required to use this function"
       );
-    }
   }
   return (
     <div
@@ -227,7 +234,6 @@ export function CategoryContainer({
   const sort = useAppSelector((state) => state.filter.sort);
   const [page, setPage] = useState(0);
 
-  
   const rangeFilter = useAppSelector((state) => state.filter.rangeFilter);
   const currenPrice = (cur: product) => {
     return (
@@ -295,7 +301,6 @@ export function CategoryContainer({
               display: "flex",
             }}
           >
-
             <PaginationCustom
               handleChange={(pageChange: number) => setPage(pageChange)}
               total={Math.ceil(listShow.length / 12)}

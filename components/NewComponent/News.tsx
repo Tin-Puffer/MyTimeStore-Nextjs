@@ -6,15 +6,23 @@ import css from "./newsStyle.module.scss";
 import { SearchNews } from "./Search";
 import Link from "next/link";
 import { Blog } from "../../common/product/interface";
-import { timeAgo } from "../DetailProductComponent";
+import { HiClock } from "react-icons/hi";
 import { PaginationCustom } from "../CategoryComponent/Pagination";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export function NewsItem({ item }: { item: Blog }) {
   const dateObj = new Date(item.time);
-  const day = dateObj.getDate();
-  const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
+  const year = dateObj.getFullYear();
+
+  const month = (dateObj.getMonth() + 1).toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  });
+  const day = dateObj
+    .getDate()
+    .toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
+
   return (
     <Link href={"/news/" + item.id}>
       <div className={cssC.itemContainer}>
@@ -29,14 +37,20 @@ export function NewsItem({ item }: { item: Blog }) {
           <div className={css.datePost}>
             <div className={css.contenPost}>
               <p>{day}</p>
-              <p>{month}</p>
+              <p>Th{month}</p>
             </div>
           </div>
           <div className={css.decContainer}>
             <h5>{item.name}</h5>
             <div className={cssS.driver}></div>
             <p>{item.decription}</p>
-            <p className={css.time}>{timeAgo(item.time)}</p>
+            <p className={css.time}>
+              <HiClock
+                size={19}
+                style={{ transform: "translateY(4px)", marginRight: "5px" }}
+              />
+              {day}/{month}/{year}
+            </p>
           </div>
         </div>
       </div>
@@ -98,7 +112,7 @@ export function News({
                         </Col>
                       ))
                     : listBlog.map((item, index) => {
-                        if (index >= page * 2 && index < (page + 1) * 2)
+                        if (index >= page * 9 && index < (page + 1) * 9)
                           return (
                             <Col key={index} xs={24} sm={24} md={8}>
                               <NewsItem item={item} />

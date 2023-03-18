@@ -1,6 +1,5 @@
-
 import React from "react";
-import { product } from "../common/product/interface";
+import { Blog, product } from "../common/product/interface";
 import {
   HomeCarousel,
   HomeNews,
@@ -10,14 +9,17 @@ import {
   SliderProduct,
 } from "../components/HomeComponent";
 import { Fproduct } from "../fakeData/Fproduct";
+import { BlogAPI } from "./api/Blog";
 import { ProductHomeAPI } from "./api/productAPI/Home";
 
 export default function Home({
   productList,
   productSlider,
+  blogList,
 }: {
   productList: product[];
   productSlider: product[];
+  blogList: Blog[];
 }) {
   // console.log("posst", productList);
   return (
@@ -28,22 +30,41 @@ export default function Home({
       <HomeProduct products={productList}></HomeProduct>
       <SliderProduct productSlider={productSlider}></SliderProduct>
       <HomeNews></HomeNews>
-      <OutBlog></OutBlog>
+      <OutBlog blogList={blogList}></OutBlog>
     </div>
   );
 }
 
-//===========================server main ================
+//===========================server main FAKE ================
+// export async function getServerSideProps() {
+ 
+
+//   const productList = Fproduct;
+//   const productSlider = Fproduct;
+
+//   return {
+//     props: {
+//       productList,
+//       productSlider,
+
+//     },
+//   };
+// }
+
+//===========================server main REAL ================
 export async function getServerSideProps() {
-  // const productList: product[] = await ProductHomeAPI.getProduct();
-  // const productSlider = await ProductHomeAPI.getProductBestSell();
-  const productList = Fproduct;
-  const productSlider = Fproduct;
+  const productList: product[] = await ProductHomeAPI.getProduct();
+  const productSlider = await ProductHomeAPI.getProductBestSell();
+  const blogList = await BlogAPI.getNewBlog(3);
+
+ 
 
   return {
     props: {
       productList,
       productSlider,
+      blogList,
     },
   };
 }
+

@@ -39,7 +39,6 @@ export function timeAgo(dateStr: string) {
 }
 export function CommentItem({ item }: { item: review }) {
   const [time, setTime] = useState(timeAgo(item.Time));
-  console.log(time);
   useEffect(() => {
     setTime(timeAgo(item.Time));
   }, [time]);
@@ -131,10 +130,15 @@ export function ProductDecription({ product }: { product: product }) {
         );
         updateOrAddReviewByUid(reviewItem);
         setMessage("");
-      }
-      openNotification("ReviewSuccess")
+        openNotification("ReviewSuccess");
+      } else
+        openNotification(
+          "notiifyError",
+          "Need to test the product before rating"
+        );
       setLoading(false);
-    }
+    } else
+      openNotification("notiifyWanning", "Log in before performing the action");
   };
   return (
     <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>

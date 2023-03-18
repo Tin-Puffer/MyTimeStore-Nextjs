@@ -6,7 +6,7 @@ import { review } from "../../../common/product/interface";
 import { db, dbBlog } from "../../../FireBase/config";
 export const Product = collection(db, "Product");
 const docRefPoduct = query(Product, where("kho", ">", 0),orderBy("kho"), limit(6));
-const docRefSlide = query(Product,orderBy("sold"), limit(4));
+const docRefSlide = query(Product,orderBy("figures.sold"), limit(4));
 export function getCurrentDateTime() {
   const now = new Date();
   const year = now.getFullYear();
@@ -32,7 +32,6 @@ export const ProductHomeAPI = {
   getListSameProduct: async(sex:number,brand:string)=> {
     // const listPRoduct=  await getDocs(query(Product, where("figures.trademark", "==", brand),where("figures.sex", "==", sex),limit(6)))
     const listPRoduct=  await getDocs(query(Product, where("figures.trademark", "==", brand),limit(6)))
-    
     const resoult:any=[]
     listPRoduct.forEach((doc) => {
         resoult.push(doc.data())
@@ -184,17 +183,21 @@ export const ProductHomeAPI = {
     return resoult;
   },
   alowComment: async(Pid:string,Uid:string)=> {
+    console.log("Pid:",Pid)
+    console.log("Uid:",Uid)
+
     const q = query(collection(dbBlog, 'Alowcomment'),
-     where('list', 'array-contains-any', [Pid,Uid]));
+     where('uid', '==', Uid))
+
     const listPRoduct=  await getDocs(q)
     const resoult:any=[]
     listPRoduct.forEach((doc) => {
       
         resoult.push(doc.data())
       });
-   
+    console.log("ketqua:",resoult[0])
     if(resoult.length>0){
-      return true
+      return resoult[0].list.includes(Pid)
     }else return false
 
   },

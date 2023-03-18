@@ -5,11 +5,14 @@ import { product } from "../common/product/interface";
 import { formatNew, formatOld } from "../PriceFormat";
 import { useAppDispatch, useAppSelector } from "../app/Hook";
 import { cartAction } from "../app/splice/cartSlipe";
+import openNotification from "./Notifycation/Notification";
 export function Product({ product }: { product: product }) {
   const router = useRouter();
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
   const loading = useAppSelector((state) => state.cart.loading);
+  const islogin = useAppSelector((state) => state.auth.isLogin);
+
   const priceFormat = formatOld(product.price);
   const priceNow = formatNew(
     product.price,
@@ -18,16 +21,23 @@ export function Product({ product }: { product: product }) {
     product.sale?.begin
   );
 
-  function addItemCart(productID: string) { 
-    if (!loading) {
-      dispactch(
-        cartAction.addCartItem({
-          id: productID,
-          quantity: 1,
-          cartId: cart,
-        })
+  function addItemCart(productID: string) {
+    if (islogin) {
+      if (!loading) {
+        dispactch(
+          cartAction.addCartItem({
+            id: productID,
+            quantity: 1,
+            cartId: cart,
+          })
+        );
+      } else
+        openNotification("notiifyWanning", "an operation is being processed");
+    } else
+      openNotification(
+        "notiifyError",
+        "Login is required to use this function"
       );
-    }
   }
   return (
     <div

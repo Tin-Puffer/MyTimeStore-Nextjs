@@ -15,9 +15,6 @@ import { product } from "../../common/product/interface";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { productDecription } from "../../common/constag";
 export function SliderItem({ sliderItem }: { sliderItem: product }) {
-  const { ref, inView } = useInView();
-  const animationL = useAnimation();
-  const animationR = useAnimation();
   const priceFormat = formatOld(sliderItem.price);
   const priceNow = formatNew(
     sliderItem.price,
@@ -25,32 +22,9 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
     sliderItem.sale?.end,
     sliderItem.sale?.begin
   );
-  useEffect(() => {
-    if (inView) {
-      animationR.start({
-        y: 0,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          duration: 3,
-        },
-      });
-      animationL.start({
-        x: 0,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          duration: 3,
-        },
-      });
-    }
-    if (!inView) {
-      animationL.start({ x: "-50px", opacity: 0 });
-      animationR.start({ y: "50px", opacity: 0 });
-    }
-  }, [inView]);
+
   return (
-    <div ref={ref} style={{ width: "100%", position: "relative" }}>
+    <div style={{ width: "100%", position: "relative" }}>
       <Row>
         <Col
           xs={24}
@@ -63,7 +37,6 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
           {/* <div style={{width:"100%"}}> */}
 
           <motion.div
-            animate={animationL}
             className={css.image}
             style={{ backgroundImage: `url("${sliderItem.image[0]}")` }}
           >
@@ -76,7 +49,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
           {/* </div> */}
         </Col>
         <Col xs={24} md={12}>
-          <motion.div animate={animationR} className={css.ContentSlider}>
+          <motion.div className={css.ContentSlider}>
             <div className={css.textContent}>
               <h1>{sliderItem.name}</h1>
               <div className={css.driver}></div>
@@ -135,9 +108,9 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                   </Link>
                 </span>
               </div>
-              <Link href={"/product/idpr"}>
+              <Link href={"/product/" + sliderItem.id}>
                 <div className={css.button}>
-                  <p>Đọc Tiếp</p>
+                  <p>View Detail</p>
                 </div>
               </Link>
             </div>

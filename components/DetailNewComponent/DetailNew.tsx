@@ -1,4 +1,4 @@
-import { Row, Col } from "antd";
+import { Row, Col,Tooltip } from "antd";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssN from "../NewComponent/newsStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
@@ -8,6 +8,7 @@ import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import { SearchNews } from "../NewComponent/Search";
 import css from "./detailStyle.module.scss";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -27,6 +28,7 @@ import MyFacebookComments from "../FbComment";
 import Link from "next/link";
 import { timeAgo } from "../DetailProductComponent";
 import { useAppSelector } from "../../app/Hook";
+import openNotification from "../Notifycation/Notification";
 export function DetailNew({
   detailNew,
   blog,
@@ -38,9 +40,7 @@ export function DetailNew({
   const dateObj = new Date(blog.time);
   const day = dateObj.getDate();
   const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
-  const [url, setUrl] = useState<string>(
-    `https://mytimestore.vercel.app/news/${blog.id}`
-  );
+
   console.log("rennderxx");
   const [next, setNext] = useState<Blog | undefined>();
   const [prev, setPrev] = useState<Blog | undefined>();
@@ -79,6 +79,14 @@ export function DetailNew({
         setLike((pr) => !pr);
       }
       setLoadLike(false);
+    }else{
+      openNotification("notiifyError","Login is required to use this function")
+    }
+  };
+  const handleLoadLike = async () => {
+    const resoult = await BlogAPI.getBlog(blog.id);
+    if (resoult) {
+      setCountLike(resoult.Clike);
     }
   };
   useEffect(() => {
@@ -89,6 +97,7 @@ export function DetailNew({
     setCountLike(blog.Clike);
   }, [blog]);
   useEffect(() => {
+    handleLoadLike();
     setLike(Like() ? true : false);
   }, [userId, blog]);
   return (
@@ -141,44 +150,49 @@ export function DetailNew({
                     }
                     <ul className={css.shareSocial}>
                       <li>
-                        <FacebookShareButton url="/hsd">
+                        <FacebookShareButton url="https://mytimestore.vercel.app/news/1">
                           <FacebookIcon size={45} round={true} />
                         </FacebookShareButton>
                       </li>
                       <li>
-                        <TwitterShareButton url="/hsd">
+                        <TwitterShareButton url="https://mytimestore.vercel.app/news/1">
                           <TwitterIcon size={45} round={true} />
                         </TwitterShareButton>
                       </li>
                       <li>
-                        <TelegramShareButton url="/https://github.com/nygardk/react-share">
+                        <TelegramShareButton url="https://mytimestore.vercel.app/news/1">
                           <TelegramIcon size={45} round={true} />
                         </TelegramShareButton>
                       </li>
                       <li>
                         <PinterestShareButton
                           media="https://iili.io/D318ZB.jpg"
-                          url="/hsd"
+                          url="https://mytimestore.vercel.app/news/1"
                         >
                           <PinterestIcon size={45} round={true} />
                         </PinterestShareButton>
                       </li>
                       <li>
-                        <LinkedinShareButton url="/hsd">
+                        <LinkedinShareButton url="https://mytimestore.vercel.app/news/1">
                           <LinkedinIcon size={45} round={true} />
                         </LinkedinShareButton>
                       </li>
                       <div className={css.heart}>
                         {!like ? (
-                          <HeartOutlined
-                            onClick={handleLike}
-                            style={{ fontSize: "30px", color: "#ff8888" }}
-                          />
+                          <Tooltip title="Like">
+                            
+                            <HeartOutlined
+                              onClick={handleLike}
+                              style={{ fontSize: "30px", color: "#ff8888" }}
+                            />
+                          </Tooltip>
                         ) : (
-                          <HeartFilled
-                            onClick={handleLike}
-                            style={{ fontSize: "30px", color: "#ff6262" }}
-                          />
+                          <Tooltip title="Unlike">
+                            <HeartFilled
+                              onClick={handleLike}
+                              style={{ fontSize: "30px", color: "#ff6262" }}
+                            />
+                            </Tooltip>
                         )}
                         <span>{countLike}</span>
                       </div>
@@ -237,7 +251,7 @@ export function DetailNew({
                 <div className="fb-comments">
                   <h3>Bình luận</h3>
                   <div className={css.CommentFacebook}>
-                    <MyFacebookComments url={url} />
+                    <MyFacebookComments />
                   </div>
                 </div>
               </div>

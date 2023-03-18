@@ -28,7 +28,7 @@ function loadFacebookSDK() {
   })(document, "script", "facebook-jssdk");
 }
 
-export default function MyFacebookComments({ url = "" }: { url: string }) {
+export default function MyFacebookComments() {
   const router = useRouter();
   const [id, setId] = useState<any>();
 

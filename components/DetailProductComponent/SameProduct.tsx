@@ -35,18 +35,17 @@ const responsive = [
 
 export function SameProduct({ sex, brand }: { sex: number; brand: string }) {
   const ref = useRef<CarouselRef>(null);
-  const [list, setList] = useState([]);
+
   const [sameProduct, setSameProduct] = useState<product[]>();
   useEffect(() => {
     const fetchData = async () => {
-      await ProductHomeAPI.getListSameProduct(0, "KASSAW").then((res) => {
+      await ProductHomeAPI.getListSameProduct(0, brand).then((res) => {
         console.log(res);
         setSameProduct(res);
       });
     };
-    // fetchData();
-    setSameProduct(Fproduct)
-
+    fetchData();
+    // setSameProduct(Fproduct)
   }, []);
   return (
     <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
@@ -62,11 +61,13 @@ export function SameProduct({ sex, brand }: { sex: number; brand: string }) {
             style={{ display: "flex" }}
             className={cssO.carousel}
           >
-            {sameProduct?.map((e, i) => (
-              <div className={css.ItemSame} key={i}>
-                <ProductItem product={e}></ProductItem>
-              </div>
-            ))}
+            {sameProduct?.length &&
+              sameProduct?.length > 4 &&
+              sameProduct?.map((e, i) => (
+                <div className={css.ItemSame} key={i}>
+                  <ProductItem product={e}></ProductItem>
+                </div>
+              ))}
           </Carousel>
           <div
             className={[cssO.BtnCarousel, cssO.prev].join(" ")}

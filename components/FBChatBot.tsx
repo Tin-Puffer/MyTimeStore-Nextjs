@@ -39,7 +39,7 @@ export const MyChatBotFB = () => {
     <>
       <div id="fb-root"></div>
       <div id="fb-customer-chat" className="fb-customerchat"></div>
-      ??
+      
     </>
   );
 };

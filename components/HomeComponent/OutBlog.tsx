@@ -5,57 +5,59 @@ import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
-function SliderItem() {
+
+import { motion } from "framer-motion";
+
+import { HiClock } from "react-icons/hi";
+
+import { Blog } from "../../common/product/interface";
+import { useRouter } from "next/router";
+function SliderItem({ blog }: { blog: Blog }) {
+  const router=useRouter()
+  const dateObj = new Date(blog.time);
+  const year = dateObj.getFullYear();
+
+  const month = (dateObj.getMonth() + 1).toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  });
+  const day = dateObj
+    .getDate()
+    .toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false });
   return (
-    <Link href={"/news/idnew"}>
+
       <div className={css.itemContent}>
         <div className={css.Content}>
           <div className={css.imgContent}>
-            <div className={css.img}></div>
+            <div
+              className={css.img}
+              style={{ backgroundImage: `url("${blog.thumnail}")` }}
+            ></div>
           </div>
           <div className={css.dectiptContent}>
-            <h5>A Lubricant-Free Watch For a Perfect Men</h5>
-            <div className={css.time}>3 Tháng Mười Hai, 2018</div>
-            <div className={css.driver}></div>
-            <p className={css.excerpt}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ...{" "}
+            <h5>{blog.name}</h5>
+            <p className={css.time}>
+              <HiClock
+                size={19}
+                style={{ transform: "translateY(4px)", marginRight: "5px" }}
+              />
+              {day}/{month}/{year}
             </p>
+            <div className={css.driver}></div>
+            <p className={css.excerpt}>{blog.decription}</p>
             <div className={cssC.btnBox} style={{ padding: "10px 0" }}>
-              <div className={cssC.bntBoder}>
+              <div className={cssC.bntBoder} onClick={()=>router.push('/news/'+blog.id)}>
                 <span style={{ fontWeight: "bold" }}>Đọc Thêm &gt;&gt;</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+ 
   );
 }
-export function OutBlog() {
-  const x = [1, 2, 3, 4, 5, 6];
-  const { ref, inView } = useInView();
-
+export function OutBlog({ blogList }: { blogList?: Blog[] }) {
   const refC = useRef<CarouselRef>(null);
-
-  const animation = useAnimation();
-  useEffect(() => {
-    if (inView) {
-      animation.start({
-        y: 0,
-        opacity: 1,
-        transition: {
-          type: "spring",
-          duration: 2,
-        },
-      });
-    }
-    if (!inView) animation.start({ y: "-50px", opacity: 0 });
-  }, [inView]);
 
   return (
     <div className={cssP.container}>
@@ -65,7 +67,7 @@ export function OutBlog() {
       <div className={cssP.lable}>
         <p>OUR </p> <p>BLOG</p>
       </div>
-      <motion.div animate={animation} ref={ref} className={cssP.gridPoduct}>
+      <motion.div className={cssP.gridPoduct}>
         <div className={css.contentMain}>
           <Carousel
             autoplay
@@ -95,12 +97,11 @@ export function OutBlog() {
             ]}
             className={css.carousel}
           >
-            <SliderItem></SliderItem>
-            <SliderItem></SliderItem>
-            <SliderItem></SliderItem>
-            <SliderItem></SliderItem>
-            <SliderItem></SliderItem>
-            <SliderItem></SliderItem>
+            {blogList && blogList.map((item, index) => (
+              <div key={index}>
+                <SliderItem blog={item}></SliderItem>
+              </div>
+            ))}
           </Carousel>
           <div
             className={[css.BtnCarousel, css.prev].join(" ")}

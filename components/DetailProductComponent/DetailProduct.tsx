@@ -1,9 +1,9 @@
 import cssPc from "../ProductStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import { Carousel, Col, Row, Tooltip } from "antd";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useCallback } from "react";
 import { CarouselRef } from "antd/es/carousel";
 import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
@@ -16,6 +16,8 @@ import { payList, productDecription, shipList } from "../../common/constag";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
+import openNotification from "../Notifycation/Notification";
+import { SliderImage } from "./SliderImage";
 export function QuantityComponent({
   changeQuantity,
   small = false,
@@ -34,20 +36,29 @@ export function QuantityComponent({
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
   const loading = useAppSelector((state) => state.cart.loading);
+  const islogin = useAppSelector((state) => state.auth.isLogin);
+
   function addCartProduct() {
-    if (!loading && product) {
-      dispactch(
-        cartAction.addCartItem({
-          id: product.id,
-          quantity: quantity,
-          cartId: cart,
-        })
+    if (islogin) {
+      if (!loading && product) {
+        dispactch(
+          cartAction.addCartItem({
+            id: product.id,
+            quantity: quantity,
+            cartId: cart,
+          })
+        );
+      } else
+        openNotification("notiifyWanning", "an operation is being processed");
+    } else
+      openNotification(
+        "notiifyError",
+        "Login is required to use this function"
       );
-    }
   }
   return (
     <>
-      <div className={[css.quantity, small && css.small].join(" ")} >
+      <div className={[css.quantity, small && css.small].join(" ")}>
         <input
           type="button"
           value="-"
@@ -65,8 +76,7 @@ export function QuantityComponent({
           className={css.value}
           value={quantity}
           onChange={(e) => {
-            Number(e.target.value) > 0 && 
-            setQuantity(Number(e.target.value))
+            Number(e.target.value) > 0 && setQuantity(Number(e.target.value));
             cartDeltailItem &&
               changeQuantity &&
               changeQuantity(cartDeltailItem.Pid, Number(e.target.value));
@@ -125,7 +135,9 @@ export function DetailProduct({ product }: { product: product }) {
     setPosition(`${x}% ${y}%`);
     console.log("ss");
   };
-
+  const setActiveToSlider = useCallback((index: number) => {
+    setActive(index);
+  }, []);
   return (
     <>
       <div className={cssP.gridPoduct} style={{ marginTop: "40px" }}>
@@ -168,49 +180,13 @@ export function DetailProduct({ product }: { product: product }) {
             </div>
             <div className={cssO.contentMain}>
               <div>
-                <Carousel
-                  slidesToShow={
-                    product.image.length < 4 ? product.image.length : 4
-                  }
-                  dots={false}
-                  ref={ref}
-                >
-                  {product.image.map((e, i) => (
-                    <div
-                      key={i}
-                      className={[css.outline, active == i && css.active].join(
-                        " "
-                      )}
-                      onClick={() => handelChangeImage(i)}
-                    >
-                      <div
-                        className={[css.img, css.small].join(" ")}
-                        style={{
-                          backgroundImage: `url("${e}")`,
-                        }}
-                        onClick={() => ref.current?.goTo(0)}
-                      ></div>
-                    </div>
-                  ))}
-                </Carousel>
+                
+                <SliderImage
+                product={product}
+                setActive={setActiveToSlider}
+                ></SliderImage>
               </div>
-              {product.image.length > 4 && (
-                <>
-                  <div
-                    className={[cssO.BtnCarousel, cssO.prev].join(" ")}
-                    onClick={() => ref.current?.prev()}
-                  >
-                    <MdNavigateBefore size={50}></MdNavigateBefore>
-                  </div>
-
-                  <div
-                    className={[cssO.BtnCarousel, cssO.next].join(" ")}
-                    onClick={() => ref.current?.next()}
-                  >
-                    <MdNavigateNext size={50}></MdNavigateNext>
-                  </div>
-                </>
-              )}
+             
             </div>
           </Col>
           <Col xs={24} sm={24} md={12}>
@@ -301,7 +277,7 @@ export function DetailProduct({ product }: { product: product }) {
                   <span className={cssS.posted_in}>
                     Danh mục:{" "}
                     {product.category.map((e, i) => (
-                      <p key={i} >{e} &nbsp;</p>
+                      <p key={i}>{e} &nbsp;</p>
                     ))}
                   </span>
                   <span className={cssS.tagged_as}>

@@ -1,8 +1,41 @@
 import { notification } from "antd";
 import { FrownOutlined } from "@ant-design/icons";
 
-const openNotification = (type: string, quantity?: number) => {
+const openNotification = (type: string,mess?:string, quantity?: number) => {
   switch (type) {
+    case "notiifySuccess": {
+      if(mess){
+        notification.success({
+          message: mess,
+          duration: 1,
+          className: "SUCSESS-notyfication",
+          placement: "top",
+        });
+      }
+      break;
+    }
+    case "notiifyError": {
+      if(mess){
+        notification.error({
+          message: mess,
+          duration: 1,
+          className: "SUCSESS-notyfication",
+          placement: "top",
+        });
+      }
+      break;
+    }
+    case "notiifyWanning": {
+      if(mess){
+        notification.warning({
+          message: mess,
+          duration: 1,
+          className: "SUCSESS-notyfication",
+          placement: "top",
+        });
+      }
+      break;
+    }
     case "ReviewSuccess": {
       notification.success({
         message: `Your review has been recorded `,

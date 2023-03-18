@@ -5,7 +5,7 @@ import { dbBlog,dbBlogDetail} from "../../FireBase/config";
 const Blog = collection(dbBlog, "News");
 const BlogDetail = collection(dbBlogDetail, "DetailNew");
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 9;
 export const BlogAPI = {
   getAllBlog: async (page?:number) => {
     const snapshot = await getCountFromServer(Blog) 
@@ -63,8 +63,8 @@ export const BlogAPI = {
       total:Math.ceil(resoult.length/PAGE_SIZE)
     }
   },
-  getNewBlog: async () => {
-    const listPRoduct=  await getDocs(query(Blog,orderBy("Clike", 'desc'),limit(3)))
+  getNewBlog: async (quantity?:number) => {
+    const listPRoduct=  await getDocs(query(Blog,orderBy("Clike", 'desc'),limit(quantity||3)))
     const resoult:any=[]
     listPRoduct.forEach((doc) => {
         resoult.push(doc.data())
