@@ -7,7 +7,7 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BranList } from "../../common/constag";
 import { UpOutlined, CaretUpOutlined } from "@ant-design/icons";
-import MyChatBot from "../FBChatBot";
+import MyChatBot, { MyChatBotFB } from "../FBChatBot";
 export function DfHeaderNav() {
   const [showButton, setShowButton] = useState(false);
   const handleScrollToTop = () => {
@@ -105,7 +105,7 @@ export function DfHeaderNav() {
                 </Link>
               </li>
             </ul>
-            <MyChatBot />
+            <MyChatBotFB />
           </div>
         </Col>
       </div>
