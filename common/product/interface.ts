@@ -70,12 +70,6 @@ export interface DetailNewType{
     id:string;
     content:string;
 }
- export interface CommentBlog{
-    id:string;
-    image:string;
-    content:string;
-    time:string;
-}
  export interface Blog{
     id:string,
     Uid:string,
@@ -85,6 +79,5 @@ export interface DetailNewType{
     name:string,
     thumnail:string,
     time:string,
-    comment:CommentBlog[],
     decription:string,
 }
