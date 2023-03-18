@@ -68,3 +68,4 @@ export const SliderImage = React.memo(
     );
   }
 );
+SliderImage.displayName = "SliderImage";

@@ -177,7 +177,8 @@ const cartSlice = createSlice({
    addQuantityItemSucces(state,action: PayloadAction<itemCart>) {
      state.ProductSl=updateProductQuantity(action.payload,state.ProductSl);;
      state.loading=false
-     openNotification("AddItemInCart",action.payload.quantity)
+     
+     openNotification("AddItemInCart","",action.payload.quantity)
 
   },
   },
