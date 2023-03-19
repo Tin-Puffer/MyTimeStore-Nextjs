@@ -1,14 +1,21 @@
-import { Row, Col,Tooltip } from "antd";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssN from "../NewComponent/newsStyle.module.scss";
+import cssC from "../CategoryComponent/ContainerStyle.module.scss";
+import css from "./detailStyle.module.scss";
+import openNotification from "../Notifycation/Notification";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import MyFacebookComments from "../FbComment";
+import Link from "next/link";
+import { Row, Col,Tooltip } from "antd";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useEffect, useState } from "react";
-import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import { SearchNews } from "../NewComponent/Search";
-import css from "./detailStyle.module.scss";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-
+import { Blog, DetailNewType } from "../../common/product/interface";
+import { BlogAPI } from "../../pages/api/Blog";
+import { useRouter } from "next/router";
+import { timeAgo } from "../DetailProductComponent";
+import { useAppSelector } from "../../app/Hook";
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -21,14 +28,6 @@ import {
   TelegramIcon,
   LinkedinIcon,
 } from "react-share";
-import { Blog, DetailNewType } from "../../common/product/interface";
-import { BlogAPI } from "../../pages/api/Blog";
-import { useRouter } from "next/router";
-import MyFacebookComments from "../FbComment";
-import Link from "next/link";
-import { timeAgo } from "../DetailProductComponent";
-import { useAppSelector } from "../../app/Hook";
-import openNotification from "../Notifycation/Notification";
 export function DetailNew({
   detailNew,
   blog,
@@ -40,8 +39,6 @@ export function DetailNew({
   const dateObj = new Date(blog.time);
   const day = dateObj.getDate();
   const month = "Th" + (dateObj.getMonth() + 1).toString().padStart(2);
-
-  console.log("rennderxx");
   const [next, setNext] = useState<Blog | undefined>();
   const [prev, setPrev] = useState<Blog | undefined>();
   const [sameBlog, setSameBlog] = useState<Blog[]>();
@@ -60,7 +57,6 @@ export function DetailNew({
     const pr: Blog = await BlogAPI.getBloPrev(blog.id);
     setNext(nx ? nx : undefined);
     setPrev(pr ? pr : undefined);
-    console.log("load new");
   };
   const handleUpdateBlog = () => {
     if (like) setCountLike((pr) => pr - 1);

@@ -1,6 +1,5 @@
-import logo from "./logo.png";
-import logo2 from "./logo2.png";
-
+import logo2 from "./whiteLogo.png";
+import logo from "./blacLogo.png";
 import avatar from "./defaultAvatar.png";
 import slider1 from "./slider1.jpg";
 import slider2 from "./slider2.jpg";

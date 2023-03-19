@@ -1,5 +1,4 @@
 import { CheckOut } from "../components/CheckOut";
-
 const checkoutPage = () => {
   return <CheckOut></CheckOut>;
 };

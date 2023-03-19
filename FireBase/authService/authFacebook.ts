@@ -12,7 +12,6 @@ provider.setCustomParameters({
   display: "popup",
 });
 provider.addScope("user_birthday");
-// const fbProvider = auth.FacebookAuthProvider();
 
 export const loginWithAccountFacebook = async (
   setLoading: Function,

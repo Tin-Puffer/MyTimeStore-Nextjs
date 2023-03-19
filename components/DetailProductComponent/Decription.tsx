@@ -2,6 +2,7 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DecriptionStyle.module.scss";
 import cssC from "../CartComponent/cartStyle.module.scss";
+import openNotification from "../Notifycation/Notification";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { Avatar, Col, Rate, Row } from "antd";
@@ -11,14 +12,11 @@ import {
   getCurrentDateTime,
   ProductHomeAPI,
 } from "../../pages/api/productAPI/Home";
-import openNotification from "../Notifycation/Notification";
 
 export function timeAgo(dateStr: string) {
   const date = new Date(dateStr);
   const now = new Date();
-
   const timeDiff = now.getTime() - date.getTime();
-
   if (timeDiff > 365 * 24 * 60 * 60 * 1000) {
     return (
       "khoảng " +
@@ -60,12 +58,6 @@ export function CommentItem({ item }: { item: review }) {
           <p>{item.message}</p>
         </div>
         <div className={css.feedBack}>
-          {/* <div className={css.like}>
-            {item.like} <BiLike></BiLike>
-          </div>
-          <div className={css.disLike}>
-            {item.disLike} <BiDislike></BiDislike>
-          </div> */}
           <span style={{ marginRight: "20px" }}>{time}</span>
 
           <ins>Reply</ins>
@@ -113,7 +105,6 @@ export function ProductDecription({ product }: { product: product }) {
         productDeltail.id,
         user.uid
       );
-      console.log(alowComent);
       const reviewItem: review = {
         avatar: user.avatar,
         message: message,
@@ -164,7 +155,7 @@ export function ProductDecription({ product }: { product: product }) {
               <div className={css.decript}>{productDeltail.decription}</div>
               <Row gutter={[50, 40]}>
                 <Col xs={24} md={12}>
-                  <h1>NGUỒN GỐC VÀ THÔNG SỐ SẢN PHẨM</h1>
+                  <h3>NGUỒN GỐC VÀ THÔNG SỐ SẢN PHẨM</h3>
                   <table style={{ width: "100%" }}>
                     <tbody className={cssC.tabBody}>
                       <tr className={cssC.cartItem}>
@@ -245,7 +236,7 @@ export function ProductDecription({ product }: { product: product }) {
                   </table>
                 </Col>
                 <Col xs={24} md={12}>
-                  <h1>THÔNG TIN BỔ SUNG</h1>
+                  <h3>THÔNG TIN BỔ SUNG</h3>
                   <ul className={css.future}>
                     <li>Ballon Bleu de Cartier watch.</li>
                     <li>Mechanical movement with automatic winding.</li>

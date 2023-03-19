@@ -1,20 +1,20 @@
-import { Col, Row, Slider } from "antd";
-import { useState, useEffect } from "react";
 import cssT from "./TitleStyle.module.scss";
 import cssPc from "../ProductStyle.module.scss";
 import cssL from "../LayoutComponent/DfHeaderLogo.module.scss";
 import css from "./ContainerStyle.module.scss";
+import Link from "next/link";
+import Image from "next/image";
+import openNotification from "../Notifycation/Notification";
+import { Col, Row, Slider } from "antd";
+import { useState, useEffect } from "react";
 import { product } from "../../common/product/interface";
 import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { cartAction } from "../../app/splice/cartSlipe";
 import { BranList } from "../../common/constag";
-import Link from "next/link";
 import { filterAction } from "../../app/splice/categoryFilterSlipe";
 import { PaginationCustom } from "./Pagination";
-import Image from "next/image";
-import openNotification from "../Notifycation/Notification";
 
 export function SliderInput() {
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ export function SliderInput() {
         max={rage.maxPrice}
         min={rage.minPrice}
         step={100000}
-        // defaultValue={[rage.minPrice, rage.maxPrice]}
+
         className={css.slider_input}
         onAfterChange={(e: any) => setValue([e[0], e[1]])}
         dots={false}

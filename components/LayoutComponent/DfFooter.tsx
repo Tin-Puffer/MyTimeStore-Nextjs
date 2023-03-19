@@ -1,5 +1,6 @@
 import cssH from "./DfHeaderLogo.module.scss";
 import css from "./DfFooter.module.scss";
+import Image from "next/image";
 import { Col, Row } from "antd";
 import { ImLocation } from "react-icons/im";
 import { CgPhone } from "react-icons/cg";
@@ -8,7 +9,7 @@ import { BsGithub, BsTwitter, BsPinterest } from "react-icons/bs";
 import { FaFacebookF, FaPaperPlane } from "react-icons/fa";
 import { AiFillInstagram, AiFillYoutube } from "react-icons/ai";
 import { logo2, slider1 } from "../../public/staticImage";
-import Image from "next/image";
+import Link from "next/link";
 
 export function DfFooter() {
   return (
@@ -40,20 +41,20 @@ export function DfFooter() {
                       size="40"
                     ></ImLocation>
                     <span>
-                      319 C16 Lý Thường Kiệt, Phường 15, Quận 11, Tp.HCM
+                      97 Man Thiện, Phường Hiệp phú, Quận 9, Tp.Thủ Đức
                     </span>
                   </div>
                   <div className={css.rearchItem}>
                     <CgPhone className={css.rearchIcon} size="28"></CgPhone>
-                    <span>076 922 0162</span>
+                    <span>076 922 111</span>
                   </div>
                   <div className={css.rearchItem}>
                     <SiGmail className={css.rearchIcon} size="30"></SiGmail>
-                    <span>demonhunterg @gmail.com</span>
+                    <span>akumaraito10@gmail.com</span>
                   </div>
                   <div className={css.rearchItem}>
                     <BsGithub className={css.rearchIcon} size="28"></BsGithub>
-                    <span>demonhunterp</span>
+                    <span>TinPuffer</span>
                   </div>
                 </div>
               </div>
@@ -64,7 +65,13 @@ export function DfFooter() {
                   <h3>FOLLOW US</h3>
                   <p>Follow để không bỏ lỡ bất kì ưu đãi nào từ chúng tôi</p>
                   <div className={css.iconFollow}>
-                    <FaFacebookF size={29}></FaFacebookF>
+                    <Link
+                      href={
+                        "https://www.facebook.com/profile.php?id=100089914000286"
+                      }
+                    >
+                      <FaFacebookF size={29}></FaFacebookF>
+                    </Link>
                     <AiFillInstagram size={29}></AiFillInstagram>
                     <BsTwitter size={29}></BsTwitter>
                     <AiFillYoutube size={29}></AiFillYoutube>

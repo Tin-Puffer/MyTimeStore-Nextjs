@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-
 export interface range {
     maxPrice: number;
     minPrice: number;
@@ -36,11 +34,5 @@ const filterSlipe = createSlice({
     }
   },
 });
-//action
 export const filterAction = filterSlipe.actions;
-
-//select
-
-
-// reducer
 export const filterReducer = filterSlipe.reducer;

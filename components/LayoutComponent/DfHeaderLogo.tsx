@@ -1,35 +1,35 @@
-import { Col, Row } from "antd";
 import Link from "next/link";
+import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import cssO from "../HomeComponent/OutBlogStyle.module.scss";
+import cssF from "./DfFooter.module.scss";
+import css from "./DfHeaderLogo.module.scss";
+import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
+import Image from "next/image";
+import openNotification from "../Notifycation/Notification";
+import { Col, Row } from "antd";
 import { AiOutlineSearch } from "react-icons/ai";
 import { ImUserTie } from "react-icons/im";
 import { FiMenu } from "react-icons/fi";
-import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { useState, useEffect, useRef, useCallback } from "react";
-import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { FaSearch } from "react-icons/fa";
-import cssF from "./DfFooter.module.scss";
-import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import { auth } from "../../FireBase/config";
 import { BsChevronDown } from "react-icons/bs";
-import css from "./DfHeaderLogo.module.scss";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { User } from "firebase/auth";
 import { LogoutUser } from "../../FireBase/authService";
 import { logo, avatar, empty } from "../../public/staticImage";
 import { useAppDispatch, useAppSelector, useDebounce } from "../../app/Hook";
 import { authAction } from "../../app/splice/authSlipe";
-import {
-  cartAction,
-  covertProductList,
-  ProductSlI,
-} from "../../app/splice/cartSlipe";
-import Image from "next/image";
-import openNotification from "../Notifycation/Notification";
 import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 import { ProductHomeAPI } from "../../pages/api/productAPI/Home";
 import { product } from "../../common/product/interface";
 import { useRouter } from "next/router";
 import { BranList } from "../../common/constag";
+import {
+  cartAction,
+  covertProductList,
+  ProductSlI,
+} from "../../app/splice/cartSlipe";
 export function CartItem({
   item,
   search = false,
@@ -169,7 +169,6 @@ export function ListCart({ listPd, total }: { listPd: any[]; total: string }) {
       ) : (
         <div className={css.listItem} style={{ padding: "0" }}>
           <div
-            onClick={() => openNotification("DeleteItemInCart")}
             style={{
               backgroundImage: `url(${empty.src})`,
               backgroundSize: "200%",
@@ -209,7 +208,6 @@ export function DefaultHeaderLogo() {
   const runSearchCallback = useCallback(async (id: string) => {
     if (id) {
       const resoult = await ProductHomeAPI.getProductSearch(id);
-      console.log(resoult);
       setListSearch(resoult);
       setActiveSearchReoult(true);
     }
@@ -226,18 +224,11 @@ export function DefaultHeaderLogo() {
     (state) => state.cart.ProductSl
   );
   useEffect(() => {
-    // Kiểm tra xem sự kiện click có nằm ngoài khối div không
     function handleClickOutside(event: any) {
-      // if (divRef.current && !divRef.current.contains(event.target)) {
       setActiveSearchReoult(false);
       handleSearchChange("");
-      // }
     }
-
-    // Gắn sự kiện click vào toàn bộ trang
     document.addEventListener("click", handleClickOutside);
-
-    // Hủy bỏ sự kiện khi component bị xoá
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -582,7 +573,7 @@ export function DefaultHeaderLogo() {
           )}
           <a href="tel:+4733378901">
             <li className={css.Telme}>
-              <p>HOTLINE: 076 922 0162</p>
+              <p>HOTLINE: 076 922 1111</p>
             </li>
           </a>
         </ul>

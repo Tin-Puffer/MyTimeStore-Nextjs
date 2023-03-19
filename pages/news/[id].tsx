@@ -1,5 +1,4 @@
 import { Blog, DetailNewType } from "../../common/product/interface";
-
 import { DetailNew } from "../../components/DetailNewComponent";
 import { BlogAPI } from "../api/Blog";
 

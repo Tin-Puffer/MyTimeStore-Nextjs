@@ -1,21 +1,17 @@
+import cssH from "../../components/HomeComponent/ProductStyle.module.scss";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { ProductHomeAPI } from "../api/productAPI/Home";
+import { checkSale } from "../../PriceFormat";
+import { product } from "../../common/product/interface";
+import { filterAction } from "../../app/splice/categoryFilterSlipe";
+import { useDispatch } from "react-redux";
 import {
   CategoryTitle,
   CategoryContainer,
 } from "../../components/CategoryComponent";
-// import cssH from "./ProductStyle.module.scss";
-import { useEffect, useState } from "react";
 
-import cssH from "../../components/HomeComponent/ProductStyle.module.scss";
-import { Product, ProductHomeAPI } from "../api/productAPI/Home";
-import { checkSale } from "../../PriceFormat";
-import { product } from "../../common/product/interface";
-import { filterAction, range } from "../../app/splice/categoryFilterSlipe";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../app/Hook";
 import { Fproduct } from "../../fakeData/Fproduct";
-
 export default function Category({
   listPRoduct,
   interest,
@@ -71,7 +67,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const list = await ProductHomeAPI.getFilterProduct(qry.Type, qry.value);
   const interest = await ProductHomeAPI.getProductInterest();
 
-  
   return {
     props: {
       listPRoduct: list,

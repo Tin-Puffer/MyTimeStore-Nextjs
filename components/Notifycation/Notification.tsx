@@ -103,7 +103,6 @@ const openNotification = (type: string,mess?:string, quantity?: number) => {
       notification.error({
         message: "message",
         duration: 1,
-        // className: 'NOTIFY',
       });
       break;
     }

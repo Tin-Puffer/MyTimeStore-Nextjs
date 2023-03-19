@@ -1,7 +1,6 @@
 import { Introduct } from "../components/IntroductComponent/Introduce";
 
 export default function IntroductPage({ posts }: { posts: any }) {
-  console.log(posts);
   return (
     <div className="">
       <Introduct></Introduct>
@@ -10,7 +9,6 @@ export default function IntroductPage({ posts }: { posts: any }) {
 }
 export async function getStaticProps() {
   const posts = "";
-
   return {
     props: {
       posts,

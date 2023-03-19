@@ -1,6 +1,6 @@
 
 
-import { collection,  FieldValue, getDocs,limit,orderBy,query, updateDoc, where, doc, arrayUnion, arrayRemove, increment, startAfter, getCountFromServer } from "firebase/firestore";
+import { collection, getDocs,limit,orderBy,query, updateDoc, where, doc, arrayUnion, arrayRemove, increment, startAfter, getCountFromServer } from "firebase/firestore";
 import { dbBlog,dbBlogDetail} from "../../FireBase/config";
 const Blog = collection(dbBlog, "News");
 const BlogDetail = collection(dbBlogDetail, "DetailNew");
@@ -10,7 +10,6 @@ export const BlogAPI = {
   getAllBlog: async (page?:number) => {
     const snapshot = await getCountFromServer(Blog) 
     const total=Math.ceil(snapshot.data().count/PAGE_SIZE)
-
     const loadMoreDocuments = async (lastDoc:any) => {
     const listPRoduct=  await getDocs(query(Blog,orderBy("time"),startAfter(lastDoc), limit(PAGE_SIZE)))
     const resoult:any=[]
@@ -136,7 +135,6 @@ export const BlogAPI = {
         }
         return true
       } catch (error) {
-        console.log(error)
         return false
         
      }

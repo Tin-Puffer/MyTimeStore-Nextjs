@@ -1,6 +1,3 @@
-
-
-
 function stringToDate(string:string) {
   return new Date(string);
 }
@@ -24,7 +21,6 @@ export  function formatNew(value :number,percent :number|undefined,dateE:string|
     return undefined
   }
   else{
-   
       const priceNow = ((value / 100) * (100 - percent)).toLocaleString(
           "it-IT",
           {
@@ -32,7 +28,6 @@ export  function formatNew(value :number,percent :number|undefined,dateE:string|
             currency: "VND",
           }
         );
-  
         return priceNow;
     
   }
@@ -43,10 +38,8 @@ export  function checkSale(value :number,percent :number|undefined,dateE:string|
     return undefined
   }
   else{
-   
       const priceNow = ((value / 100) * (100 - percent))
         return priceNow;
-    
   }
 }
 export function calcPrice(vaule:number,discount?:number){

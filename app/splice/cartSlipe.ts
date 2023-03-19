@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { product } from "../../common/product/interface";
-import openNotification from "../../components/Notifycation/Notification";
 import { CartInfirebase, ItemOder } from "../saga/cartSaga";
-
-
-
+import openNotification from "../../components/Notifycation/Notification";
 export interface ProductSlI {
   Pid: string;
   name: string;
@@ -47,7 +43,7 @@ export interface oderNow{
   
   
 }
-const initAuthLoad = (): cartState => {
+const initCart = (): cartState => {
     return {
       isLoading: false,
       oder:0,
@@ -98,7 +94,7 @@ function updateProductQuantity(item: itemCart, products: ProductSlI[]): ProductS
 
 const cartSlice = createSlice({
   name: "cart",
-  initialState: initAuthLoad() || {},
+  initialState: initCart() || {},
   reducers: {
     LoadingCart(state,action: PayloadAction<string>){
       state.loading= true,
@@ -183,16 +179,6 @@ const cartSlice = createSlice({
   },
   },
 });
-//action
+
 export const cartAction = cartSlice.actions;
-
-//select
-// export const authSelectLoggedIn = (state: any) => {
-//   return state.auth.isLogin;
-// };
-// export const authSelectLogging = (state: any) => {
-//   return state.auth.login;
-// };
-
-// reducer
 export const cartReducer = cartSlice.reducer;

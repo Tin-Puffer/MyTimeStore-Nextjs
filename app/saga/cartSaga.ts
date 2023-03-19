@@ -38,18 +38,13 @@ const getCartList = async (uid: string) => {
     }
   }else{
     const Cart =await CartAPI.getCart(uid);
-    
     localStorage.setItem('cart',JSON.stringify(Cart));
     if(Cart.ItemList.length > 0){
       console.log("giá trị của getCart để chuẩn bị lặp ",Cart)
-      
       const list = await ProductHomeAPI.getCartlist(Cart.ItemList)
-   
       console.log("listin FB",list)
-   
       return list
     }else{
-
       return []
     }
 
@@ -60,16 +55,12 @@ const getCartList = async (uid: string) => {
 function* handleGetCartList(value: string) {
   try {
     const  resoult: any[]  = yield call(getCartList, value);
-
-    // if (resoult) {
-      console.log(resoult)
-
+    if (resoult) {
         yield put(cartAction.LoadingCartSucess(resoult));
-    // } else {
-    //     yield put(cartAction.CartLoadingFailed());
-    // }
+    } else {
+        yield put(cartAction.CartLoadingFailed());
+    }
   } catch (error) {
-
     yield put(cartAction.CartLoadingFailed());
   }
 }
@@ -90,7 +81,6 @@ function* WhenDeleteCart() {
      try {
       yield call(CartAPI.removeItem,acction.payload);
       yield put(cartAction.deleteItemSucess(acction.payload.id));
-      // yield call (deleteItemLS,acction.payload.id)
      } catch (error) {
       console.log(error);
       
@@ -219,7 +209,6 @@ function* WhenAddCart() {
         }))
         yield call(addItemLS,{id:newProduct.id, quantity:acction.payload.quantity})
       }
-      // yield put(cartAction.deleteItemSucess(acction.payload.id));
      } catch (error) {
       yield put(cartAction.deleteItemFail())
      }

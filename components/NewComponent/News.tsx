@@ -1,20 +1,19 @@
-import { Col, Row } from "antd";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssC from "../CategoryComponent/ContainerStyle.module.scss";
 import css from "./newsStyle.module.scss";
-import { SearchNews } from "./Search";
 import Link from "next/link";
+import { Col, Row } from "antd";
+import { SearchNews } from "./Search";
 import { Blog } from "../../common/product/interface";
 import { HiClock } from "react-icons/hi";
 import { PaginationCustom } from "../CategoryComponent/Pagination";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 export function NewsItem({ item }: { item: Blog }) {
   const dateObj = new Date(item.time);
   const year = dateObj.getFullYear();
-
   const month = (dateObj.getMonth() + 1).toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false,
@@ -76,13 +75,6 @@ export function News({
       });
     setPage(pages);
   };
-  // useEffect(() => {
-
-  //   if (!router.query.search)
-  //     router.push({
-  //       query: { page: page },
-  //     });
-  // }, [page]);
 
   return (
     <div className={css.container}>

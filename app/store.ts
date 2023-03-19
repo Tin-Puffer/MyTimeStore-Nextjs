@@ -1,7 +1,6 @@
-import { Action, configureStore, Store, ThunkAction } from "@reduxjs/toolkit";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import creatSAGA from "redux-saga";
 import rootSaga from "./rootSaga";
-import { createWrapper } from "next-redux-wrapper";
 import { authReducer } from "./splice/authSlipe";
 import { cartReducer } from "./splice/cartSlipe";
 import { filterReducer } from "./splice/categoryFilterSlipe";

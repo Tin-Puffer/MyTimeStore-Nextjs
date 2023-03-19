@@ -1,17 +1,15 @@
 import css from "./CarouselStyle.module.scss";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
-import Link from "next/link";
 import { slider1, slider2, slider3, slider3ex } from "../../public/staticImage";
-
 export function HomeCarousel() {
   const [change, setChange] = useState<Number>(0);
   const ref = useRef<CarouselRef>(null);
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // console.log(change);
       const prevSlideElement = document.querySelector(".slick-active");
       prevSlideElement?.classList.add(css.active);
     }
@@ -20,7 +18,6 @@ export function HomeCarousel() {
     <div className={css.container}>
       <div className={css.sliderContainer}>
         <div className={css.sliderContent}>
-          {/* <Slider {...settings}> */}
           <Carousel
             swipeToSlide
             draggable

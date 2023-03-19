@@ -1,10 +1,10 @@
-import { Col, Row } from "antd";
 import cssH from "./ProductStyle.module.scss";
 import css from "./NewsStyle.module.scss";
 import Link from "next/link";
+import { Col, Row } from "antd";
 import { useInView } from "react-intersection-observer";
 import { useAnimation, motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { collection1, collection2, collection3 } from "../../public/staticImage";
 
 export function HomeNews() {

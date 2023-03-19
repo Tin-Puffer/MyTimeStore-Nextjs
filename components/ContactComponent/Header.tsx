@@ -1,6 +1,6 @@
-import { intro } from "../../public/staticImage";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import css from "./headerStyle.module.scss";
+import { intro } from "../../public/staticImage";
 
 interface HeaderProps {
   page?: string;

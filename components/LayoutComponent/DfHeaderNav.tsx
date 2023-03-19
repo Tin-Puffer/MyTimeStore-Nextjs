@@ -1,19 +1,17 @@
 import css from "./DfHeaderNav.module.scss";
-
+import Link from "next/link";
 import { Col } from "antd";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BranList } from "../../common/constag";
-import { UpOutlined, CaretUpOutlined } from "@ant-design/icons";
-import MyChatBot, { MyChatBotFB } from "../FBChatBot";
+import {  CaretUpOutlined } from "@ant-design/icons";
+import  { MyChatBotFB } from "../FBChatBot";
 export function DfHeaderNav() {
   const [showButton, setShowButton] = useState(false);
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
   useEffect(() => {
     const handleScroll = () => {
       if (typeof window !== "undefined") {

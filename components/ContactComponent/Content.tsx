@@ -1,15 +1,13 @@
-import { Col, Row } from "antd";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
+import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
+import cssS from "../HomeComponent/SliderProductStyle.module.scss";
+import css from "./contentStyle.module.scss";
+import { Col, Row } from "antd";
 import { GiRotaryPhone } from "react-icons/gi";
 import { ImLocation2, ImSkype } from "react-icons/im";
 import { MdMarkEmailRead } from "react-icons/md";
 import { FaGitlab } from "react-icons/fa";
-import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
-import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { motion } from "framer-motion";
-
-import css from "./contentStyle.module.scss";
-
 export function ContactContent() {
   return (
     <div className={css.container}>

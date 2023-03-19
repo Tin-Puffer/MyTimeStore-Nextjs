@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AnyPtrRecord } from "dns";
 
 export const LOCALs = axios.create({
   baseURL: "https://provinces.open-api.vn/api",

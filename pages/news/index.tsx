@@ -19,7 +19,6 @@ export default function NewPage({
   );
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const qry = context.query;
   const pageNumber = context.query.page;
   let listBlog;
   const listnew = await BlogAPI.getNewBlog();

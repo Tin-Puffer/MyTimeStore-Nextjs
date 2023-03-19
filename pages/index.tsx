@@ -21,7 +21,6 @@ export default function Home({
   productSlider: product[];
   blogList: Blog[];
 }) {
-  // console.log("posst", productList);
   return (
     <div className="">
       <HomeCarousel></HomeCarousel>

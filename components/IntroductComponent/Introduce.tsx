@@ -1,10 +1,9 @@
-import { Col, Row } from "antd";
-import { FaGitlab } from "react-icons/fa";
-import { HeaderContact } from "../ContactComponent";
-
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssC from "../ContactComponent/contentStyle.module.scss";
 import css from "./introduceStyle.module.scss";
+import { Col, Row } from "antd";
+import { FaGitlab } from "react-icons/fa";
+import { HeaderContact } from "../ContactComponent";
 import {
   contact,
   slider3,

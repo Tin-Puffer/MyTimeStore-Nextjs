@@ -1,12 +1,12 @@
-import { Button, Form, Input, Row, Col } from "antd";
-import { useState, useRef, useEffect } from "react";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./CreatAcStyle.module.scss";
+import openNotification from "../Notifycation/Notification";
+import { Button, Form, Input, Row, Col } from "antd";
+import { useState, useRef, useEffect } from "react";
 import { useAppSelector } from "../../app/Hook";
 import { VoucherAPI } from "../../pages/api/voucherAPI";
 import { sosanh } from "../../PriceFormat";
-import openNotification from "../Notifycation/Notification";
 
 export const validateMessages = {
   required: "${label} is required!",
@@ -80,7 +80,6 @@ export function CreateAc({ setCode }: { setCode: any }) {
                 ? { height: ref.current.scrollHeight + "px" }
                 : { height: "0px" }
             }
-            // style={open ? { height: "auto" } : { height: "0px" }}
           >
             <div className={css.dropContent}>
               <p className={css.LableDecript}>
@@ -164,7 +163,6 @@ export function CreateAc({ setCode }: { setCode: any }) {
                 ? { height: refv.current.scrollHeight + "px" }
                 : { height: "0px" }
             }
-            // style={open ? { height: "auto" } : { height: "0px" }}
           >
             <div className={css.voucherContainer}>
               <p className={css.LableDecript}>

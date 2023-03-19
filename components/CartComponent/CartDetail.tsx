@@ -1,11 +1,12 @@
-import { Col, notification, Row, Select } from "antd";
-import { AiFillTag } from "react-icons/ai";
-import { QuantityComponent } from "../DetailProductComponent";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./cartStyle.module.scss";
 import Link from "next/link";
+import openNotification from "../Notifycation/Notification";
+import { Col, Row, Select } from "antd";
+import { AiFillTag } from "react-icons/ai";
+import { QuantityComponent } from "../DetailProductComponent";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { useState, useEffect } from "react";
 import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
@@ -13,11 +14,9 @@ import { checkSale, formatNew, formatOld, sosanh } from "../../PriceFormat";
 import { selectType } from "../CheckOut";
 import { useRouter } from "next/router";
 import { VoucherAPI } from "../../pages/api/voucherAPI";
-import openNotification from "../Notifycation/Notification";
 
 export function CartDetail() {
   const dispactch = useAppDispatch();
-
   const cartList = useAppSelector((state) => state.cart.ProductSl);
   const cartId = useAppSelector((state) => state.cart.Cid);
 
@@ -38,7 +37,6 @@ export function CartDetail() {
 
   const [showChangeAddress, setShowChangeAddress] = useState(false);
   const [activeCheckOut, setActiveCheckOut] = useState(true);
-
   async function checkVoucher() {
     if (voucher) {
       const vc = await VoucherAPI.getVoucher(voucher);
@@ -54,8 +52,6 @@ export function CartDetail() {
       }
     }
   }
-  console.log("render");
-
   useEffect(() => {
     if (localStorage.getItem("voucher")) {
       const voucherLC = JSON.parse(localStorage.getItem("voucher") || "");

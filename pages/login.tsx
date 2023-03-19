@@ -21,6 +21,7 @@ import {
 } from "../FireBase/authService";
 import { loginWithAccountFacebook } from "../FireBase/authService";
 import { slider1, slider2 } from "../public/staticImage";
+import { ProductHomeAPI } from "./api/productAPI/Home";
 
 Login.getLayout = function (page: ReactNode) {
   return <div>{page}</div>;
@@ -61,6 +62,10 @@ export default function Login() {
       ref.current.focus();
     }
   }, [page]);
+  const HandleClidk = async () => {
+    await ProductHomeAPI.addProduct();
+  };
+
   return (
     <div
       className=""
@@ -80,6 +85,8 @@ export default function Login() {
               <div className={css.imgText}>
                 <h1 style={{ color: "#cbba9c" }}>MY</h1>
                 <h1> TIME STORE</h1>
+                {/* <h1 onClick={HandleClidk}> add</h1> */}
+
                 <p style={{ maxHeight: "290px", overflow: "hidden" }}>
                   A successful person is not necessarily a user of our watch,
                   but a person who uses our watch is certainly a successful

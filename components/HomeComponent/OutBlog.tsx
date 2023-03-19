@@ -5,18 +5,14 @@ import { Carousel } from "antd";
 import { CarouselRef } from "antd/es/carousel";
 import { useRef } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
-
 import { motion } from "framer-motion";
-
 import { HiClock } from "react-icons/hi";
-
 import { Blog } from "../../common/product/interface";
 import { useRouter } from "next/router";
 function SliderItem({ blog }: { blog: Blog }) {
   const router=useRouter()
   const dateObj = new Date(blog.time);
   const year = dateObj.getFullYear();
-
   const month = (dateObj.getMonth() + 1).toLocaleString("en-US", {
     minimumIntegerDigits: 2,
     useGrouping: false,
@@ -58,7 +54,6 @@ function SliderItem({ blog }: { blog: Blog }) {
 }
 export function OutBlog({ blogList }: { blogList?: Blog[] }) {
   const refC = useRef<CarouselRef>(null);
-
   return (
     <div className={cssP.container}>
       <div className={cssP.title}>

@@ -1,9 +1,9 @@
-import { Form, Input, Row, Col, Select, Checkbox, Result, Button } from "antd";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
-import { CreateAc, layout, validateMessages } from "./CreateAc";
 import cssC from "./CreatAcStyle.module.scss";
 import css from "./checkOutStyle.module.scss";
+import { Form, Input, Row, Col, Select, Checkbox, Result, Button } from "antd";
+import { CreateAc, layout, validateMessages } from "./CreateAc";
 import { useEffect, useState } from "react";
 import { LocalAPI } from "../../pages/api/provincesAPI";
 import { Total } from "./Total";
@@ -39,7 +39,6 @@ export function CheckOut() {
   const auth = useAppSelector((state) => state.auth.isLogin);
   const loading = useAppSelector((state) => state.cart.loading);
   const oder = useAppSelector((state) => state.cart.oder);
-
   const router = useRouter();
   const user = useAppSelector((state) => state.auth.currentUser);
   const listProduct: ProductSlI[] = useAppSelector(
@@ -136,8 +135,6 @@ export function CheckOut() {
       values.ItemList = ItemList;
       values.voucher = code?.name;
       values.discount = code?.discount;
-
-      console.log(values);
       dispach(cartAction.oderNow(values));
     }
   };
@@ -396,7 +393,6 @@ export function CheckOut() {
                       >
                         <Select
                           onSelect={(e: any) => {
-                            console.log(e);
                             setAddress(e);
                           }}
                           className={[css.inputDiscount, cssD.boxInput].join(

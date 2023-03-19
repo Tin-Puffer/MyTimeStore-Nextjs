@@ -1,16 +1,12 @@
 import cssH from "./ProductStyle.module.scss";
 import cssP from "../ProductStyle.module.scss";
 import css from "./SliderProductStyle.module.scss";
-
+import Link from "next/link";
 import { MdNavigateNext, MdNavigateBefore } from "react-icons/md";
 import { RiArrowRightSLine } from "react-icons/ri";
-
 import { Carousel, Col, Row } from "antd";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { CarouselRef } from "antd/es/carousel";
-import Link from "next/link";
-import { useInView } from "react-intersection-observer";
-import { useAnimation, motion } from "framer-motion";
 import { product } from "../../common/product/interface";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { productDecription } from "../../common/constag";
@@ -34,9 +30,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
             padding: "15px",
           }}
         >
-          {/* <div style={{width:"100%"}}> */}
-
-          <motion.div
+          <div
             className={css.image}
             style={{ backgroundImage: `url("${sliderItem.image[0]}")` }}
           >
@@ -45,11 +39,10 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                 -{sliderItem.sale?.discount}%
               </div>
             )}
-          </motion.div>
-          {/* </div> */}
+          </div>
         </Col>
         <Col xs={24} md={12}>
-          <motion.div className={css.ContentSlider}>
+          <div className={css.ContentSlider}>
             <div className={css.textContent}>
               <h1>{sliderItem.name}</h1>
               <div className={css.driver}></div>
@@ -57,21 +50,12 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                 <div className={css.productPagePrice}>
                   {priceNow ? (
                     <>
-                      <span className={css.oldPrice}>
-                        {priceFormat}&nbsp;
-                        <span>₫</span>
-                      </span>
+                      <span className={css.oldPrice}>{priceFormat}</span>
                       <span>&nbsp;&nbsp;</span>
-                      <span>
-                        {priceNow}&nbsp;
-                        <span>₫</span>
-                      </span>
+                      <span>{priceNow}</span>
                     </>
                   ) : (
-                    <span>
-                      {priceFormat}&nbsp;
-                      <span>₫</span>
-                    </span>
+                    <span>{priceFormat}</span>
                   )}
                 </div>
               </div>
@@ -85,26 +69,21 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
               </div>
               <div className={css.product_meta}>
                 <span className={css.sku_wrapper}>
-                  Mã: <p className="sku">77228</p>
+                  Mã: <p className="sku">{sliderItem.id}</p>
                 </span>
                 <span className={css.posted_in}>
                   Danh mục:{" "}
-                  <Link href={"/category/man"}>
-                    <p>Đồng hồ cặp đôi</p>
+                  <Link href={"/category/brand?value=" + sliderItem.keyWord[0]}>
+                    <p>{sliderItem.keyWord[0]}</p>
                   </Link>
-                  ,{" "}
-                  <Link href={"/category/man"}>
-                    <p>Đồng hồ nam</p>
+                  <Link href={"/category/gender?value=man"}>
+                    , <p>{sliderItem.category[1]}</p>
                   </Link>
                 </span>
                 <span className={css.tagged_as}>
                   Từ khóa:{" "}
-                  <Link href={"/category/man"}>
-                    <p>Rolex</p>
-                  </Link>
-                  ,{" "}
-                  <Link href={"/category/man"}>
-                    <p>Best Seller</p>
+                  <Link href={"/product/" + sliderItem.id}>
+                    <p>{sliderItem.keyWord[1]}</p>
                   </Link>
                 </span>
               </div>
@@ -114,7 +93,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
                 </div>
               </Link>
             </div>
-          </motion.div>
+          </div>
         </Col>
       </Row>
     </div>
@@ -139,10 +118,6 @@ export function SliderProduct({ productSlider }: { productSlider: product[] }) {
                   <SliderItem sliderItem={e} />
                 </div>
               ))}
-              {/* <SliderItem />
-              <SliderItem />
-              <SliderItem />
-              <SliderItem /> */}
             </Carousel>
             <div
               className={[css.BtnCarousel, css.prevBtn].join(" ")}

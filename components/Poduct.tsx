@@ -1,18 +1,17 @@
 import css from "./ProductStyle.module.scss";
 import cssL from "./LayoutComponent/DfHeaderLogo.module.scss";
+import openNotification from "./Notifycation/Notification";
 import { useRouter } from "next/router";
 import { product } from "../common/product/interface";
 import { formatNew, formatOld } from "../PriceFormat";
 import { useAppDispatch, useAppSelector } from "../app/Hook";
 import { cartAction } from "../app/splice/cartSlipe";
-import openNotification from "./Notifycation/Notification";
 export function Product({ product }: { product: product }) {
   const router = useRouter();
   const dispactch = useAppDispatch();
   const cart = useAppSelector((state) => state.cart.Cid);
   const loading = useAppSelector((state) => state.cart.loading);
   const islogin = useAppSelector((state) => state.auth.isLogin);
-
   const priceFormat = formatOld(product.price);
   const priceNow = formatNew(
     product.price,

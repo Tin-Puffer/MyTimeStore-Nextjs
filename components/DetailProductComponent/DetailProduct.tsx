@@ -1,22 +1,21 @@
 import cssPc from "../ProductStyle.module.scss";
 import cssP from "../HomeComponent/ProductStyle.module.scss";
-import { Carousel, Col, Row, Tooltip } from "antd";
-
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-import { useMemo, useRef, useState, useCallback } from "react";
-import { CarouselRef } from "antd/es/carousel";
-import { FaExpandAlt } from "react-icons/fa";
 import cssCa from "../CategoryComponent/TitleStyle.module.scss";
 import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import css from "./DetailStyle.module.scss";
+import Link from "next/link";
+import openNotification from "../Notifycation/Notification";
+import {  Col, Row, Tooltip } from "antd";
+import { useMemo, useRef, useState, useCallback } from "react";
+import { CarouselRef } from "antd/es/carousel";
+import { FaExpandAlt } from "react-icons/fa";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { product } from "../../common/product/interface";
-import Link from "next/link";
 import { payList, productDecription, shipList } from "../../common/constag";
 import { formatNew, formatOld } from "../../PriceFormat";
 import { useAppDispatch, useAppSelector } from "../../app/Hook";
 import { cartAction, ProductSlI } from "../../app/splice/cartSlipe";
-import openNotification from "../Notifycation/Notification";
 import { SliderImage } from "./SliderImage";
 export function QuantityComponent({
   changeQuantity,
@@ -133,7 +132,6 @@ export function DetailProduct({ product }: { product: product }) {
     const x = ((e.pageX - left) / width) * 100;
     const y = ((e.pageY - top) / height) * 100;
     setPosition(`${x}% ${y}%`);
-    console.log("ss");
   };
   const setActiveToSlider = useCallback((index: number) => {
     setActive(index);

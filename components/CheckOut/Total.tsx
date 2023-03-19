@@ -1,9 +1,9 @@
 import css from "./totalStyle.module.scss";
 import cssC from "./checkOutStyle.module.scss";
+import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { useState, useEffect } from "react";
 import { Radio, Space } from "antd";
 import { RadioChangeEvent } from "antd";
-import cssS from "../HomeComponent/SliderProductStyle.module.scss";
 import { useAppSelector } from "../../app/Hook";
 import { checkSale, formatNew, formatOld } from "../../PriceFormat";
 
@@ -14,7 +14,6 @@ export function Total({ code }: { code?: { name: string; discount: number } }) {
   const list = useAppSelector((state) => state.cart.ProductSl);
   const [total, setTotal] = useState<string>();
   const onChange = (e: RadioChangeEvent) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   useEffect(() => {

@@ -1,10 +1,6 @@
-import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-import { useEffect, useState } from "react";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserF } from "../../common/user";
 import openNotification from "../../components/Notifycation/Notification";
-import { auth } from "../../FireBase/config";
-// import { user } from '../../model/user';
-
 export interface loginState {
   userName: string;
   password: string;
@@ -14,14 +10,7 @@ export interface authState {
   login: boolean;
   currentUser?: UserF;
 }
-//  auth.onAuthStateChanged((user) => {
-//     if (user) {
-//       console.log(" id: ", user.uid);
-//       console.log(" email: ", user.email);
-//       console.log(" name: ", user.displayName);
-//       console.log(" img: ", user.photoURL);
-//     }
-//   });
+
 
 const initAuthLoad = (): authState => {
 
@@ -97,9 +86,10 @@ const authSlice = createSlice({
 
     },
     
-    loginFailed(state, action: PayloadAction<String>) {
-      // state.login = false;
-      // state.isLogin = false;
+    loginFailed(state, action: PayloadAction<string>) {
+      state.login = false;
+      state.isLogin = false;
+      openNotification("notiifyError",action.payload)
     },
     logout(state) {
       // state.isLogin = false;
@@ -107,16 +97,12 @@ const authSlice = createSlice({
     },
   },
 });
-//action
-export const authAction = authSlice.actions;
 
-//select
+export const authAction = authSlice.actions;
 export const authSelectLoggedIn = (state: any) => {
   return state.auth.isLogin;
 };
 export const authSelectLogging = (state: any) => {
   return state.auth.login;
 };
-
-// reducer
 export const authReducer = authSlice.reducer;

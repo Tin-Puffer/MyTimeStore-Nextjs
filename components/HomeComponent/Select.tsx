@@ -1,9 +1,8 @@
-import { Col, Row } from "antd";
 import css from "./SelectStyle.module.scss";
 import cssCarousel from "./CarouselStyle.module.scss";
 import Link from "next/link";
+import { Col, Row } from "antd";
 import { banner1, banner2, banner3, banner4 } from "../../public/staticImage";
-
 export function HomeSelect() {
   return (
     <div className={css.container}>

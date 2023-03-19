@@ -5,7 +5,6 @@ import {
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../config";
-
 const provider = new GoogleAuthProvider();
 provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 auth.languageCode = "it";

@@ -36,7 +36,6 @@ export async function loginWithAccountFire(
         alert("Email Verified To Use");
         LogoutUser(auth);
       } else {
-        console.log(user);
         document.cookie = "islogin=true";
       }
     })
@@ -91,12 +90,13 @@ export const handelSingUp = async (
             })
             .catch((err) => {
               setLoading(false);
-              console.log(err);
+             alert(err)
+
             });
         })
         .catch((err) => {
           setLoading(false);
-          console.log(err);
+          alert(err)
         });
         await addDoc(collection(db, "Cart"), {
           ItemList: [],

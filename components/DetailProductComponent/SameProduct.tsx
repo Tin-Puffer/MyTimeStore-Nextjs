@@ -3,7 +3,6 @@ import cssP from "../HomeComponent/ProductStyle.module.scss";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
 import { Carousel } from "antd";
 import { useEffect, useRef, useState } from "react";
-
 import { CarouselRef } from "antd/es/carousel";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { ProductItem } from "../CategoryComponent";
@@ -40,7 +39,6 @@ export function SameProduct({ sex, brand }: { sex: number; brand: string }) {
   useEffect(() => {
     const fetchData = async () => {
       await ProductHomeAPI.getListSameProduct(0, brand).then((res) => {
-        console.log(res);
         setSameProduct(res);
       });
     };

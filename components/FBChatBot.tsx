@@ -1,6 +1,6 @@
 import React from "react";
-import { FacebookProvider, SendToMessenger, MessageUs } from "react-facebook";
-import { useEffect, useState } from "react";
+import { FacebookProvider ,MessageUs } from "react-facebook";
+import { useEffect} from "react";
 
 const MyChatBot = () => {
   return (

@@ -1,18 +1,16 @@
 
 
 import { addDoc, arrayRemove, arrayUnion, collection, doc, getDocs,query, updateDoc, where } from "firebase/firestore";
-import { ItemList, ItemOder } from "../../app/saga/cartSaga";
-import { itemCart, ProductSlI } from "../../app/splice/cartSlipe";
+import {  ItemOder } from "../../app/saga/cartSaga";
+import { itemCart} from "../../app/splice/cartSlipe";
 import { db, dbBlog } from "../../FireBase/config";
 import { formatOld } from "../../PriceFormat/index";
-
 import emailjs from "emailjs-com";
-
 function sendEmail(name:string,email: string, table:string,
   total:number,adress:string,date:string) {
-  const emailService = "service_8tab78v";
-  const emailTemplate = "template_2uu849s";
-  const userID = "aWKt2LkPTmrBW-2Ow";
+  const emailService = process.env.MAIL_SERVICE ||"";
+  const emailTemplate = process.env.MAIL_TEMPLATE ||"";
+  const userID = process.env.USER_ID ||"";
   console.log(table)
   const templateParams = {
     to_name: name,
@@ -32,7 +30,6 @@ function sendEmail(name:string,email: string, table:string,
     }
   );
 }
-
 const User = collection(db, "Cart");
 export const CartAPI = {
   removeItem: async (item:itemCart) => {

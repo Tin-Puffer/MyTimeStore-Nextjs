@@ -1,6 +1,6 @@
 
 
-import { collection, doc, getDocs,query, updateDoc, where } from "firebase/firestore";
+import { collection, getDocs,query, where } from "firebase/firestore";
 import { dbBlog} from "../../FireBase/config";
 const Voucher = collection(dbBlog, "Voucher");
 

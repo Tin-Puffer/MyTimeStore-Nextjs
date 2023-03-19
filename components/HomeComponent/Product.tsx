@@ -1,18 +1,13 @@
-import { Col, Row } from "antd";
-
-import { Product } from "../Poduct";
 import css from "./ProductStyle.module.scss";
+import { Col, Row } from "antd";
+import { Product } from "../Poduct";
 import {  motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { product } from "../../common/product/interface";
-
-
 export function HomeProduct({products}:{products:product[]}) {
-
   const { ref, inView } = useInView();
   const animation = useAnimation();
-
   useEffect(() => {
     if (inView) {
       animation.start({

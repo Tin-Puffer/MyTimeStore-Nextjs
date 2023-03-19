@@ -1,12 +1,11 @@
-import { GetServerSideProps } from "next";
+import { Fproduct } from "../../fakeData/Fproduct";
 import { product } from "../../common/product/interface";
+import { ProductHomeAPI } from "../api/productAPI/Home";
 import {
   DetailProduct,
   ProductDecription,
   SameProduct,
 } from "../../components/DetailProductComponent";
-import { Fproduct } from "../../fakeData/Fproduct";
-import { ProductHomeAPI } from "../api/productAPI/Home";
 
 export default function Detail(detailProduct: product) {
   return (

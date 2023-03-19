@@ -1,6 +1,3 @@
-
-
-
 export interface figures {
     productLine: string
     ATm: string
@@ -63,9 +60,6 @@ interface Oder{
     ship:number,
     uid:string
 }
-
-
-
 export interface DetailNewType{
     id:string;
     content:string;

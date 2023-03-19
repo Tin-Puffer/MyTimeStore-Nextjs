@@ -1,9 +1,9 @@
-import { FaSearch } from "react-icons/fa";
 import cssF from "../LayoutComponent/DfFooter.module.scss";
 import cssD from "../DetailProductComponent/DecriptionStyle.module.scss";
 import css from "./searchStyle.module.scss";
-import { Blog } from "../../common/product/interface";
 import Link from "next/link";
+import { FaSearch } from "react-icons/fa";
+import { Blog } from "../../common/product/interface";
 import { useRouter } from "next/router";
 import { useState } from "react";
 

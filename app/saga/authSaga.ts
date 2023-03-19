@@ -2,7 +2,6 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { call, fork, put, take } from "redux-saga/effects";
 import { UserF } from "../../common/user";
 import { UserAPI } from "../../pages/api/userAPI/user";
-
 import { authAction } from "../splice/authSlipe";
 
 const callApiUser = async (Uid: string) => {
@@ -19,10 +18,7 @@ const callApiUser = async (Uid: string) => {
 };
 function* handleLogin(Uid: string) {
   try {
-
-      const  resoult: UserF  = yield call(callApiUser, Uid);
-      // console.log("ket qua",resoult);
-      
+      const  resoult: UserF  = yield call(callApiUser, Uid); 
       yield put(authAction.loginSuccess(resoult));
     
   } catch (error) {

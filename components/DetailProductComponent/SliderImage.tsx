@@ -1,12 +1,11 @@
-import { Carousel } from "antd";
-import { useMemo, useRef, useState } from "react";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import cssO from "../HomeComponent/OutBlogStyle.module.scss";
-
-import { product } from "../../common/product/interface";
 import css from "./DetailStyle.module.scss";
-import { CarouselRef } from "antd/es/carousel";
 import React from "react";
+import { Carousel } from "antd";
+import { useRef, useState } from "react";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import { product } from "../../common/product/interface";
+import { CarouselRef } from "antd/es/carousel";
 export const SliderImage = React.memo(
   ({
     product,
@@ -34,7 +33,6 @@ export const SliderImage = React.memo(
             <div
               key={i}
               className={[css.outline, distinct == i && css.active].join(" ")}
-              //   className={[css.outline].join(" ")}
               onClick={() => handelChangeImage(i)}
             >
               <div
@@ -42,7 +40,6 @@ export const SliderImage = React.memo(
                 style={{
                   backgroundImage: `url("${e}")`,
                 }}
-                // onClick={() => ref.current?.goTo(0)}
               ></div>
             </div>
           ))}

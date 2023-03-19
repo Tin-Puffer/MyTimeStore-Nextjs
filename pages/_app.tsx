@@ -7,8 +7,6 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { DefaultLayout } from "../components/layout/DefaultLayout";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-
-
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -35,10 +33,6 @@ function Loading() {
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
-    // setTimeout(() => {
-
-    // }, 5000);
-
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
     router.events.on("routeChangeError", handleComplete);
