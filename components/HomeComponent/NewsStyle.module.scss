@@ -5,15 +5,11 @@
     overflow: hidden;
   }
   .img {
-    width: 100%;
     cursor: pointer;
     height: 490px;
     border: 1px solid #000;
     transition: all 0.25s ease-in-out;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+    background: no-repeat center/cover;
     &:hover {
       border: none;
       transform: scale(1.1);

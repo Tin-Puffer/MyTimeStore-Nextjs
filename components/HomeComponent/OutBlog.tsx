@@ -60,7 +60,7 @@ export function OutBlog({ blogList }: { blogList?: Blog[] }) {
         <p>HAPPENINGS AROUND</p>
       </div>
       <div className={cssP.lable}>
-        <p>OUR </p> <p>BLOG</p>
+        <span>OUR </span> <span>BLOG</span>
       </div>
       <motion.div className={cssP.gridPoduct}>
         <div className={css.contentMain}>

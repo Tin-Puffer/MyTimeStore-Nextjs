@@ -5,7 +5,11 @@ import { Col, Row } from "antd";
 import { useInView } from "react-intersection-observer";
 import { useAnimation, motion } from "framer-motion";
 import { useEffect } from "react";
-import { collection1, collection2, collection3 } from "../../public/staticImage";
+import {
+  collection1,
+  collection2,
+  collection3,
+} from "../../public/staticImage";
 
 export function HomeNews() {
   const { ref, inView } = useInView();
@@ -31,7 +35,7 @@ export function HomeNews() {
   }, [inView]);
   return (
     <div
-      className={cssH.container}
+      // className={cssH.container}
       style={{ backgroundColor: "#fafafa", paddingBottom: "60px" }}
     >
       <div className={cssH.gridPoduct} ref={ref}>

@@ -121,7 +121,6 @@ export function HomeCarousel() {
                 </div>
               </div>
             </div>
-            {/* </Slider> */}
           </Carousel>
         </div>
         <div

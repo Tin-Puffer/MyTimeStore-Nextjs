@@ -99,7 +99,7 @@ export function SliderItem({ sliderItem }: { sliderItem: product }) {
     </div>
   );
 }
-export function SliderProduct({ productSlider }: { productSlider: product[] }) {
+export function SliderProduct({ productSlider }: { productSlider?: product[] }) {
   const ref = useRef<CarouselRef>(null);
   return (
     <div className={cssH.container}>
@@ -107,13 +107,13 @@ export function SliderProduct({ productSlider }: { productSlider: product[] }) {
         <p>A COMPANION FOR YA</p>
       </div>
       <div className={cssH.lable}>
-        <p>SPECIAL </p> <p>EDITION</p>
+        <span>SPECIAL </span> <span>EDITION</span>
       </div>
       <div className={cssH.gridPoduct}>
         <div className={css.sliderContainer}>
           <div className={css.sliderContent}>
             <Carousel speed={800} dotPosition="bottom" ref={ref}>
-              {productSlider.map((e, i) => (
+              {productSlider && productSlider.map((e, i) => (
                 <div key={i}>
                   <SliderItem sliderItem={e} />
                 </div>
