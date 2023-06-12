@@ -6,7 +6,7 @@ export function DefaultLayout({ children }: { children: ReactNode }) {
     <div className="deflultLayout">
       <Head>
         <title>My Time Store</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+       <meta name="facebook-domain-verification" content="ylnl7euwxtr1becf0crg8xy4m79vmt" />
       </Head>
       <DefaultHeaderLogo></DefaultHeaderLogo>
       <DfHeaderNav></DfHeaderNav>
